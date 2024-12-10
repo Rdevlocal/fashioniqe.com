@@ -11,7 +11,6 @@ const ErrorPage = () => {
   return (
     <Wrapper>
       <SEO pageTitle="404" />
-      <HeaderTwo style_2={true} />
       {/* 404 area start */}
       <section className="tp-error-area pt-110 pb-110">
         <div className="container">
@@ -22,9 +21,9 @@ const ErrorPage = () => {
                   <Image src={error} alt="error img" />
                 </div>
 
-                <h3 className="tp-error-title">Oops! Page not found</h3>
+                <h3 className="tp-error-title"> Page not found</h3>
                 <p>
-                  Whoops, this is embarrassing. Looks like the page you were
+                  Whoops,  Looks like the page you were
                   looking for was not found.
                 </p>
 
