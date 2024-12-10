@@ -6,7 +6,6 @@ import { Rating } from 'react-simple-star-rating';
 import dynamic from 'next/dynamic';
 // internal
 import { beauty_testi_data } from '@/data/testimonial-data';
-import quote from '@assets/img/testimonial/testimonial-quote.png';
 
 // slider setting 
 const slider_setting = {
@@ -52,9 +51,6 @@ const BeautyTestimonial = () => {
                 <Swiper {...slider_setting} modules={[Pagination, Navigation]} className="tp-testimoinal-slider-active-3 swiper-container">
                   {beauty_testi_data.map((item) => (
                     <SwiperSlide key={item.id} className="tp-testimonial-item-3 grey-bg-7 p-relative z-index-1">
-                      <div className="tp-testimonial-shape-3">
-                        <Image className="tp-testimonial-shape-3-quote" src={quote} alt="quote img" />
-                      </div>
                       <div className="tp-testimonial-rating tp-testimonial-rating-3">
                         <Rating fillColor='#010F1C' readonly={true} allowFraction size={20} initialValue={item.review} />
                       </div>
