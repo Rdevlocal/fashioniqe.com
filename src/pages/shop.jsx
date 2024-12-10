@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SEO from "@/components/seo";
 import Wrapper from "@/layout/wrapper";
-import HeaderTwo from "@/layout/headers/header-2";
 import ShopBreadcrumb from "@/components/breadcrumb/shop-breadcrumb";
 import ShopArea from "@/components/shop/shop-area";
 import { useGetAllProductsQuery } from "@/redux/features/productApi";
@@ -158,7 +157,6 @@ const ShopPage = ({ query }) => {
   return (
     <Wrapper>
       <SEO pageTitle="Shop" />
-      <HeaderTwo style_2={true} />
       <ShopBreadcrumb title="Shop Grid" subtitle="Shop Grid" />
       {content}
       <Footer primary_style={true} />

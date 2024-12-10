@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 // internal
 import SEO from "@/components/seo";
 import Wrapper from "@/layout/wrapper";
-import HeaderTwo from "@/layout/headers/header-2";
 import Footer from "@/layout/footers/footer";
 import ProfileArea from "@/components/my-account/profile-area";
 import { useGetUserOrdersQuery } from "@/redux/features/order/orderApi";
@@ -34,7 +33,6 @@ const ProfilePage = () => {
   return (
     <Wrapper>
       <SEO pageTitle="Profile" />
-      <HeaderTwo style_2={true} />
       <ProfileArea orderData={orderData} />
       <Footer style_2={true} />
     </Wrapper>

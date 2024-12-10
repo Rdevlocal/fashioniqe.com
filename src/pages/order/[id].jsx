@@ -6,7 +6,6 @@ import ReactToPrint from "react-to-print";
 // internal
 import SEO from "@/components/seo";
 import Wrapper from "@/layout/wrapper";
-import HeaderTwo from "@/layout/headers/header-2";
 import Footer from "@/layout/footers/footer";
 import logo from "@assets/img/logo/logo.svg";
 import ErrorMsg from "@/components/common/error-msg";
@@ -171,7 +170,6 @@ const SingleOrder = ({ params }) => {
     <>
       <Wrapper>
         <SEO pageTitle={"Order Details"} />
-        <HeaderTwo style_2={true} />
         {/* content */}
         {content}
         {/* content */}

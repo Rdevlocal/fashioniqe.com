@@ -1,6 +1,5 @@
 import React from 'react';
 import SEO from '@/components/seo';
-import HeaderTwo from '@/layout/headers/header-2';
 import Wrapper from '@/layout/wrapper';
 import FashionBanner from '@/components/banner/fashion-banner';
 import FashionCategory from '@/components/categories/fashion-category';
@@ -19,7 +18,6 @@ const HomeTwo = () => {
   return (
     <Wrapper>
       <SEO pageTitle="Home Two" />
-      <HeaderTwo/>
       <FashionBanner/>
       <FashionCategory/>
       <PopularProducts/>

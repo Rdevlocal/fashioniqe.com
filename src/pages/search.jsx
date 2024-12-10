@@ -3,9 +3,7 @@ import ErrorMsg from "@/components/common/error-msg";
 import SearchPrdLoader from "@/components/loader/search-prd-loader";
 import ProductItem from "@/components/products/fashion/product-item";
 import SEO from "@/components/seo";
-import ShopTopLeft from "@/components/shop/shop-top-left";
 import Footer from "@/layout/footers/footer";
-import HeaderTwo from "@/layout/headers/header-2";
 import Wrapper from "@/layout/wrapper";
 import { useGetAllProductsQuery } from "@/redux/features/productApi";
 import NiceSelect from "@/ui/nice-select";
@@ -153,7 +151,6 @@ export default function SearchPage({ query }) {
   return (
     <Wrapper>
       <SEO pageTitle="Wishlist" />
-      <HeaderTwo style_2={true} />
       <CommonBreadcrumb title="Search Products" subtitle="Search Products" />
       {content}
       <Footer primary_style={true} />
