@@ -84,6 +84,29 @@ const JewelryBanner = () => {
                 </div>
               </div>
 
+              <div className="tp-slider-video-wrapper">
+                {/* <!-- video --> */}
+                <div className={`tp-slider-video transition-3 ${play?'full-width':''}`}>
+
+                  <video loop>
+                    <source type="video/mp4" src="http://weblearnbd.net/tphtml/videos/shofy/jewellery-1.mp4#t=3" />
+                  </video>
+                </div>
+                {/* <!-- video button --> */}
+                <div className="tp-slider-play">
+
+                  <button onClick={handleToggle} type="button" className={`tp-slider-play-btn tp-slider-video-move-btn tp-video-toggle-btn ${play?'hide':''}`}>
+                    <Image className="text-shape" src={text_shape} alt="text shape" priority />
+                    <span className="play-icon">
+                      <Play/>
+                    </span>
+                    <span className="pause-icon">
+                      <Pause/>
+                    </span>
+                  </button>
+                </div>
+              </div>
+
               <div className="container">
                 <div className="row align-items-center">
                   <div className="col-xl-6 col-lg-6 col-md-8">
