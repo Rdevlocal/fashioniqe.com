@@ -3,8 +3,6 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // internal
-import logo_white from '@assets/img/logo/logo-white.svg';
-import logo_dark from '@assets/img/logo/logo.svg';
 import { CartTwo, Menu, Compare, Search, Wishlist } from '@/svg';
 import Menus from './header-com/menus';
 import useSticky from '@/hooks/use-sticky';
@@ -29,12 +27,6 @@ const HeaderThree = () => {
             <div className="container-fluid">
               <div className="row align-items-center">
                 <div className="col-xl-2 col-lg-2 col-6">
-                  <div className="logo">
-                    <Link href="/">
-                      <Image className="logo-light" src={logo_white} alt="logo" />
-                      <Image className="logo-dark" src={logo_dark} alt="logo" />
-                    </Link>
-                  </div>
                 </div>
                 <div className="col-xl-8 col-lg-8 d-none d-lg-block">
                   <div className="main-menu menu-style-3 p-relative d-flex align-items-center justify-content-center">

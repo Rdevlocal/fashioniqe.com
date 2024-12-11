@@ -7,7 +7,6 @@ import ReactToPrint from "react-to-print";
 import SEO from "@/components/seo";
 import Wrapper from "@/layout/wrapper";
 import Footer from "@/layout/footers/footer";
-import logo from "@assets/img/logo/logo.svg";
 import ErrorMsg from "@/components/common/error-msg";
 import { useGetUserOrderByIdQuery } from "@/redux/features/order/orderApi";
 import PrdDetailsLoader from "@/components/loader/prd-details-loader";
@@ -46,10 +45,6 @@ const SingleOrder = ({ params }) => {
                     <div className="invoice__header pb-20">
                       <div className="row align-items-end">
                         <div className="col-md-4 col-sm-6">
-                          <div className="invoice__left">
-                            <Image src={logo} alt="logo" />
-                            <p>2879 Elk Creek Road <br /> Stone Mountain, Georgia </p>
-                          </div>
                         </div>
                         <div className="col-md-8 col-sm-6">
                           <div className="invoice__right mt-15 mt-sm-0 text-sm-end">

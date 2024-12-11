@@ -5,8 +5,6 @@ import Link from 'next/link';
 // Internal Imports
 import social_data from '@/data/social-data';
 import { Email, Location } from '@/svg';
-import logo from '@assets/img/logo/logo.svg';
-import pay from '@assets/img/footer/footer-pay.png';
 
 const FooterTwo = () => {
   return (
@@ -20,31 +18,7 @@ const FooterTwo = () => {
         <div className="tp-footer-top pt-95 pb-40">
           <div className="container">
             <div className="row justify-content-between gap-3">
-              {/* Logo & Contact Section */}
-              <div className="col-lg-3 col-md-6">
-                <div className="tp-footer-widget footer-col-1 mb-50">
-                  <div className="tp-footer-logo">
-                    <Link href="/">
-                      <Image src={logo} alt="logo" />
-                    </Link>
-                  </div>
-                  <div className="tp-footer-widget-content">
-                    <div className="tp-footer-contact">
-                      <div className="tp-footer-contact-item d-flex align-items-start">
-                        <div className="tp-footer-contact-icon">
-                        </div>
-                        <div className="tp-footer-contact-content">
-                          <p>
-                            <a >
-                            Discover the latest trends and timeless essentials for men, women, and kids. Shop effortlessly and elevate your look with Fashioniqe!
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
 
               {/* Company Section */}
               <div className="col-lg-2 col-md-6">

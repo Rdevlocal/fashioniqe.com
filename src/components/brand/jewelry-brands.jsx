@@ -50,9 +50,7 @@ const JewelryBrands = () => {
                 <Swiper {...slider_setting} modules={[Navigation]} className="tp-brand-slider-active swiper-container">
                   {brand_data.map((logo, i) => (
                     <SwiperSlide key={i} className="tp-brand-item text-center">
-                      <a href="#">
-                        <Image src={logo} alt="brand img" />
-                      </a>
+
                     </SwiperSlide>
                   ))}
                 </Swiper>
