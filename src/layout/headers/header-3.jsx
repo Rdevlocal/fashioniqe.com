@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // internal
 import logo_white from '@assets/img/logo/logo-white.svg';
 import logo_dark from '@assets/img/logo/logo.svg';
-import { CartTwo, Menu, Search, Wishlist } from '@/svg';
+import { CartTwo, Menu, Compare, Search, Wishlist } from '@/svg';
 import Menus from './header-com/menus';
 import useSticky from '@/hooks/use-sticky';
 import SearchBar from './header-com/search-bar';
@@ -49,6 +49,12 @@ const HeaderThree = () => {
                       <button onClick={() => setIsSearchOpen(true)} type="button" className="tp-header-action-btn tp-search-open-btn">
                         <Search />
                       </button>
+                    </div>
+                    <div className="tp-header-action-item d-none d-sm-block">
+                      <Link href="/compare" className="tp-header-action-btn">
+                        <Compare />
+                        <span className="tp-header-action-badge">{compare.length}</span>
+                      </Link>
                     </div>
                     <div className="tp-header-action-item d-none d-sm-block">
                       <Link href="/wishlist" className="tp-header-action-btn">

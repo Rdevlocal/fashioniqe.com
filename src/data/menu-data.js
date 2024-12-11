@@ -95,18 +95,8 @@ const menu_data = [
     title: 'Fast Droppers',
     link: '/fast-droppers',
   },
-  {
-    id: 8,
-    single_link: true,
-    title: 'Wishlist',
-    link: '/wishlist',
-  },
-  {
-    id: 9,
-    single_link: true,
-    title: 'Compare',
-    link: '/compare',
-  },
+
+
 ];
 
 export default menu_data;

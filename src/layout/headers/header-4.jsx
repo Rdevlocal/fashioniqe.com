@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 // internal
-import { CartTwo, Menu, Search, Wishlist } from '@/svg';
+import { CartTwo, Menu, Search, Compare, Wishlist } from '@/svg';
 import Menus from './header-com/menus';
 import logo_white from '@assets/img/logo/logo-white.svg';
 import logo_dark from '@assets/img/logo/logo.svg';
@@ -51,6 +51,11 @@ const HeaderFour = () => {
                         <Search />
                       </button>
                     </div>
+                    <div className="tp-header-action-item d-none d-lg-block">
+                          <Link href="/compare" className="tp-header-action-btn">
+                            <Compare />
+                          </Link>
+                        </div>
                     <div className="tp-header-action-item d-none d-sm-block">
                       <Link href="/wishlist" className="tp-header-action-btn">
                         <Wishlist />

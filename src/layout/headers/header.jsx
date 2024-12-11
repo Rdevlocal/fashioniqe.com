@@ -10,7 +10,6 @@ import useCartInfo from "@/hooks/use-cart-info";
 import OffCanvas from "@/components/common/off-canvas";
 import { openCartMini } from "@/redux/features/cartSlice";
 import HeaderCategory from "./header-com/header-category";
-import HeaderTopRight from "./header-com/header-top-right";
 import HeaderMainRight from "./header-com/header-main-right";
 import CartMiniSidebar from "@/components/common/cart-mini-sidebar";
 import HeaderSearchForm from "@/components/forms/header-search-form";
@@ -40,9 +39,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className="tp-header-top-right d-flex align-items-center justify-content-end">
-                    <HeaderTopRight />
-                  </div>
+
                 </div>
               </div>
             </div>
