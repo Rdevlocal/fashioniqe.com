@@ -34,9 +34,7 @@ const DetailsBottomInfo = ({sku,category,tag}) => {
         <a href="#">
           <i className="fa-brands fa-linkedin-in"></i>
         </a>
-        <a href="#">
-          <i className="fa-brands fa-vimeo-v"></i>
-        </a>
+
       </div>
 
       {/* product-details-msg */}
