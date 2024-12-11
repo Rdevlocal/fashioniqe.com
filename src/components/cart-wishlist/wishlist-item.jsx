@@ -38,38 +38,13 @@ const WishlistItem = ({ product }) => {
       <td className="tp-cart-price">
         <span>${price.toFixed(2)}</span>
       </td>
-      <td className="tp-cart-quantity">
-        <div className="tp-product-quantity mt-10 mb-10">
-          <span
-            onClick={() => handleDecrement(product)}
-            className="tp-cart-minus"
-          >
-            <Minus />
-          </span>
-          <input
-            className="tp-cart-input"
-            type="text"
-            value={isAddToCart ? isAddToCart?.orderQuantity : 0}
-            readOnly
-          />
-          <span
-            onClick={() => handleAddProduct(product)}
-            className="tp-cart-plus"
-          >
-            <Plus />
-          </span>
-        </div>
+      <td className="tp-cart-pricemin">
+        <span>${price.toFixed(2)}</span>
+      </td>
+      <td className="tp-cart-pricemax">
+        <span>${price.toFixed(2)}</span>
       </td>
 
-      <td className="tp-cart-add-to-cart">
-        <button
-          onClick={() => handleAddProduct(product)}
-          type="button"
-          className="tp-btn tp-btn-2 tp-btn-blue"
-        >
-          Add To Cart
-        </button>
-      </td>
 
       <td className="tp-cart-action">
         <button

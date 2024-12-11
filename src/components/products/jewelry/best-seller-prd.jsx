@@ -75,8 +75,8 @@ const BestSellerPrd = () => {
             <div className="row">
               <div className="col-xl-12">
                   <div className="tp-section-title-wrapper-4 mb-50 text-center">
-                    <span className="tp-section-title-pre-4">Best Seller This Week’s</span>
-                    <h3 className="tp-section-title-4">Top Sellers In Dress for You</h3>
+                    <span className="tp-section-title-pre-4">This Weeks</span>
+                    <h3 className="tp-section-title-4">Best selling items</h3>
                   </div>
               </div>
             </div>

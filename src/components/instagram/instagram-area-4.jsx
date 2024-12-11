@@ -26,8 +26,7 @@ const InstagramAreaFour = () => {
           <div className="row">
             <div className="col-xl-12">
               <div className="tp-section-title-wrapper-4 mb-50 text-center">
-                <h3 className="tp-section-title-4">Trends on image feed</h3>
-                <p>After many months design and development of a modern online retailer</p>
+                <h3 className="tp-section-title-4">Follow us</h3>
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { useGetProductTypeQuery } from "@/redux/features/productApi";
 import { HomeThreePrdTwoLoader } from "@/components/loader";
 
 // tabs
-const tabs = ["All Collection", "Trending", "Beauty", "Cosmetics"];
+const tabs = ["Unisex", "Women", "Men", "Kids"];
 
 const ProductAreaTwo = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -74,7 +74,7 @@ const ProductAreaTwo = () => {
           <div className="col-xl-6 col-lg-6">
             <div className="tp-section-title-wrapper-3 mb-45 text-center text-lg-start">
               <span className="tp-section-title-pre-3">
-                Best Seller This Week’s
+                This Weeks
               </span>
               <h3 className="tp-section-title-3">Enjoy the best quality</h3>
             </div>

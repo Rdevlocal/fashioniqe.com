@@ -6,7 +6,7 @@ import ProductItem from './product-item';
 import { HomeTwoPrdLoader } from '@/components/loader';
 
 // tabs
-const tabs = ["All Collection", "Shoes", "Clothing", "Bags"];
+const tabs = ["Unisex", "Women", "Men", "Kids"];
 
 const ProductArea = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);

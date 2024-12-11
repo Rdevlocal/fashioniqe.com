@@ -5,7 +5,7 @@ import ProductItem from './product-item';
 import { HomeTwoPrdLoader } from '@/components/loader';
 
 // tabs
-const tabs = ["All Collection", "Bracelets", "Necklaces", "Earrings"];
+const tabs = ["Unisex", "Women", "Men", "Kids"];
 
 const ProductArea = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -58,8 +58,8 @@ const ProductArea = () => {
       <div className="row align-items-end">
         <div className="col-xl-6 col-lg-6">
           <div className="tp-section-title-wrapper-4 mb-40 text-center text-lg-start">
-            <span className="tp-section-title-pre-4">Product Collection</span>
-            <h3 className="tp-section-title-4">Discover our Products</h3>
+            <span className="tp-section-title-pre-4">Discover</span>
+            <h3 className="tp-section-title-4">Now popular</h3>
           </div>
         </div>
         <div className="col-xl-6 col-lg-6">

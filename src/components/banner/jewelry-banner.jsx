@@ -16,7 +16,7 @@ const slider_data = [
   { subtitle: 'Shop', title: 'Woman', img: slider_img_1 },
   { subtitle: 'Shop', title: 'Men', img: slider_img_2 },
   { subtitle: 'Shop', title: 'Kids', img: slider_img_3 },
-  { subtitle: 'Shop', title: 'Accessiores', img: slider_img_4 },
+  { subtitle: 'Shop', title: 'Accessoires', img: slider_img_4 },
 ]
 
 // slider nav data
@@ -24,7 +24,7 @@ const slider_nav_data = [
   { title: <>Woman</> },
   { title: <>Men</> },
   { title: <>Kids</> },
-  { title: <>Accessiores</> },
+  { title: <>Accessoires</> },
 ]
 
 const JewelryBanner = () => {
