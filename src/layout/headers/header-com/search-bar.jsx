@@ -34,25 +34,13 @@ const SearchBar = ({ isSearchOpen, setIsSearchOpen }) => {
                       onChange={(e) => setSearchText(e.target.value)}
                       value={searchText}
                       type="text"
-                      placeholder="Search for product..."
+                      placeholder="Search for Items..."
                     />
                     <button type="submit">
                       <i className="flaticon-search-1"></i>
                     </button>
                   </div>
-                  <div className="tp-search-category">
-                    <span>Search by : </span>
-                    {categories.map((c, i) => (
-                      <a
-                        key={i}
-                        onClick={() => handleCategory(c)}
-                        className="cursor-pointer"
-                      >
-                        {c}
-                        {i < categories.length - 1 && ", "}
-                      </a>
-                    ))}
-                  </div>
+
                 </form>
               </div>
             </div>
