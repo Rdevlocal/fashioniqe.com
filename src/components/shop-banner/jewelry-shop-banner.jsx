@@ -56,7 +56,7 @@ const JewelryShopBanner = () => {
                 <div className="tp-banner-full-content" style={{ color: '#FFFFFF' }}>
                   <span style={{ color: '#FFFFFF' }}>Collection</span>
                   <h3 className="tp-banner-full-title">
-                    <Link href="/shop" style={{ color: '#FFFFFF' }}>Ring gold with <br /> diamonds</Link>
+                    <Link href="/shop" style={{ color: '#FFFFFF' }}>Shop the winter <br /> Collection</Link>
                   </h3>
                   <div className="tp-banner-full-btn">
                     <Link href="/shop" className="tp-btn tp-btn-border" style={{ color: '#FFFFFF' }}>
