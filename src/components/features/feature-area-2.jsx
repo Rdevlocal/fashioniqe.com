@@ -1,26 +1,22 @@
 import React from 'react';
-import { Delivery, Discount, Refund, Support } from '@/svg';
+import { Delivery, Discount, Refund, Phone } from '@/svg';
 
 export const feature_data = [
-  {
-    icon: <Delivery />,
-    title: 'Free Delivery',
-    subtitle: 'Orders from all item'
-  },
+ 
   {
     icon: <Refund />,
-    title: 'Return & Refund',
-    subtitle: 'Money back guarantee'
+    title: 'Price Comparison',
+    subtitle: 'Find the best deals instantly'
   },
   {
     icon: <Discount />,
-    title: 'Member Discount',
-    subtitle: 'Onevery order over $140.00'
+    title: 'Real-Time Updates',
+    subtitle: 'Live price tracking for accuracy'
   },
   {
-    icon: <Support />,
-    title: 'Support 24/7',
-    subtitle: 'Contact us 24 hours a day'
+    icon: <Phone />,
+    title: 'Discount Alerts',
+    subtitle: 'Get notified of price drops'
   },
 ]
 

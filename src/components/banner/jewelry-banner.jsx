@@ -7,28 +7,24 @@ import slider_img_2 from '@assets/img/slider/4/slider-2.png';
 import slider_img_3 from '@assets/img/slider/4/slider-3.png';
 import slider_img_4 from '@assets/img/slider/4/slider-4.png';
 // nav icon
-import nav_icon_1 from '@assets/img/slider/4/nav/icon-1.png';
-import nav_icon_2 from '@assets/img/slider/4/nav/icon-2.png';
-import nav_icon_3 from '@assets/img/slider/4/nav/icon-3.png';
-import nav_icon_4 from '@assets/img/slider/4/nav/icon-4.png';
 import { ArrowNextTwo, ArrowPrevTwo, Pause, Play } from '@/svg';
 import text_shape from '@assets/img/slider/4/shape/rounded-test.png';
 import Link from 'next/link';
 
 // slider data 
 const slider_data = [
-  { subtitle: 'The original', title: 'Shine bright', img: slider_img_1 },
-  { subtitle: 'The original', title: 'Creative Design', img: slider_img_2 },
-  { subtitle: 'The original', title: 'Gold Plateted', img: slider_img_3 },
-  { subtitle: 'The original', title: 'Unique shapes', img: slider_img_4 },
+  { subtitle: 'Shop', title: 'Woman', img: slider_img_1 },
+  { subtitle: 'Shop', title: 'Men', img: slider_img_2 },
+  { subtitle: 'Shop', title: 'Kids', img: slider_img_3 },
+  { subtitle: 'Shop', title: 'Accessiores', img: slider_img_4 },
 ]
 
 // slider nav data
 const slider_nav_data = [
-  { icon: nav_icon_1, title: <>Ring <br />& Earring</> },
-  { icon: nav_icon_2, title: <>Bangles & <br />Bracelets</> },
-  { icon: nav_icon_3, title: <>Drop <br /> Necklaces</> },
-  { icon: nav_icon_4, title: <>Diamond <br /> Necklaces</> },
+  { title: <>Woman</> },
+  { title: <>Men</> },
+  { title: <>Kids</> },
+  { title: <>Accessiores</> },
 ]
 
 const JewelryBanner = () => {
@@ -93,18 +89,7 @@ const JewelryBanner = () => {
                   </video>
                 </div>
                 {/* <!-- video button --> */}
-                <div className="tp-slider-play">
-
-                  <button onClick={handleToggle} type="button" className={`tp-slider-play-btn tp-slider-video-move-btn tp-video-toggle-btn ${play?'hide':''}`}>
-                    <Image className="text-shape" src={text_shape} alt="text shape" priority />
-                    <span className="play-icon">
-                      <Play/>
-                    </span>
-                    <span className="pause-icon">
-                      <Pause/>
-                    </span>
-                  </button>
-                </div>
+                
               </div>
 
               <div className="container">
@@ -141,9 +126,6 @@ const JewelryBanner = () => {
             {slider_nav_data.map((item, i) => (
               <div key={i} className="tp-slider-nav-item d-flex align-items-center">
                 <div className="tp-slider-nav-icon">
-                  <span>
-                    <Image src={item.icon} alt="icon" />
-                  </span>
                 </div>
                 <div className="tp-slider-nav-content">
                   <h3 className="tp-slider-nav-title">{item.title}</h3>

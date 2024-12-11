@@ -21,7 +21,7 @@ function BannerItem({ cls, bg_clr, bg, content, title,isBtn=false}) {
         </h3>
         {isBtn && <div className="tp-banner-btn-4">
           <Link href="/shop" className="tp-btn tp-btn-border">
-            Shop Now {" "} <ArrowRightLong/>
+            Start now {" "} <ArrowRightLong/>
           </Link>
         </div>}
       </div>
@@ -38,8 +38,8 @@ const JewelryShopBanner = () => {
             <div className="col-xl-6 col-lg-7">
               <div className="row">
                 <div className="col-xl-12">
-                  <BannerItem cls="mb-25" bg_clr="F3F7FF" bg={banner_bg_1} content="Collection" 
-                  title={<>Ardeco pearl <br /> Rings style 2023</>} isBtn={true} />
+                  <BannerItem cls="mb-25" bg_clr="F3F7FF" bg={banner_bg_1} content="Wishlist" 
+                  title={<>Get Notified When Your Favorites Drop in Price!</>} isBtn={true} />
                 </div>
                 <div className="col-md-6 col-sm-6">
                 <BannerItem cls="has-green sm-banner" bg_clr="F0F6EF" bg={banner_bg_2} content="Trending" title="Tropical Set" />
