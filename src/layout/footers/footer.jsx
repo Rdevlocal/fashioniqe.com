@@ -37,13 +37,6 @@ const FooterTwo = () => {
                           <p>
                             <a >
                             Discover the latest trends and timeless essentials for men, women, and kids. Shop effortlessly and elevate your look with Fashioniqe!
-
-
-
-
-
-
-
                             </a>
                           </p>
                         </div>
@@ -136,7 +129,7 @@ const FooterTwo = () => {
                 <div className="col-md-6">
                   <div className="tp-footer-copyright">
                     <p>
-                      © {new Date().getFullYear()} All Rights Reserved | Fashioniqe <Link href="/">Terms</Link> | <Link href="/">Privacy</Link>
+                      © {new Date().getFullYear()} All Rights Reserved | Fashioniqe <Link href="/terms">Terms</Link> | <Link href="/privacy">Privacy</Link>
                     </p>
                   </div>
                 </div>
