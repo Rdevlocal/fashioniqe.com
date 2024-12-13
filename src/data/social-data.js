@@ -15,7 +15,7 @@ const social_data = [
   {
     id:3,
     link:'nkedin.com/in/fashioniqe/',
-    icon:'fa-brands fa-linkedin-in',
+    icon:'fa-brands fa-asdfjk-in',
     title:'Linkedin'
   },
 ]
