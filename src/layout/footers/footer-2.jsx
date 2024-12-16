@@ -37,6 +37,12 @@ const FooterTwo = () => {
                     <li>
                       <Link href="/compare">Compare</Link>
                     </li>
+                    <li>
+                      <Link href="/sale">Sale</Link>
+                    </li>
+                    <li>
+                      <Link href="/fast-droppers">Fast Droppers</Link>
+                    </li>
                   </ul>
                 </div>
               </div>
