@@ -5,6 +5,7 @@ import Link from 'next/link';
 // Internal Imports
 import social_data from '@/data/social-data';
 import { Email, Location } from '@/svg';
+import menu_data from '@/data/menu-data'; // Assuming this is the location of menu_data
 
 const FooterTwo = () => {
   return (
@@ -18,7 +19,6 @@ const FooterTwo = () => {
         <div className="tp-footer-top pt-95 pb-40">
           <div className="container">
             <div className="row justify-content-between gap-3">
-
 
               {/* Company Section */}
               <div className="col-lg-2 col-md-6">
@@ -62,36 +62,25 @@ const FooterTwo = () => {
                 </div>
               </div>
 
-              {/* Shop Section */}
-              <div className="col-lg-3 col-md-6">
-                <div className="tp-footer-widget footer-col-4 mb-50">
-                  <h4 className="tp-footer-widget-title">Shop</h4>
-                  <ul className="tp-footer-links">
-                    <li>
-                      <Link href="/man">Man</Link>
-                    </li>
-                    <li>
-                      <Link href="/woman">Woman</Link>
-                    </li>
-                    <li>
-                      <Link href="/kids">Kids</Link>
-                    </li>
-                    <li>
-                      <Link href="/sale">Sale</Link>
-                    </li>
-                    <li>
-                      <Link href="/brandlist">Brandlist</Link>
-                    </li>
-                    <li>
-                      <Link href="/fast-movers">Fast Movers</Link>
-                    </li>
-                    <li>
-                      <Link href="/vouchers">Vouchers</Link>
-                    </li>
-                  </ul>
+              {/* Dynamic Categories Section */}
+              {menu_data.map((menu) => (
+                <div className="col-lg-2 col-md-6" key={menu.id}>
+                  <div className="tp-footer-widget footer-col-5 mb-50">
+                    <h4 className="tp-footer-widget-title">{menu.title}</h4>
+                    <ul className="tp-footer-links">
+                      <li>
+                        <Link href={menu.link}>{menu.title}</Link>
+                      </li>
+                      {menu.sub_menu && menu.sub_menus?.map((subMenu, index) => (
+                        <li key={index}>
+                          <Link href={subMenu.link}>{subMenu.title}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-           </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -108,7 +97,6 @@ const FooterTwo = () => {
                   </div>
                 </div>
                 <div className="col-md-6">
-
                   <div className="tp-footer-social-4 tp-footer-social">
                     <h4 className="tp-footer-social-title-4">Follow Us On</h4>
                     {social_data.map((s) => (
