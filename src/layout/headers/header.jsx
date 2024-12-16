@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Menus from "./header-com/menus";
 import useSticky from "@/hooks/use-sticky";
 import OffCanvas from "@/components/common/off-canvas";
-import { openCartMini } from "@/redux/features/cartSlice";
 import HeaderCategory from "./header-com/header-category";
 import HeaderMainRight from "./header-com/header-main-right";
-import CartMiniSidebar from "@/components/common/cart-mini-sidebar";
 import HeaderSearchForm from "@/components/forms/header-search-form";
-import { CartTwo, CategoryMenu, Compare, Menu, Phone, ShippingCar, Wishlist } from "@/svg";
+import { , CategoryMenu, Compare, Menu, Phone, ShippingCar, Wishlist } from "@/svg";
 
 const Header = () => {
   const { wishlist } = useSelector((state) => state.wishlist);

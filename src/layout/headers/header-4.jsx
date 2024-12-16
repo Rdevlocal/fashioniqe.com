@@ -3,20 +3,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 // internal
-import { CartTwo, Menu, Search, Compare, Wishlist } from '@/svg';
+import {  Menu, Search, Compare, Wishlist } from '@/svg';
 import Menus from './header-com/menus';
 import useSticky from '@/hooks/use-sticky';
 import SearchBar from './header-com/search-bar';
 import OffCanvas from '@/components/common/off-canvas';
-import useCartInfo from '@/hooks/use-cart-info';
-import CartMiniSidebar from '@/components/common/cart-mini-sidebar';
-import { openCartMini } from '@/redux/features/cartSlice';
 
 const HeaderFour = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const { wishlist } = useSelector((state) => state.wishlist);
-  const { quantity } = useCartInfo();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
   return (

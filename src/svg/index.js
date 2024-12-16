@@ -6,7 +6,6 @@ import Support from "./support";
 import Discount from "./discount";
 import Refund from "./refund";
 import Delivery from "./delivery";
-import Cart from "./cart";
 import Wishlist from "./wishlist";
 import QuickView from "./quick-view";
 import ShapeLine from "./shape-line";
@@ -14,7 +13,6 @@ import TabLine from "./tab-line";
 import ShippingCar from "./shipping-car";
 import Search from "./search";
 import User from "./user";
-import CartTwo from "./cart-2";
 import Compare from "./compare";
 import Menu from "./menu";
 import Phone from "./phone";
@@ -53,7 +51,6 @@ import ArrowNextTwo from "./arrow-next-2";
 import ArrowPrevTwo from "./arrow-prev-2";
 import Play from "./play";
 import Pause from "./pause";
-import AddCart from "./add-cart";
 import GridTab from "./grid-tab";
 import ListTab from "./list-tab";
 import Filter from "./filter";
@@ -105,7 +102,6 @@ export {
   InfoDetails,
   Filter,
   ListTab,
-  AddCart,
   ArrowNextSm,
   ArrowPrevSm,
   ArrowNext,
@@ -140,7 +136,6 @@ export {
   Discount,
   Refund,
   Support,
-  Cart,
   QuickView,
   Wishlist,
   ShapeLine,
@@ -148,7 +143,6 @@ export {
   ShippingCar,
   Search,
   User,
-  CartTwo,
   Compare,
   Menu,
   Phone,
