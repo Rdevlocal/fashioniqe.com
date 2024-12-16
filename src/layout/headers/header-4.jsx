@@ -54,11 +54,7 @@ const HeaderFour = () => {
                         <span className="tp-header-action-badge">{wishlist.length}</span>
                       </Link>
                     </div>
-                    <div className="tp-header-action-item d-none d-sm-block">
-                      <button onClick={() => dispatch(openCartMini())} type="button" className="tp-header-action-btn cartmini-open-btn">
-                        <span className="tp-header-action-badge">{quantity}</span>
-                      </button>
-                    </div>
+
                     <div className="tp-header-action-item d-lg-none">
                       <button onClick={() => setIsCanvasOpen(true)} type="button" className="tp-offcanvas-open-btn">
                         <Menu />
