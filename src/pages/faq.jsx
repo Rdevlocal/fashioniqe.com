@@ -15,7 +15,7 @@ const FaqPage = () => {
           <div className="faq-item">
             <h2>1. How do I place an order?</h2>
             <p>
-              Placing an order is simple! Browse our products, select the items you like, choose the appropriate size and color, and add them to your cart. Once you're ready, go to your cart and follow the checkout process.
+              Placing an order is simple! Browse our products, select the items you like, choose the appropriate size and color, and add them to your cart. Once you&apos;re ready, go to your cart and follow the checkout process.
             </p>
           </div>
           <div className="faq-item">
@@ -33,7 +33,7 @@ const FaqPage = () => {
           <div className="faq-item">
             <h2>4. Can I return or exchange an item?</h2>
             <p>
-              Yes, we offer a hassle-free return and exchange policy. If you're not satisfied with your purchase, you can return or exchange it within 30 days of receipt. Please ensure the items are unworn, unwashed, and in their original condition.
+              Yes, we offer a hassle-free return and exchange policy. If you&apos;re not satisfied with your purchase, you can return or exchange it within 30 days of receipt. Please ensure the items are unworn, unwashed, and in their original condition.
             </p>
           </div>
           <div className="faq-item">
