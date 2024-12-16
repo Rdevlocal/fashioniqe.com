@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 // internal
 import BackToTopCom from "@/components/common/back-to-top";
 import ProductModal from "@/components/common/product-modal";
-import {  initialOrderQuantity,}
+import {  initialOrderQuantity,};
 import { get_wishlist_products } from "@/redux/features/wishlist-slice";
 import { get_compare_products } from "@/redux/features/compareSlice";
 import useAuthCheck from "@/hooks/use-auth-check";

@@ -9,7 +9,7 @@ import OffCanvas from "@/components/common/off-canvas";
 import HeaderCategory from "./header-com/header-category";
 import HeaderMainRight from "./header-com/header-main-right";
 import HeaderSearchForm from "@/components/forms/header-search-form";
-import { , CategoryMenu, Compare, Menu, Phone, ShippingCar, Wishlist } from "@/svg";
+import {  CategoryMenu, Compare, Menu, Phone, ShippingCar, Wishlist } from "@/svg";
 
 const Header = () => {
   const { wishlist } = useSelector((state) => state.wishlist);

@@ -24,7 +24,7 @@ const SingleOrder = ({ params }) => {
     content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError) {
-    const { name, country, city, contact, invoice, createdAt, , shippingCost, discount, totalAmount,paymentMethod} = order.order;
+    const { name, country, city, contact, invoice, createdAt, shippingCost, discount, totalAmount,paymentMethod} = order.order;
     content = (
       <>
         <section className="invoice__area pt-120 pb-120">
