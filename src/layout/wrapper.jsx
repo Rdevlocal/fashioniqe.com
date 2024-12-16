@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 // internal imports
 import BackToTopCom from "@/components/common/back-to-top";
 import ProductModal from "@/components/common/product-modal";
-import { initialOrderQuantity } from "@/redux/features/orderSlice";
 import { get_wishlist_products } from "@/redux/features/wishlist-slice";
 import { get_compare_products } from "@/redux/features/compareSlice";
 import useAuthCheck from "@/hooks/use-auth-check";
@@ -20,7 +19,6 @@ const Wrapper = ({ children }) => {
     try {
       dispatch(get_wishlist_products());
       dispatch(get_compare_products());
-      dispatch(initialOrderQuantity());
     } catch (error) {
       console.error("An error occurred while dispatching actions: ", error);
     }
