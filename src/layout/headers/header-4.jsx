@@ -54,7 +54,6 @@ const HeaderFour = () => {
                         <span className="tp-header-action-badge">{wishlist.length}</span>
                       </Link>
                     </div>
-
                     <div className="tp-header-action-item d-lg-none">
                       <button onClick={() => setIsCanvasOpen(true)} type="button" className="tp-offcanvas-open-btn">
                         <Menu />
