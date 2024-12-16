@@ -88,8 +88,8 @@ const CompareArea = () => {
                         <th>Brand</th>
                         {compareItems.map(item => (
                           <td key={item._id}>
-                            <div className="tp-compare-brand">
-                              <span>${item.brand.toFixed(2)}</span>
+                            <div className="tp-compare-price">
+                              <span>${item.price.toFixed(2)}</span>
                             </div>
                           </td>
                         ))}
@@ -99,8 +99,8 @@ const CompareArea = () => {
                         <th>color </th>
                         {compareItems.map(item => (
                           <td key={item._id}>
-                            <div className="tp-compare-color">
-                              <span>${item.color.toFixed(2)}</span>
+                            <div className="tp-compare-price">
+                              <span>${item.price.toFixed(2)}</span>
                             </div>
                           </td>
                         ))}
@@ -110,8 +110,8 @@ const CompareArea = () => {
                         <th>Season and Year</th>
                         {compareItems.map(item => (
                           <td key={item._id}>
-                            <div className="tp-compare-season">
-                              <span>${item.season.toFixed(2)}</span>
+                            <div className="tp-compare-price">
+                              <span>${item.price.toFixed(2)}</span>
                             </div>
                           </td>
                         ))}
