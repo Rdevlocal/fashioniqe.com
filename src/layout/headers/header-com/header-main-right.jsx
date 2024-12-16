@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 // internal
+import {  Compare, Menu, User, Wishlist } from "@/svg";
 
 const HeaderMainRight = ({ setIsCanvasOpen }) => {
   const { user: userInfo } = useSelector((state) => state.auth);
