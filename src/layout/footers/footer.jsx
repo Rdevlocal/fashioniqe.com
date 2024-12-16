@@ -20,26 +20,6 @@ const FooterTwo = () => {
           <div className="container">
             <div className="row justify-content-between gap-3">
 
-              {/* Company Section */}
-              <div className="col-lg-2 col-md-6">
-                <div className="tp-footer-widget footer-col-2 mb-50">
-                  <h4 className="tp-footer-widget-title">Company</h4>
-                  <ul className="tp-footer-links">
-                    <li>
-                      <Link href="/about">About</Link>
-                    </li>
-                    <li>
-                      <Link href="/contact">Contact</Link>
-                    </li>
-                    <li>
-                      <Link href="/faq">FAQ</Link>
-                    </li>
-                    <li>
-                      <Link href="/become-a-seller">Become a Seller</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
 
               {/* Account Section */}
               <div className="col-lg-2 col-md-6">
