@@ -5,9 +5,7 @@ import Link from 'next/link';
 // internal
 import Menus from './header-com/menus';
 import useSticky from '@/hooks/use-sticky';
-import useCartInfo from '@/hooks/use-cart-info';
-import { openCartMini } from '@/redux/features/cartSlice';
-import CartMiniSidebar from '@/components/common/cart-mini-sidebar';
+
 import {  Compare, Facebook, Menu, PhoneTwo, Wishlist, Search } from '@/svg';
 import useSearchFormSubmit from '@/hooks/use-search-form-submit';
 import OffCanvas from '@/components/common/off-canvas';
@@ -16,7 +14,6 @@ const HeaderTwo = ({ style_2 = false }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const { setSearchText, handleSubmit, searchText } = useSearchFormSubmit();
-  const { quantity } = useCartInfo();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
   return (
