@@ -96,18 +96,65 @@ const CompareArea = () => {
                           </td>
                         ))}
                       </tr>
-                      {/* Rating */}
+                      {/* brand */}
                       <tr>
-                        <th>Rating</th>
+                        <th>Product</th>
                         {compareItems.map(item => (
-                          <td key={item._id}>
-                            <div className="tp-compare-rating">
-                              <Rating
-                                allowFraction
-                                size={16}
-                                initialValue={item.reviews.length > 0 ? item.reviews.reduce((acc, review) => acc + review.rating, 0) / item.reviews.length : 0}
-                                readonly={true}
+                          <td key={item._id} className="">
+                            <div className="tp-compare-thumb">
+                              <Image
+                                src={item.img}
+                                alt="compare"
+                                width={205}
+                                height={176}
                               />
+                              <h4 className="tp-compare-product-title">
+                                <Link href={`/product-details/${item._id}`}>
+                                  {item.title}
+                                </Link>
+                              </h4>
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                      {/* Colour */}
+                      <tr>
+                        <th>color </th>
+                        {compareItems.map(item => (
+                          <td key={item._id} className="">
+                            <div className="tp-compare-thumb">
+                              <Image
+                                src={item.img}
+                                alt="compare"
+                                width={205}
+                                height={176}
+                              />
+                              <h4 className="tp-compare-product-title">
+                                <Link href={`/product-details/${item._id}`}>
+                                  {item.title}
+                                </Link>
+                              </h4>
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                      {/* Season and year */}
+                      <tr>
+                        <th>Season and Year</th>
+                        {compareItems.map(item => (
+                          <td key={item._id} className="">
+                            <div className="tp-compare-thumb">
+                              <Image
+                                src={item.img}
+                                alt="compare"
+                                width={205}
+                                height={176}
+                              />
+                              <h4 className="tp-compare-product-title">
+                                <Link href={`/product-details/${item._id}`}>
+                                  {item.title}
+                                </Link>
+                              </h4>
                             </div>
                           </td>
                         ))}
