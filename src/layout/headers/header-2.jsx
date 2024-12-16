@@ -85,10 +85,6 @@ const HeaderTwo = ({ style_2 = false }) => {
         </div>
       </header>
 
-      {/* cart mini sidebar start */}
-      <CartMiniSidebar />
-      {/* cart mini sidebar end */}
-
       {/* off canvas start */}
       <OffCanvas isOffCanvasOpen={isOffCanvasOpen} setIsCanvasOpen={setIsCanvasOpen} categoryType="fashion" />
       {/* off canvas end */}

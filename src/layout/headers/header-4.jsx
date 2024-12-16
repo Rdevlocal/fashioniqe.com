@@ -77,10 +77,6 @@ const HeaderFour = () => {
       <SearchBar isSearchOpen={isSearchOpen} setIsSearchOpen={setIsSearchOpen} />
       {/* search bar end */}
 
-      {/* cart mini sidebar start */}
-      <CartMiniSidebar />
-      {/* cart mini sidebar end */}
-
       {/* off canvas start */}
       <OffCanvas isOffCanvasOpen={isOffCanvasOpen} setIsCanvasOpen={setIsCanvasOpen} categoryType="jewelry" />
       {/* off canvas end */}
