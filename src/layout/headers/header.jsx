@@ -18,7 +18,6 @@ const Header = () => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const [isCategoryActive, setIsCategoryActive] = useState(false);
-  const { quantity } = useCartInfo();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
   return (

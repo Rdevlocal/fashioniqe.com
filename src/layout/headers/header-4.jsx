@@ -56,7 +56,6 @@ const HeaderFour = () => {
                     </div>
                     <div className="tp-header-action-item d-none d-sm-block">
                       <button onClick={() => dispatch(openCartMini())} type="button" className="tp-header-action-btn cartmini-open-btn">
-                        <CartTwo />
                         <span className="tp-header-action-badge">{quantity}</span>
                       </button>
                     </div>
