@@ -20,7 +20,6 @@ const FooterTwo = () => {
           <div className="container">
             <div className="row justify-content-between gap-3">
 
-
               {/* Account Section */}
               <div className="col-lg-2 col-md-6">
                 <div className="tp-footer-widget footer-col-3 mb-50">
@@ -43,7 +42,7 @@ const FooterTwo = () => {
               </div>
 
               {/* Dynamic Categories Section */}
-              {menu_data.map((menu) => (
+              {menu_data.filter(menu => menu.title !== 'Sale' && menu.title !== 'Fast Droppers').map((menu) => (
                 <div className="col-lg-2 col-md-6" key={menu.id}>
                   <div className="tp-footer-widget footer-col-5 mb-50">
                     <h4 className="tp-footer-widget-title">{menu.title}</h4>
