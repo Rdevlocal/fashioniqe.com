@@ -3,23 +3,15 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 // internal
-import { AddCart, Cart, QuickView, Wishlist } from "@/svg";
+import { QuickView, Wishlist } from "@/svg";
 import { handleProductModal } from "@/redux/features/productModalSlice";
-import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 
 const ProductItem = ({ product }) => {
-  const { _id, img, title, price, tags,status } = product || {};
-  const { cart_products } = useSelector((state) => state.cart);
-  const { wishlist } = useSelector((state) => state.wishlist);
-  const isAddedToCart = cart_products.some((prd) => prd._id === _id);
+  const { _id, img, title, price, tags, status } = product || {};
+  const { wishlist = [] } = useSelector((state) => state.wishlist || {});
   const isAddedToWishlist = wishlist.some((prd) => prd._id === _id);
   const dispatch = useDispatch();
-
-  // handle add product
-  const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd));
-  };
 
   // handle wishlist product
   const handleWishlistProduct = (prd) => {
@@ -37,25 +29,6 @@ const ProductItem = ({ product }) => {
         </div>
         <div className="tp-product-action-3 tp-product-action-4 has-shadow tp-product-action-blackStyle tp-product-action-brownStyle">
           <div className="tp-product-action-item-3 d-flex flex-column">
-            {isAddedToCart ? (
-              <Link
-                href="/cart"
-                className={`tp-product-action-btn-3 ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn text-center`}
-              >
-                <Cart />
-                <span className="tp-product-tooltip">View Cart</span>
-              </Link>
-            ) : (
-              <button
-                type="button"
-                onClick={() => handleAddProduct(product)}
-                className={`tp-product-action-btn-3 ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
-                disabled={status === 'out-of-stock'}
-              >
-                <Cart />
-                <span className="tp-product-tooltip">Add to Cart</span>
-              </button>
-            )}
             <button
               type="button"
               className="tp-product-action-btn-3 tp-product-quick-view-btn"
@@ -81,19 +54,12 @@ const ProductItem = ({ product }) => {
           <Link href={`/product-details/${_id}`}>{title}</Link>
         </h3>
         <div className="tp-product-info-4">
-          <p>{tags[0]}</p>
+          <p>{tags?.[0]}</p>
         </div>
 
         <div className="tp-product-price-inner-4">
           <div className="tp-product-price-wrapper-4">
-            <span className="tp-product-price-4">${price.toFixed(2)}</span>
-          </div>
-          <div className="tp-product-price-add-to-cart">
-            {isAddedToCart ? <Link href="/cart" className="tp-product-add-to-cart-4">
-              <AddCart /> View Cart
-            </Link> : <button disabled={status === 'out-of-stock'} onClick={()=> handleAddProduct(product)} className="tp-product-add-to-cart-4">
-              <AddCart /> Add to Cart
-            </button>}
+            <span className="tp-product-price-4">${price?.toFixed(2)}</span>
           </div>
         </div>
       </div>
