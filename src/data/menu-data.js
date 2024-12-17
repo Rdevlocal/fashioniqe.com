@@ -89,12 +89,7 @@ const menu_data = [
     title: 'Sale',
     link: '/sale',
   },
-  {
-    id: 7,
-    single_link: true,
-    title: 'Fast Droppers',
-    link: '/fast-droppers',
-  },
+
 
 
 ];
