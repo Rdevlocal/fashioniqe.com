@@ -1,38 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Rating } from 'react-simple-star-rating';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Link from 'next/link';
-// internal
-import { AskQuestion, CompareTwo, WishlistTwo } from '@/svg';
-import DetailsBottomInfo from './details-bottom-info';
-import ProductDetailsCountdown from './product-details-countdown';
-import ProductQuantity from './product-quantity';
-import { add_cart_product } from '@/redux/features/cartSlice';
+import { CompareTwo, WishlistTwo } from '@/svg';
 import { add_to_wishlist } from '@/redux/features/wishlist-slice';
 import { add_to_compare } from '@/redux/features/compareSlice';
-import { handleModalClose } from '@/redux/features/productModalSlice';
 
-const DetailsWrapper = ({ productItem, handleImageActive, activeImg, detailsBottom = false }) => {
-  const { sku, img, title, imageURLs, category, description, discount, price, status, reviews, tags, offerDate } = productItem || {};
-  const [ratingVal, setRatingVal] = useState(0);
-  const [textMore, setTextMore] = useState(false);
-  const dispatch = useDispatch()
+const DetailsWrapper = ({ productItem, vendors = [] }) => {
+  const { title } = productItem || {};
+  const [notificationPrice, setNotificationPrice] = useState('');
+  const [notificationDate, setNotificationDate] = useState('');
+  const [notificationEmail, setNotificationEmail] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (reviews && reviews.length > 0) {
-      const rating =
-        reviews.reduce((acc, review) => acc + review.rating, 0) /
-        reviews.length;
-      setRatingVal(rating);
-    } else {
-      setRatingVal(0);
-    }
-  }, [reviews]);
-
-  // handle add product
-  const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd));
-  };
+  const sizes = ['36', '37', '38', '39', '40', '41', '42', '43'];
 
   // handle wishlist product
   const handleWishlistProduct = (prd) => {
@@ -44,105 +24,119 @@ const DetailsWrapper = ({ productItem, handleImageActive, activeImg, detailsBott
     dispatch(add_to_compare(prd));
   };
 
+  const handleNotificationSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Notification set for price: ${notificationPrice}, email: ${notificationEmail}, before date: ${notificationDate}`);
+    alert(`Notification set for price: $${notificationPrice}, email: ${notificationEmail} before ${notificationDate}`);
+  };
+
   return (
     <div className="tp-product-details-wrapper">
-      <div className="tp-product-details-category">
-        <span>{category.name}</span>
-      </div>
+      {/* Product Title */}
       <h3 className="tp-product-details-title">{title}</h3>
 
-      {/* inventory details */}
-      <div className="tp-product-details-inventory d-flex align-items-center mb-10">
-        <div className="tp-product-details-stock mb-10">
-          <span>{status}</span>
-        </div>
-        <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
-          <div className="tp-product-details-rating">
-            <Rating allowFraction size={16} initialValue={ratingVal} readonly={true} />
-          </div>
-          <div className="tp-product-details-reviews">
-            <span>({reviews && reviews.length > 0 ? reviews.length : 0} Review)</span>
-          </div>
-        </div>
-      </div>
-      <p>{textMore ? description : `${description.substring(0, 100)}...`}
-        <span onClick={() => setTextMore(!textMore)}>{textMore ? 'See less' : 'See more'}</span>
-      </p>
-
-      {/* price */}
-      <div className="tp-product-details-price-wrapper mb-20">
-        {discount > 0 ? (
-          <>
-            <span className="tp-product-details-price old-price">${price}</span>
-            <span className="tp-product-details-price new-price">
-              {" "}${(Number(price) - (Number(price) * Number(discount)) / 100).toFixed(2)}
-            </span>
-          </>
-        ) : (
-          <span className="tp-product-details-price new-price">${price.toFixed(2)}</span>
-        )}
+      {/* Size Selector Dropdown */}
+      <div className="tp-product-size-selector" style={{ margin: '20px 0' }}>
+        <h4 style={{ marginBottom: '10px' }}>Select Size</h4>
+        <select
+          value={selectedSize}
+          onChange={(e) => setSelectedSize(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '8px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            fontSize: '16px',
+            cursor: 'pointer',
+          }}
+        >
+          <option value="" disabled>Select a size</option>
+          {sizes.map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* variations */}
-      {imageURLs.some(item => item?.color && item?.color?.name) && <div className="tp-product-details-variation">
-        <div className="tp-product-details-variation-item">
-          <h4 className="tp-product-details-variation-title">Color :</h4>
-          <div className="tp-product-details-variation-list">
-            {imageURLs.map((item, i) => (
-              <button onClick={() => handleImageActive(item)} key={i} type="button"
-                className={`color tp-color-variation-btn ${item.img === activeImg ? "active" : ""}`} >
-                <span
-                  data-bg-color={`${item.color.clrCode}`}
-                  style={{ backgroundColor: `${item.color.clrCode}` }}
-                ></span>
-                {item.color && item.color.name && (
-                  <span className="tp-color-variation-tootltip">
-                    {item.color.name}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>}
-
-      {/* if ProductDetailsCountdown true start */}
-      {offerDate?.endDate && <ProductDetailsCountdown offerExpiryTime={offerDate?.endDate} />}
-      {/* if ProductDetailsCountdown true end */}
-
-      {/* actions */}
-      <div className="tp-product-details-action-wrapper">
-        <h3 className="tp-product-details-action-title">Quantity</h3>
-        <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
-          {/* product quantity */}
-          <ProductQuantity />
-          {/* product quantity */}
-          <div className="tp-product-details-add-to-cart mb-15 w-100">
-            <button onClick={() => handleAddProduct(productItem)} disabled={status === 'out-of-stock'} className="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
-          </div>
-        </div>
-        <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
-          <button className="tp-product-details-buy-now-btn w-100">Buy Now</button>
-        </Link>
+      {/* Vendors List */}
+      <div className="tp-product-vendors-list">
+        <h4>Shops & Stores</h4>
+        <ul style={{ marginTop: '20px' }}>
+          {vendors.map((vendor, index) => (
+            <li key={index} className="vendor-item" style={{ marginBottom: '20px' }}>
+              <div className="vendor-card" style={{ padding: '15px', border: '1px solid #eaeaea', borderRadius: '8px' }}>
+                <div className="vendor-info">
+                  <h5 className="vendor-name" style={{ marginBottom: '10px' }}>{vendor.name}</h5>
+                  <div className="vendor-price" style={{ marginBottom: '10px' }}>${vendor.price.toFixed(2)}</div>
+                  <div className="vendor-delivery" style={{ marginBottom: '10px' }}>Delivery by: {vendor.deliveryDate}</div>
+                  {vendor.vouchers?.length > 0 && (
+                    <div className="vendor-vouchers" style={{ marginBottom: '10px' }}>
+                      <span>Available Vouchers: </span>
+                      {vendor.vouchers.map((voucher, i) => (
+                        <span key={i} className="voucher-item" style={{ marginLeft: '5px' }}>{voucher}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="vendor-actions">
+                  <button onClick={() => handleCompareProduct(productItem)} className="vendor-action-btn" style={{ marginRight: '10px' }}>
+                    <CompareTwo />
+                  </button>
+                  <button onClick={() => handleWishlistProduct(productItem)} className="vendor-action-btn">
+                    <WishlistTwo />
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      {/* product-details-action-sm start */}
-      <div className="tp-product-details-action-sm">
-        <button disabled={status === 'out-of-stock'} onClick={() => handleCompareProduct(productItem)} type="button" className="tp-product-details-action-sm-btn">
-          <CompareTwo />
-          Compare
-        </button>
-        <button disabled={status === 'out-of-stock'} onClick={() => handleWishlistProduct(productItem)} type="button" className="tp-product-details-action-sm-btn">
-          <WishlistTwo />
-          Add Wishlist
-        </button>
-        <button type="button" className="tp-product-details-action-sm-btn">
-          <AskQuestion />
-          Ask a question
-        </button>
-      </div>
-      {/* product-details-action-sm end */}
 
-      {detailsBottom && <DetailsBottomInfo category={category?.name} sku={sku} tag={tags[0]} />}
+      {/* Notification Module */}
+      <div className="tp-product-notification" style={{ marginTop: '30px', padding: '20px', border: '1px solid #eaeaea', borderRadius: '8px' }}>
+        <h4 style={{ marginBottom: '15px' }}>Set a price alert</h4>
+        <form onSubmit={handleNotificationSubmit} className="notification-form" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
+          <div className="form-group" style={{ flex: '1 1 30%' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>Desired Price</label>
+            <input
+              type="number"
+              className="notification-input"
+              value={notificationPrice}
+              onChange={(e) => setNotificationPrice(e.target.value)}
+              placeholder="e.g. 200"
+              required
+              style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+            />
+          </div>
+          <div className="form-group" style={{ flex: '1 1 30%' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>Email</label>
+            <input
+              type="email"
+              className="notification-input"
+              value={notificationEmail}
+              onChange={(e) => setNotificationEmail(e.target.value)}
+              placeholder="example@email.com"
+              required
+              style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+            />
+          </div>
+          <div className="form-group" style={{ flex: '1 1 30%' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>Before Date</label>
+            <input
+              type="date"
+              className="notification-input"
+              value={notificationDate}
+              onChange={(e) => setNotificationDate(e.target.value)}
+              required
+              style={{ width: '100%', padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+            />
+          </div>
+          <button type="submit" className="tp-notification-btn" style={{ flex: '1 1 100%', padding: '10px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', fontWeight: '600', cursor: 'pointer' }}>
+            Set Alert
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
