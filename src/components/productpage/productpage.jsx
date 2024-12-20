@@ -5,7 +5,7 @@ import Image from 'next/image';
 import about_img from '@assets/img/about/about-1.jpg';
 import { ArrowRightLong } from '@/svg';
 
-const JewelryAbout = () => {
+const productpage = () => {
   return (
     <>
       <section className="tp-about-area pt-125 pb-180">
@@ -42,4 +42,4 @@ const JewelryAbout = () => {
   );
 };
 
-export default JewelryAbout;
+export default productpage;

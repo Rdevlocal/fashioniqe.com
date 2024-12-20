@@ -8,7 +8,6 @@ import slider_img_3 from '@assets/img/slider/4/slider-3.png';
 import slider_img_4 from '@assets/img/slider/4/slider-4.png';
 // nav icon
 import { ArrowNextTwo, ArrowPrevTwo, Pause, Play } from '@/svg';
-import text_shape from '@assets/img/slider/4/shape/rounded-test.png';
 import Link from 'next/link';
 
 // slider data 
