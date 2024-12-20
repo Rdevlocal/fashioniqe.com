@@ -40,13 +40,12 @@ const FooterTwo = () => {
                     <li>
                       <Link href="/sale">Sale</Link>
                     </li>
-
                   </ul>
                 </div>
               </div>
 
               {/* Dynamic Categories Section */}
-              {menu_data.filter(menu => menu.title !== 'Sale' && menu.title !== 'roppers').map((menu) => (
+              {menu_data.filter(menu => menu.title !== 'Sale' && menu.title !== 'Trending' && menu.title !== 'Deals').map((menu) => (
                 <div className="col-lg-2 col-md-6" key={menu.id}>
                   <div className="tp-footer-widget footer-col-5 mb-50">
                     <h4 className="tp-footer-widget-title">{menu.title}</h4>
