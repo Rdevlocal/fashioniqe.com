@@ -41,7 +41,6 @@ const WishlistArea = () => {
                   <div className="row align-items-end">
                     <div className="col-xl-6 col-md-4">
                       <div className="tp-wishlist-update">
-                        <Link href="/wishlist" className="tp-wishlist-update-btn">Go To wishlist</Link>
                       </div>
                     </div>
                   </div>

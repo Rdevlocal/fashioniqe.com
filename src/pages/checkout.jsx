@@ -6,6 +6,7 @@ import SEO from '@/components/seo';
 import Wrapper from '@/layout/wrapper';
 import Footer from '@/layout/footers/footer';
 import CommonBreadcrumb from '@/components/breadcrumb/common-breadcrumb';
+import CheckoutArea from '@/components/checkout/checkout-area';
 
 
 const CheckoutPage = () => {
@@ -20,6 +21,7 @@ const CheckoutPage = () => {
     <Wrapper>
       <SEO pageTitle="Checkout" />
       <CommonBreadcrumb title="Checkout" subtitle="Checkout" bg_clr={true} />
+      <CheckoutArea/>
       <Footer style_2={true} />
     </Wrapper>
   );
