@@ -20,7 +20,6 @@ const CheckoutPage = () => {
     <Wrapper>
       <SEO pageTitle="Checkout" />
       <CommonBreadcrumb title="Checkout" subtitle="Checkout" bg_clr={true} />
-      <CheckoutArea/>
       <Footer style_2={true} />
     </Wrapper>
   );
