@@ -10,7 +10,7 @@ import { remove_wishlist_product } from "@/redux/features/wishlist-slice";
 const WishlistItem = ({ product }) => {
   const { _id, img, title, price } = product || {};
   const dispatch = useDispatch();
-  // handle add product
+  // handle add products
   const handleAddProduct = (prd) => {
     dispatch(add_cart_product(prd));
   };
