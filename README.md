@@ -1,161 +1,37 @@
+# riode-react-nextjs-vercel
 
-# Fashioniqe Webshop
+![image](https://user-images.githubusercontent.com/95362611/185815861-dd6dfe93-4388-45ae-a4f6-d37ae740ff26.png)
 
-Welcome to the **Fashioniqe** repository! This is the codebase for Fashioniqe, a modern, feature-rich clothing webshop designed to deliver a seamless shopping experience. Whether you're contributing, fixing bugs, or exploring our architecture, this README will guide you through the development process.
 
----
+## Getting Started
 
-## 🚀 Project Overview
+First, run the development server:
 
-Fashioniqe is built to provide users with a scalable and intuitive e-commerce platform. Key features include:
-
-- **Responsive UI** for an optimal user experience across devices.
-- **Secure Authentication** using modern encryption standards.
-- **Product Management** with filtering, sorting, and personalized recommendations.
-- **Payment Integration** with popular gateways like Stripe and PayPal.
-- **Scalable Architecture** for performance and growth.
-
----
-
-## 🛠️ Tech Stack
-
-The application uses the following technologies:
-
-- **Frontend**: Typescript
-- **Backend**: Node.js (Express.js framework)
-- **Database**: MongoDB (with Mongoose ORM)
-- **Authentication**: JWT (JSON Web Tokens)
-- **Payment Gateway**: Stripe and PayPal integrations
-- **Styling**: Tailwind CSS
-- **Testing**: Jest, Cypress (E2E Testing)
-- **Containerization**: Docker
-- **Deployment**: AWS (EC2, S3, RDS)
-
----
-
-## 📂 Project Structure
-
-```
-Fashioniqe/
-├── frontend/              # React.js client-side code
-│   ├── src/
-│   │   ├── components/    # Reusable components
-│   │   ├── pages/         # Page-level components
-│   │   ├── redux/         # Redux slices
-│   │   ├── utils/         # Utility functions
-│   │   └── App.js         # Root component
-│   └── public/            # Static assets
-├── backend/               # Node.js server-side code
-│   ├── models/            # Database models
-│   ├── routes/            # API endpoints
-│   ├── controllers/       # Business logic
-│   ├── middlewares/       # Middleware functions
-│   └── server.js          # Main server file
-├── docker/                # Docker configurations
-├── .env                   # Environment variables
-├── package.json           # Dependency manager configuration
-└── README.md              # This file
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 🧑‍💻 Getting Started
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-### Prerequisites
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-- **Node.js** (v16+)
-- **MongoDB** (local or cloud-based)
-- **Docker** (for containerized development)
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-### Installation
+## Learn More
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Rdevlocal/fashioniqe.com.git
-   cd fashioniqe
-   ```
+To learn more about Next.js, take a look at the following resources:
 
-2. Install dependencies:
-   - Frontend:
-     ```bash
-     cd frontend
-     npm install
-     ```
-   - Backend:
-     ```bash
-     cd backend
-     npm install
-     ```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-3. Set up the `.env` file:
-   ```bash
-   cp .env.example .env
-   ```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-   Update the environment variables in the `.env` file as needed.
+## Deploy on Vercel
 
-4. Run the development environment:
-   - Frontend:
-     ```bash
-     npm start
-     ```
-   - Backend:
-     ```bash
-     npm run dev
-     ```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-5. Access the application:
-   - Frontend: `http://localhost:3000`
-   - Backend: `http://localhost:5000`
-
----
-
-## 🔍 Testing
-
-- Run unit tests:
-  ```bash
-  npm test
-  ```
-- Run end-to-end tests with Cypress:
-  ```bash
-  npm run cypress
-  ```
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! To get started:
-
-1. Fork the repository.
-2. Create a new branch for your feature:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Commit your changes and push to the branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-4. Create a pull request.
-
-Please follow our [Contributing Guidelines](CONTRIBUTING.md).
-
----
-
-## 🛡️ Security
-
-If you discover any security issues, please report them responsibly at `security@fashioniqe.com`. Do not file public issues for vulnerabilities.
-
----
-
-## 📄 License
-
-This project is licensed under the no commercial licence.
-
----
-
-
-
-Happy coding! 💻
-
---- `
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
