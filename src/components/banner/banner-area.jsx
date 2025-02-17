@@ -2,12 +2,11 @@ import React from "react";
 import Link from "next/link";
 // internal
 import { ArrowRight } from "@/svg";
-import banner_1 from "@assets/img/product/banner/product-banner-1.jpg";
-import banner_2 from "@assets/img/product/banner/product-banner-2.jpg";
+import banner_1 from "@assets/img/product/banner/clothing-banner-1.jpg";
+import banner_2 from "@assets/img/product/banner/clothing-banner-2.jpg";
 
-
-// banner item
-function BannerItem({ sm = false, bg, title }) {
+// Banner item
+function BannerItem({ sm = false, bg, title, discount }) {
   return (
     <div
       className={`tp-banner-item ${
@@ -19,11 +18,11 @@ function BannerItem({ sm = false, bg, title }) {
         style={{ backgroundImage: `url(${bg.src})` }}
       ></div>
       <div className="tp-banner-content">
-        {!sm && <span>Sale 20% off all store</span>}
+        {!sm && <span>{discount} off all collections</span>}
         <h3 className="tp-banner-title">
           <Link href="/shop">{title}</Link>
         </h3>
-        {sm && <p>Sale 35% off</p>}
+        {sm && <p>{discount} off selected items</p>}
         <div className="tp-banner-btn">
           <Link href="/shop" className="tp-link-btn">
             Shop Now
@@ -45,9 +44,10 @@ const BannerArea = () => {
               bg={banner_1}
               title={
                 <>
-                  Smartphone <br /> BLU G91 Pro 2022
+                  New Season <br /> Fashion Collection
                 </>
               }
+              discount="Sale 30%"
             />
           </div>
           <div className="col-xl-4 col-lg-5">
@@ -56,9 +56,10 @@ const BannerArea = () => {
               bg={banner_2}
               title={
                 <>
-                  HyperX Cloud II <br /> Wireless
+                  Exclusive Winter <br /> Jackets
                 </>
               }
+              discount="Sale 50%"
             />
           </div>
         </div>

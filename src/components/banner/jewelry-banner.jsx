@@ -17,18 +17,18 @@ import Link from 'next/link';
 
 // slider data 
 const slider_data = [
-  { subtitle: 'The original', title: 'Shine bright', img: slider_img_1 },
-  { subtitle: 'The original', title: 'Creative Design', img: slider_img_2 },
-  { subtitle: 'The original', title: 'Gold Plateted', img: slider_img_3 },
-  { subtitle: 'The original', title: 'Unique shapes', img: slider_img_4 },
+  { subtitle: 'New Collection', title: 'Effortless Elegance', img: slider_img_1 },
+  { subtitle: 'Trending Now', title: 'Style Redefined', img: slider_img_2 },
+  { subtitle: 'Exclusive Looks', title: 'Chic & Modern', img: slider_img_3 },
+  { subtitle: 'Limited Edition', title: 'Timeless Fashion', img: slider_img_4 },
 ]
 
 // slider nav data
 const slider_nav_data = [
-  { icon: nav_icon_1, title: <>Ring <br />& Earring</> },
-  { icon: nav_icon_2, title: <>Bangles & <br />Bracelets</> },
-  { icon: nav_icon_3, title: <>Drop <br /> Necklaces</> },
-  { icon: nav_icon_4, title: <>Diamond <br /> Necklaces</> },
+  { icon: nav_icon_1, title: <>Dresses & <br /> Jumpsuits</> },
+  { icon: nav_icon_2, title: <>Tops & <br /> Blouses</> },
+  { icon: nav_icon_3, title: <>Outerwear & <br /> Jackets</> },
+  { icon: nav_icon_4, title: <>Accessories & <br /> Shoes</> },
 ]
 
 const JewelryBanner = () => {
@@ -84,28 +84,6 @@ const JewelryBanner = () => {
                 </div>
               </div>
 
-              <div className="tp-slider-video-wrapper">
-                {/* <!-- video --> */}
-                <div className={`tp-slider-video transition-3 ${play?'full-width':''}`}>
-
-                  <video loop>
-                    <source type="video/mp4" src="http://weblearnbd.net/tphtml/videos/shofy/jewellery-1.mp4#t=3" />
-                  </video>
-                </div>
-                {/* <!-- video button --> */}
-                <div className="tp-slider-play">
-
-                  <button onClick={handleToggle} type="button" className={`tp-slider-play-btn tp-slider-video-move-btn tp-video-toggle-btn ${play?'hide':''}`}>
-                    <Image className="text-shape" src={text_shape} alt="text shape" priority />
-                    <span className="play-icon">
-                      <Play/>
-                    </span>
-                    <span className="pause-icon">
-                      <Pause/>
-                    </span>
-                  </button>
-                </div>
-              </div>
 
               <div className="container">
                 <div className="row align-items-center">
