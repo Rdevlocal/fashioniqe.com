@@ -1,6 +1,9 @@
-module.exports = {
-    basePath: '/',
-    distDir: 'build',
-    trailingSlash: true
-    // reactStrictMode: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['i.ibb.co','lh3.googleusercontent.com','res.cloudinary.com'],
+  },
 }
+
+module.exports = nextConfig
