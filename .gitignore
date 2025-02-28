@@ -2,15 +2,35 @@
 
 # dependencies
 /node_modules
+.yarn
 /.pnp
 .pnp.js
+.idea
+
+# Database
+*.db
 
 # testing
 /coverage
 
+# storybook
+storybook-static
+
+# cypress
+cypress/screenshots
+cypress/videos
+
 # next.js
-/.next/
-/out/
+/.next
+/out
+
+# next-sitemap
+public/robots.txt
+public/sitemap.xml
+public/sitemap-*.xml
+
+# cache
+.swc/
 
 # production
 /build
@@ -18,17 +38,21 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
 
 # debug
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
 # local env files
-.env.local
-.env
+.env*.local
+
+# local folder
+local
+
 # vercel
 .vercel
 
-.vercel
+yarn.lock
