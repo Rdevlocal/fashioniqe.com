@@ -2,8 +2,8 @@ import Contact from "@/components/Contact";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Contact Page | NextCommerce Nextjs E-commerce template",
-  description: "This is Contact Page for NextCommerce Template",
+  title: "Contact | Fashioniqe Never Overpay for Style Again",
+  description: "This is Contact Page for Fashioniqe",
   // other metadata
 };
 
