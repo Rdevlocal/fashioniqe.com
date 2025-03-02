@@ -1,6 +1,6 @@
 const data = [
   {
-    title: "Televisions",
+    title: "Sneakers",
     id: 1,
     img: "/images/categories/categories-01.png",
   },
