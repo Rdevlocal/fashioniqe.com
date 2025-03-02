@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Product } from "@/types/product";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
 import { updateQuickView } from "@/redux/features/quickView-slice";
-import { addItemToCart } from "@/redux/features/cart-slice";
 import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import { updateproductDetails } from "@/redux/features/product-details";
 import { useDispatch } from "react-redux";
@@ -21,15 +20,7 @@ const ProductItem = ({ item }: { item: Product }) => {
     dispatch(updateQuickView({ ...item }));
   };
 
-  // add to cart
-  const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
-  };
+
 
   const handleItemToWishList = () => {
     dispatch(
@@ -81,13 +72,6 @@ const ProductItem = ({ item }: { item: Product }) => {
                 fill=""
               />
             </svg>
-          </button>
-
-          <button
-            onClick={() => handleAddToCart()}
-            className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
-          >
-            Add to cart
           </button>
 
           <button
