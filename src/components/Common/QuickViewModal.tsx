@@ -137,9 +137,6 @@ const QuickViewModal = () => {
             </div>
 
             <div className="max-w-[445px] w-full">
-              <span className="inline-block text-custom-xs font-medium text-white py-1 px-3 bg-green mb-6.5">
-                SALE 20% OFF
-              </span>
 
               <h3 className="font-semibold text-xl xl:text-heading-5 text-dark mb-4">
                 {product.title}
@@ -254,11 +251,6 @@ const QuickViewModal = () => {
                       </defs>
                     </svg>
                   </div>
-
-                  <span>
-                    <span className="font-medium text-dark"> 4.7 Rating </span>
-                    <span className="text-dark-2"> (5 reviews) </span>
-                  </span>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -290,11 +282,6 @@ const QuickViewModal = () => {
                 </div>
               </div>
 
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has.
-              </p>
-
               <div className="flex flex-wrap justify-between gap-5 mt-6 mb-7.5">
                 <div>
                   <h4 className="font-semibold text-lg text-dark mb-3.5">
@@ -312,9 +299,7 @@ const QuickViewModal = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-lg text-dark mb-3.5">
-                    Quantity
-                  </h4>
+
 
                   <div className="flex items-center gap-3">
                     <button
@@ -379,14 +364,7 @@ const QuickViewModal = () => {
               </div>
 
               <div className="flex flex-wrap items-center gap-4">
-                <button
-                  disabled={quantity === 0 && true}
-                  onClick={() => handleAddToCart()}
-                  className={`inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark
-                  `}
-                >
-                  Add to Cart
-                </button>
+
 
                 <button
                   className={`inline-flex items-center gap-2 font-medium text-white bg-dark py-3 px-6 rounded-md ease-out duration-200 hover:bg-opacity-95 `}
