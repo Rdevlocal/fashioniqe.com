@@ -9,7 +9,7 @@ export const menuData: Menu[] = [
   },
   {
     id: 2,
-    title: "Our Bestsellers",
+    title: "Bestsellers",
     newTab: false,
     path: "/Bestsellers",
   },
@@ -20,9 +20,16 @@ export const menuData: Menu[] = [
     path: "/contact",
   },
       {
-        id: 66,
+        id: 4,
         title: "Wishlist",
         newTab: false,
         path: "/wishlist",
+      },
+
+      {
+        id: 5,
+        title: "Biggest Discounts",
+        newTab: false,
+        path: "/Sale",
       },
 ];
