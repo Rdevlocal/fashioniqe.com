@@ -20,7 +20,7 @@ const MailSuccess = () => {
 
               <p className="max-w-[491px] w-full mx-auto mb-7.5">
                 Thank you so much for your message. We check e-mail frequently
-                and will try our best to respond to your inquiry.
+                and will try our best to respond to your inquiry within 1-2 business days.
               </p>
 
               <Link

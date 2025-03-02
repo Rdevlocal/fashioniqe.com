@@ -67,12 +67,6 @@ const SingleListItem = ({ item }: { item: Product }) => {
               </svg>
             </button>
 
-            <button
-              onClick={() => handleAddToCart()}
-              className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
-            >
-              Add to cart
-            </button>
 
             <button
               onClick={() => handleItemToWishList()}

@@ -27,14 +27,17 @@ export const Wishlist = () => {
                     <p className="text-dark">Product</p>
                   </div>
 
-                  <div className="min-w-[205px]">
-                    <p className="text-dark">Unit Price</p>
+                  <div className="min-w-[150px]">
+                    <p className="text-dark">Lowest Price</p>
                   </div>
 
-                  <div className="min-w-[265px]">
-                    <p className="text-dark">Stock Status</p>
+                  <div className="min-w-[150px]">
+                    <p className="text-dark">Current price</p>
                   </div>
 
+                  <div className="min-w-[150px]">
+                    <p className="text-dark text-right">Set alert</p>
+                  </div>
                   <div className="min-w-[150px]">
                     <p className="text-dark text-right">Action</p>
                   </div>

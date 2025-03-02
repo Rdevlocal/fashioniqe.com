@@ -3,7 +3,6 @@ import React, { use, useEffect, useState } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Image from "next/image";
 import Newsletter from "../Common/Newsletter";
-import RecentlyViewdItems from "./RecentlyViewd";
 import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import { useAppSelector } from "@/redux/store";
 
@@ -1444,7 +1443,6 @@ const ShopDetails = () => {
             </div>
           </section>
 
-          <RecentlyViewdItems />
 
           <Newsletter />
         </>

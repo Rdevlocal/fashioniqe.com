@@ -88,7 +88,6 @@ const SingleItem = ({ item }) => {
             />
           </svg>
 
-          <span className="text-red"> Out of Stock </span>
         </div>
       </div>
     </div>
