@@ -28,18 +28,15 @@ export const Wishlist = () => {
                   </div>
 
                   <div className="min-w-[150px]">
-                    <p className="text-dark">Lowest Price</p>
+                    <p className="text-dark">Best Price</p>
                   </div>
 
                   <div className="min-w-[150px]">
-                    <p className="text-dark">Current price</p>
+                    <p className="text-dark">Current best price</p>
                   </div>
 
                   <div className="min-w-[150px]">
                     <p className="text-dark text-right">Set alert</p>
-                  </div>
-                  <div className="min-w-[150px]">
-                    <p className="text-dark text-right">Action</p>
                   </div>
                 </div>
 

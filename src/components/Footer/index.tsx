@@ -40,9 +40,7 @@ const Footer = () => {
             <ul className="flex flex-col gap-3.5">
               <li><a className="ease-out duration-200 hover:text-blue" href="#">My Account</a></li>
               <li><a className="ease-out duration-200 hover:text-blue" href="#">Login / Register</a></li>
-              <li><a className="ease-out duration-200 hover:text-blue" href="#">Cart</a></li>
               <li><a className="ease-out duration-200 hover:text-blue" href="#">Wishlist</a></li>
-              <li><a className="ease-out duration-200 hover:text-blue" href="#">Shop</a></li>
             </ul>
           </div>
 
@@ -51,7 +49,6 @@ const Footer = () => {
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark">Quick Links</h2>
             <ul className="flex flex-col gap-3">
               <li><a className="ease-out duration-200 hover:text-blue" href="#">Privacy Policy</a></li>
-              <li><a className="ease-out duration-200 hover:text-blue" href="#">Refund Policy</a></li>
               <li><a className="ease-out duration-200 hover:text-blue" href="#">Terms of Use</a></li>
               <li><a className="ease-out duration-200 hover:text-blue" href="#">FAQ’s</a></li>
               <li><a className="ease-out duration-200 hover:text-blue" href="#">Contact</a></li>

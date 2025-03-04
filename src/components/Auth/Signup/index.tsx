@@ -13,7 +13,7 @@ const Signup = () => {
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
                 Create an Account
               </h2>
-              <p>Enter your detail below</p>
+              <p>Enter your details below</p>
             </div>
 
             <div className="flex flex-col gap-4.5">
@@ -81,7 +81,7 @@ const Signup = () => {
                     type="text"
                     name="name"
                     id="name"
-                    placeholder="Enter your full name"
+                    placeholder="Max Verstappen"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
@@ -95,7 +95,7 @@ const Signup = () => {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Enter your email address"
+                    placeholder="Email"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
@@ -109,7 +109,7 @@ const Signup = () => {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Enter your password"
+                    placeholder="Re-enter your password"
                     autoComplete="on"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />

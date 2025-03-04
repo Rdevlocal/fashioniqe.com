@@ -27,54 +27,23 @@ const ShopWithSidebar = () => {
   const options = [
     { label: "Latest Products", value: "0" },
     { label: "Best Selling", value: "1" },
-    { label: "Old Products", value: "2" },
-  ];
+    { label: "Price: High-Low", value: "2" },
+    { label: "Price: Low-High", value: "3" },
 
-  const categories = [
-    {
-      name: "Desktop",
-      products: 10,
-      isRefined: true,
-    },
-    {
-      name: "Laptop",
-      products: 12,
-      isRefined: false,
-    },
-    {
-      name: "Monitor",
-      products: 30,
-      isRefined: false,
-    },
-    {
-      name: "UPS",
-      products: 23,
-      isRefined: false,
-    },
-    {
-      name: "Phone",
-      products: 10,
-      isRefined: false,
-    },
-    {
-      name: "Watch",
-      products: 13,
-      isRefined: false,
-    },
   ];
 
   const genders = [
     {
-      name: "Men",
-      products: 10,
+      name: "Woman",
     },
     {
-      name: "Women",
-      products: 23,
+      name: "Men",
     },
     {
       name: "Unisex",
-      products: 8,
+    },
+    {
+      name: "Lifestyle",
     },
   ];
 
@@ -155,10 +124,6 @@ const ShopWithSidebar = () => {
                       <button className="text-blue">Clean All</button>
                     </div>
                   </div>
-
-                  {/* <!-- category box --> */}
-                  <CategoryDropdown categories={categories} />
-
                   {/* <!-- gender box --> */}
                   <GenderDropdown genders={genders} />
 
@@ -166,7 +131,6 @@ const ShopWithSidebar = () => {
                   <SizeDropdown />
 
                   {/* // <!-- color box --> */}
-                  <ColorsDropdwon />
 
                   {/* // <!-- price range box --> */}
                   <PriceDropdown />

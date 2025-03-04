@@ -11,7 +11,7 @@ const Signin = () => {
           <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-11">
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
-                Sign In to Your Account
+                Sign In to Fashioniqe.com
               </h2>
               <p>Enter your detail below</p>
             </div>
@@ -51,14 +51,14 @@ const Signin = () => {
                   type="submit"
                   className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
                 >
-                  Sign in to account
+                  Sign in
                 </button>
 
                 <a
                   href="#"
                   className="block text-center text-dark-4 mt-4.5 ease-out duration-200 hover:text-dark"
                 >
-                  Forget your password?
+                  Forgot password?
                 </a>
 
                 <span className="relative z-1 block font-medium text-center mt-4.5">

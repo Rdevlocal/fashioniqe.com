@@ -2,42 +2,42 @@ const data = [
   {
     title: "Sneakers",
     id: 1,
-    img: "/images/categories/categories-01.png",
+    img: "/images/categories/sneakers.png",
   },
   {
-    title: "Laptop & PC",
+    title: "Formal Shoes",
     id: 2,
-    img: "/images/categories/categories-02.png",
+    img: "/images/categories/formal-shoes.png",
   },
   {
-    title: "Mobile & Tablets",
+    title: "Casual Wear",
     id: 3,
-    img: "/images/categories/categories-03.png",
+    img: "/images/categories/casual-wear.png",
   },
   {
-    title: "Games & Videos",
+    title: "Suits & Blazers",
     id: 4,
-    img: "/images/categories/categories-04.png",
-  },
-  {
-    title: "Home Appliances",
-    id: 5,
-    img: "/images/categories/categories-05.png",
-  },
-  {
-    title: "Health & Sports",
-    id: 6,
-    img: "/images/categories/categories-06.png",
+    img: "/images/categories/suits-blazers.png",
   },
   {
     title: "Watches",
-    id: 7,
-    img: "/images/categories/categories-07.png",
+    id: 5,
+    img: "/images/categories/watches.png",
   },
   {
-    title: "Televisions",
+    title: "Accessories",
+    id: 6,
+    img: "/images/categories/accessories.png",
+  },
+  {
+    title: "Sportswear",
+    id: 7,
+    img: "/images/categories/sportswear.png",
+  },
+  {
+    title: "Denim & Jeans",
     id: 8,
-    img: "/images/categories/categories-04.png",
+    img: "/images/categories/denim-jeans.png",
   },
 ];
 
