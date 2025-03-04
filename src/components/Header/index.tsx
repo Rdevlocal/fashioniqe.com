@@ -4,7 +4,6 @@ import Link from "next/link";
 import CustomSelect from "./CustomSelect";
 import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
-import Image from "next/image";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
