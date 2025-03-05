@@ -4,6 +4,7 @@ import Link from "next/link";
 import CustomSelect from "./CustomSelect";
 import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
+import Image from "next/image";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +29,6 @@ const Header = () => {
     { label: "Woman", value: "1" },
     { label: "Men", value: "2" },
     { label: "Unisex", value: "3" },
-    { label: "Lifestyle", value: "4" },
   ];
 
   return (
@@ -46,9 +46,9 @@ const Header = () => {
         >
           {/* <!-- header top left --> */}
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
-            <Link className="flex-shrink-0" href="/">
-
-            </Link>
+  <Link className="flex-shrink-0" href="/">
+    <img src="logo/logo.svg" alt="Logo" className="h-10 w-auto" />
+  </Link>
 
             <div className="max-w-[475px] w-full">
               <form>

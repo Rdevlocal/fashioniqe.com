@@ -7,10 +7,7 @@ import Link from "next/link";
 
 const Signin = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,25 +17,17 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
+    setError(null);
 
     try {
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // Simulate API request (Replace with actual API call)
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const data = await response.json();
-
-      if (response.ok) {
-        router.push("/account"); // Redirect on successful login
-      } else {
-        setError(data.message || "Invalid email or password.");
-      }
+      // Redirect on successful login (Modify as needed)
+      router.push("/dashboard");
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      setError("Invalid credentials. Please try again.");
     } finally {
       setLoading(false);
     }
