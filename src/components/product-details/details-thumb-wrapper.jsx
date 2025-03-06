@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import PopupVideo from "../common/popup-video";
 
 const DetailsThumbWrapper = ({
   imageURLs,
@@ -51,9 +50,7 @@ const DetailsThumbWrapper = ({
                   onClick={() => setIsVideoOpen(true)}
                   className="tp-product-details-thumb-video"
                 >
-                  <a className="tp-product-details-thumb-video-btn cursor-pointer popup-video">
-                    <i className="fas fa-play"></i>
-                  </a>
+
                 </div>
               )}
             </div>

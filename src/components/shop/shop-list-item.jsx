@@ -4,9 +4,8 @@ import Image from "next/image";
 import { Rating } from "react-simple-star-rating";
 import Link from "next/link";
 // internal
-import { Cart, CompareThree, QuickView, Wishlist } from "@/svg";
+import {  CompareThree, QuickView, Wishlist } from "@/svg";
 import { handleProductModal } from "@/redux/features/productModalSlice";
-import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 import { add_to_compare } from "@/redux/features/compareSlice";
 
@@ -15,10 +14,6 @@ const ShopListItem = ({ product }) => {
   const dispatch = useDispatch()
   const [ratingVal, setRatingVal] = useState(0);
 
-  // handle add product
-  const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd));
-  };
   // handle wishlist product
   const handleWishlistProduct = (prd) => {
     dispatch(add_to_wishlist(prd));
@@ -98,11 +93,7 @@ const ShopListItem = ({ product }) => {
           <p>
             {description.substring(0, 100)}
           </p>
-          <div className="tp-product-list-add-to-cart">
-            <button onClick={() => handleAddProduct(product)} className="tp-product-list-add-to-cart-btn">
-              Add To Cart
-            </button>
-          </div>
+
         </div>
       </div>
     </div>

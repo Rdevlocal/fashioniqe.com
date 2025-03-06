@@ -61,7 +61,6 @@ const menu_data = [
         title: 'eCommerce',
         link: '/shop',
         mega_menus: [
-          { title: 'Shopping Cart', link: '/cart' },
           { title: 'Compare', link: '/compare' },
           { title: 'Wishlist', link: '/wishlist' },
           { title: 'Checkout', link: '/checkout' },
@@ -157,9 +156,8 @@ export const mobile_menu = [
     id: 3,
     sub_menu: true,
     title: 'eCommerce',
-    link: '/cart',
+    link: '',
     sub_menus: [
-      { title: 'Shopping Cart', link: '/cart' },
       { title: 'Compare', link: '/compare' },
       { title: 'Wishlist', link: '/wishlist' },
       { title: 'Checkout', link: '/checkout' },

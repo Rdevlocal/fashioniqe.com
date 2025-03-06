@@ -5,7 +5,6 @@ import ReactModal from "react-modal";
 import { handleModalClose } from "@/redux/features/productModalSlice";
 import DetailsThumbWrapper from "@/components/product-details/details-thumb-wrapper";
 import DetailsWrapper from "@/components/product-details/details-wrapper";
-import { initialOrderQuantity } from "@/redux/features/cartSlice";
 
 const customStyles = {
   content: {

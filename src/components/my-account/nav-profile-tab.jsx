@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, DeliveryTwo, Processing, Truck } from "@/svg";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
 
-const NavProfileTab = ({ orderData }) => {
+const NavProfileTab = ({  }) => {
   const {user} = useSelector(state => state.auth)
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,58 +30,6 @@ const NavProfileTab = ({ orderData }) => {
               <a onClick={handleLogout} className="cursor-pointer tp-logout-btn">
                 Logout
               </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="profile__main-info">
-        <div className="row gx-3">
-          <div className="col-md-3 col-sm-6">
-            <div className="profile__main-info-item">
-              <div className="profile__main-info-icon">
-                <span>
-                  <span className="profile-icon-count profile-download">{orderData?.totalDoc}</span>
-                  <Box />
-                </span>
-              </div>
-              <h4 className="profile__main-info-title">Total Order</h4>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6">
-            <div className="profile__main-info-item">
-              <div className="profile__main-info-icon">
-                <span>
-                  <span className="profile-icon-count profile-order">{orderData?.pending}</span>
-                  <Processing />
-                </span>
-              </div>
-              <h4 className="profile__main-info-title">Pending Order</h4>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6">
-            <div className="profile__main-info-item">
-              <div className="profile__main-info-icon">
-                <span>
-                  <span className="profile-icon-count profile-wishlist">
-                    {orderData?.processing}
-                  </span>
-                  <Truck />
-                </span>
-              </div>
-              <h4 className="profile__main-info-title">Processing Order</h4>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6">
-            <div className="profile__main-info-item">
-              <div className="profile__main-info-icon">
-                <span>
-                  <span className="profile-icon-count profile-wishlist">
-                    {orderData?.delivered}
-                  </span>
-                  <DeliveryTwo />
-                </span>
-              </div>
-              <h4 className="profile__main-info-title">Complete Order</h4>
             </div>
           </div>
         </div>

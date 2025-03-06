@@ -2,15 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
-// internal
-import useCartInfo from "@/hooks/use-cart-info";
-import { CartTwo, Compare, Menu, User, Wishlist } from "@/svg";
-import { openCartMini } from "@/redux/features/cartSlice";
+
 
 const HeaderMainRight = ({ setIsCanvasOpen }) => {
   const { user: userInfo } = useSelector((state) => state.auth);
   const { wishlist } = useSelector((state) => state.wishlist);
-  const { quantity } = useCartInfo();
   const dispatch = useDispatch()
   return (
     <div className="tp-header-main-right d-flex align-items-center justify-content-end">
@@ -63,16 +59,6 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
             <Wishlist />
             <span className="tp-header-action-badge">{wishlist.length}</span>
           </Link>
-        </div>
-        <div className="tp-header-action-item">
-          <button
-            onClick={() => dispatch(openCartMini())}
-            type="button"
-            className="tp-header-action-btn cartmini-open-btn"
-          >
-            <CartTwo />
-            <span className="tp-header-action-badge">{quantity}</span>
-          </button>
         </div>
         <div className="tp-header-action-item d-lg-none">
           <button

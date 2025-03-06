@@ -6,21 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Menus from "./header-com/menus";
 import useSticky from "@/hooks/use-sticky";
 import logo from "@assets/img/logo/logo.svg";
-import useCartInfo from "@/hooks/use-cart-info";
 import OffCanvas from "@/components/common/off-canvas";
-import { openCartMini } from "@/redux/features/cartSlice";
 import HeaderCategory from "./header-com/header-category";
 import HeaderTopRight from "./header-com/header-top-right";
 import HeaderMainRight from "./header-com/header-main-right";
-import CartMiniSidebar from "@/components/common/cart-mini-sidebar";
 import HeaderSearchForm from "@/components/forms/header-search-form";
-import { CartTwo, CategoryMenu, Compare, Menu, Phone, ShippingCar, Wishlist } from "@/svg";
+import {  CategoryMenu, Compare, Menu, Phone, ShippingCar, Wishlist } from "@/svg";
 
 const Header = () => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const [isCategoryActive, setIsCategoryActive] = useState(false);
-  const { quantity } = useCartInfo();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
   return (
@@ -155,12 +151,6 @@ const Header = () => {
                       <span className="tp-header-action-badge">{wishlist.length}</span>
                     </Link>
                   </div>
-                  <div className="tp-header-action-item">
-                    <button onClick={() => dispatch(openCartMini())} type="button" className="tp-header-action-btn cartmini-open-btn">
-                      <CartTwo />
-                      <span className="tp-header-action-badge">{quantity}</span>
-                    </button>
-                  </div>
                   <div className="tp-header-action-item d-lg-none">
                     <button onClick={() => setIsCanvasOpen(true)} type="button" className="tp-header-action-btn tp-offcanvas-open-btn">
                       <Menu />
@@ -173,10 +163,6 @@ const Header = () => {
         </div>
       </div>
       {/* sticky header end */}
-
-      {/* cart mini sidebar start */}
-      <CartMiniSidebar />
-      {/* cart mini sidebar end */}
 
       {/* off canvas start */}
       <OffCanvas isOffCanvasOpen={isOffCanvasOpen} setIsCanvasOpen={setIsCanvasOpen} categoryType="electronics" />
