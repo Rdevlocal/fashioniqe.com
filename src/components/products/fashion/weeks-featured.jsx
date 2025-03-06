@@ -58,7 +58,7 @@ const WeeksFeatured = () => {
     content = (
       <Swiper {...slider_setting} modules={[Navigation]} className="tp-featured-slider-active swiper-container">
         {product_items.map((item) => {
-          const {_id, img, title, price, discount, reviews } = item || {};
+          const {_id, img, title, price, discount } = item || {};
           return (
             <SwiperSlide key={item._id} className="tp-featured-item white-bg p-relative z-index-1">
               <div className="tp-featured-thumb include-bg" style={{ backgroundImage: `url(${img})` }} data-background="assets/img/product/slider/product-slider-1.jpg"></div>
@@ -78,9 +78,7 @@ const WeeksFeatured = () => {
                     <span className="tp-featured-price new-price">${price}</span>
                   )}
                 </div>
-                <div className="tp-product-rating-icon tp-product-rating-icon-2">
-                  <Rating allowFraction size={16} initialValue={reviews && reviews.length > 0 ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length : 0} readonly={true} />
-                </div>
+
                 <div className="tp-featured-btn">
                   <Link href={`/product-details/${_id}`} className="tp-btn tp-btn-border tp-btn-border-sm">Shop Now
                     {" "}<ArrowRightLong />

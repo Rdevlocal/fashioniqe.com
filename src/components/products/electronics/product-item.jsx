@@ -12,7 +12,7 @@ import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 
 const ProductItem = ({ product, offer_style = false }) => {
-  const { _id, img, category, title, reviews, price, discount,status,offerDate } = product || {};
+  const { _id, img, category, title, price, discount,status,offerDate } = product || {};
   console.log(status)
   const { cart_products } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -20,16 +20,7 @@ const ProductItem = ({ product, offer_style = false }) => {
   const isAddedToWishlist = wishlist.some((prd) => prd._id === _id);
   const dispatch = useDispatch();
   const [ratingVal, setRatingVal] = useState(0);
-  useEffect(() => {
-    if (reviews && reviews.length > 0) {
-      const rating =
-        reviews.reduce((acc, review) => acc + review.rating, 0) /
-        reviews.length;
-      setRatingVal(rating);
-    } else {
-      setRatingVal(0);
-    }
-  }, [reviews]);
+
 
   // handle add product
   const handleAddProduct = (prd) => {
@@ -123,9 +114,6 @@ const ProductItem = ({ product, offer_style = false }) => {
               />
             </div>
             <div className="tp-product-rating-text">
-              <span>
-                ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
-              </span>
             </div>
           </div>
           <div className="tp-product-price-wrapper">

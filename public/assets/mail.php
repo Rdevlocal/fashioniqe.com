@@ -87,7 +87,7 @@
 
         //Email Header
 
-        $head = " /// Theme_Pure Shofy HTML \\\ ";
+        $head = " /// Theme_Pure fashioniqe HTML \\\ ";
 
 
 

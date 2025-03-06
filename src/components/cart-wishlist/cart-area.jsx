@@ -31,8 +31,10 @@ const CartArea = () => {
                     <thead>
                       <tr>
                         <th colSpan="2" className="tp-cart-header-product">Product</th>
-                        <th className="tp-cart-header-price">Price</th>
-                        <th className="tp-cart-header-quantity">Quantity</th>
+                        <th className="tp-cart-header-price">Lowest price</th>
+                        <th className="tp-cart-header-quantity">Current price</th>
+                        <th className="tp-cart-header-action">set alerts</th>
+
                         <th></th>
                       </tr>
                     </thead>
@@ -46,17 +48,6 @@ const CartArea = () => {
                 <div className="tp-cart-bottom">
                   <div className="row align-items-end">
                     <div className="col-xl-6 col-md-8">
-                      {/* <div className="tp-cart-coupon">
-                        <form action="#">
-                          <div className="tp-cart-coupon-input-box">
-                            <label>Coupon Code:</label>
-                            <div className="tp-cart-coupon-input d-flex align-items-center">
-                              <input type="text" placeholder="Enter Coupon Code" />
-                              <button type="submit">Apply</button>
-                            </div>
-                          </div>
-                        </form>
-                      </div> */}
                     </div>
                     <div className="col-xl-6 col-md-4">
                       <div className="tp-cart-update text-md-end mr-30">

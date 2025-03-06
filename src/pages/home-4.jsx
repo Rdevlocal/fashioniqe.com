@@ -13,7 +13,6 @@ import ProductGadgetArea from "@/components/products/electronics/product-gadget-
 import ProductBanner from "@/components/products/electronics/product-banner";
 import ProductSmArea from "@/components/products/electronics/product-sm-area";
 import NewArrivals from "@/components/products/electronics/new-arrivals";
-import BlogArea from "@/components/blog/electronic/blog-area";
 import InstagramArea from "@/components/instagram/instagram-area";
 import CtaArea from "@/components/cta/cta-area";
 import Footer from "@/layout/footers/footer";
@@ -34,7 +33,6 @@ const HomeFour = () => {
       <ProductBanner/>
        <NewArrivals/>
       <ProductSmArea/>
-      <BlogArea/>
       <InstagramArea/>
       <CtaArea/>
       <Footer/>

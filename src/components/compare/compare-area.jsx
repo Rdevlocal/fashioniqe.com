@@ -96,22 +96,6 @@ const CompareArea = () => {
                           </td>
                         ))}
                       </tr>
-                      {/* Rating */}
-                      <tr>
-                        <th>Rating</th>
-                        {compareItems.map(item => (
-                          <td key={item._id}>
-                            <div className="tp-compare-rating">
-                              <Rating
-                                allowFraction
-                                size={16}
-                                initialValue={item.reviews.length > 0 ? item.reviews.reduce((acc, review) => acc + review.rating, 0) / item.reviews.length : 0}
-                                readonly={true}
-                              />
-                            </div>
-                          </td>
-                        ))}
-                      </tr>
                       {/* Remove */}
                       <tr>
                         <th>Remove</th>
