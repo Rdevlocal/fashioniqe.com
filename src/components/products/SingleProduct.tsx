@@ -10,7 +10,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import AddToCart from "../cart/AddToCart";
 interface SingleProduct {
   product: string;
   session: Session | null;
@@ -44,13 +43,6 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
             <span className="text-sm">{productPlainObject.price}€</span>
             <p className="text-sm">{productPlainObject.description}</p>
           </div>
-
-          <AddToCart
-            session={session}
-            product={productPlainObject}
-            selectedVariant={selectedVariant}
-            setSelectedVariant={setSelectedVariant}
-          />
         </div>
 
         <Accordion type="single" collapsible className="w-full">

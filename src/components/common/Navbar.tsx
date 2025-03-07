@@ -156,31 +156,6 @@ export const Navbar = ({ session, totalItemsCart, totalWishlists }: Navbar) => {
             ))}
             {session?.user ? (
               <>
-                <li className="flex items-center">
-                  <Link
-                    className="flex items-center w-full h-full px-4 py-2"
-                    onClick={toggleHeader}
-                    href="/orders"
-                  >
-                    <svg
-                      data-testid="geist-icon"
-                      height="16"
-                      strokeLinejoin="round"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      className="mr-2"
-                      style={{ color: "currentColor" }}
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M14 3H2C1.72386 3 1.5 3.22386 1.5 3.5V5L14.5 5V3.5C14.5 3.22386 14.2761 3 14 3ZM1.5 12.5V6.5L14.5 6.5V12.5C14.5 12.7761 14.2761 13 14 13H2C1.72386 13 1.5 12.7761 1.5 12.5ZM2 1.5C0.895431 1.5 0 2.39543 0 3.5V12.5C0 13.6046 0.895431 14.5 2 14.5H14C15.1046 14.5 16 13.6046 16 12.5V3.5C16 2.39543 15.1046 1.5 14 1.5H2ZM4 10.75C4.41421 10.75 4.75 10.4142 4.75 10C4.75 9.58579 4.41421 9.25 4 9.25C3.58579 9.25 3.25 9.58579 3.25 10C3.25 10.4142 3.58579 10.75 4 10.75Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                    <span>View orders</span>
-                  </Link>
-                </li>
                 <li className="px-4 py-2 w-[110px] mx-auto">
                   <SignOutButton />
                 </li>
@@ -202,32 +177,6 @@ export const Navbar = ({ session, totalItemsCart, totalWishlists }: Navbar) => {
       <SearchInput />
 
       <ul className="flex gap-2">
-        <li className="flex items-center justify-center">
-          <Link
-            href="/cart"
-            aria-label="Products saved in the shopping cart"
-            className="text-sm py-3 px-3 rounded-md transition-all text-[#EDEDED] hover:bg-[#1F1F1F] relative"
-          >
-            <svg
-              data-testid="geist-icon"
-              height="16"
-              strokeLinejoin="round"
-              viewBox="0 0 16 16"
-              width="16"
-              style={{ color: "currentColor" }}
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M0 2.5L0.958427 2.5C1.41012 2.5 1.82194 2.74308 2.04258 3.12774L2.5 4.5L3.93019 8.79057C4.27047 9.81142 5.22582 10.5 6.3019 10.5H12.4505C13.6422 10.5 14.6682 9.65885 14.9019 8.49029L15.7 4.5L16 3H14.4703L4.5 3L3.62309 3L3.50287 2.70678C3.07956 1.67431 2.0743 1 0.958427 1H0V2.5ZM4.08114 4.5L5.35321 8.31623C5.48933 8.72457 5.87147 9 6.3019 9H12.4505C12.9272 9 13.3376 8.66354 13.4311 8.19612L14.1703 4.5H4.5H4.08114ZM12.5 15C11.6716 15 11 14.3284 11 13.5C11 12.6716 11.6716 12 12.5 12C13.3284 12 14 12.6716 14 13.5C14 14.3284 13.3284 15 12.5 15ZM4.5 13.5C4.5 14.3284 5.17157 15 6 15C6.82843 15 7.5 14.3284 7.5 13.5C7.5 12.6716 6.82843 12 6 12C5.17157 12 4.5 12.6716 4.5 13.5Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-            <span className="flex items-center bg-[#0072F5] font-medium text-[#EDEDED] justify-center absolute w-[20px] rounded-full top-[-3px] right-[-3px]">
-              {totalItemsCart}
-            </span>
-          </Link>
-        </li>
         <li className="flex items-center justify-center">
           <Link
             href="/wishlist"
