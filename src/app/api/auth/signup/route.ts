@@ -10,10 +10,17 @@ export async function POST(request: Request) {
 
     const { name, email, password, phone } = await request.json();
 
+    if (!name || !email || !password || !phone) {
+      return NextResponse.json(
+        { message: "All fields are required" },
+        { status: 400 }
+      );
+    }
+
     if (password.length < 6) {
       return NextResponse.json(
         { message: "Password must be at least 6 characters" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -22,7 +29,7 @@ export async function POST(request: Request) {
     if (userFound) {
       return NextResponse.json(
         { message: "Email already exists" },
-        { status: 409 },
+        { status: 409 }
       );
     }
 
@@ -37,8 +44,6 @@ export async function POST(request: Request) {
 
     const savedUser = await user.save();
 
-    console.log(savedUser);
-
     return NextResponse.json(
       {
         name: savedUser.name,
@@ -46,15 +51,14 @@ export async function POST(request: Request) {
         createdAt: savedUser.createdAt,
         updatedAt: savedUser.updatedAt,
       },
-      { status: 201 },
+      { status: 201 }
     );
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      return NextResponse.json({ message: error.message }, { status: 400 });
-    } else {
-      console.error("Error during signup:", error);
-      return NextResponse.error();
-    }
+    console.error("Error during signup:", error);
+    return NextResponse.json(
+      { message: error instanceof mongoose.Error.ValidationError ? error.message : "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -62,13 +66,12 @@ export async function PUT(request: Request) {
   try {
     await connectDB();
 
-    const { userId, name, email, password, phone, address } =
-      await request.json();
+    const { userId, name, email, password, phone, address } = await request.json();
 
-    if (password && password.length < 6) {
+    if (!userId) {
       return NextResponse.json(
-        { message: "Password must be at least 6 characters" },
-        { status: 400 },
+        { message: "User ID is required" },
+        { status: 400 }
       );
     }
 
@@ -78,30 +81,23 @@ export async function PUT(request: Request) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    if (name) {
-      userToUpdate.name = name;
+    if (password && password.length < 6) {
+      return NextResponse.json(
+        { message: "Password must be at least 6 characters" },
+        { status: 400 }
+      );
     }
 
-    if (email) {
-      userToUpdate.email = email;
-    }
+    if (name) userToUpdate.name = name;
+    if (email) userToUpdate.email = email;
+    if (phone) userToUpdate.phone = phone;
+    if (address) userToUpdate.address = address;
 
     if (password) {
-      const hashedPassword = await bcrypt.hash(password, 12);
-      userToUpdate.password = hashedPassword;
-    }
-
-    if (phone) {
-      userToUpdate.phone = phone;
-    }
-
-    if (address) {
-      userToUpdate.address = address;
+      userToUpdate.password = await bcrypt.hash(password, 12);
     }
 
     await userToUpdate.save();
-
-    console.log(userToUpdate);
 
     return NextResponse.json(
       {
@@ -114,15 +110,14 @@ export async function PUT(request: Request) {
           updatedAt: userToUpdate.updatedAt,
         },
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      return NextResponse.json({ message: error.message }, { status: 400 });
-    } else {
-      console.error("Error during user update:", error);
-      return NextResponse.error();
-    }
+    console.error("Error during user update:", error);
+    return NextResponse.json(
+      { message: error instanceof mongoose.Error.ValidationError ? error.message : "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -132,16 +127,30 @@ export async function DELETE(request: Request) {
 
     const { userId } = await request.json();
 
+    if (!userId) {
+      return NextResponse.json(
+        { message: "User ID is required" },
+        { status: 400 }
+      );
+    }
+
     const user = await User.findById(userId);
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    await user.remove();
+    await user.deleteOne();
 
     return NextResponse.json(
       { message: "User deleted successfully" },
-      { status: 200 },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error during user deletion:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
     );
   }
+}
