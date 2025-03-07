@@ -9,6 +9,7 @@ import Link from "next/link";
 import { TextShapeLine } from "@/svg";
 import ErrorMsg from "@/components/common/error-msg";
 import { useGetPopularProductByTypeQuery } from "@/redux/features/productApi";
+import { add_cart_product } from "@/redux/features/cartSlice";
 import { HomeTwoPopularPrdLoader } from "@/components/loader";
 import { notifyError } from "@/utils/toast";
 
@@ -45,6 +46,7 @@ const slider_setting = {
 
 const PopularProducts = () => {
   const {data: products,isError,isLoading} = useGetPopularProductByTypeQuery("fashion");
+  const { cart_products } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   // handle add product
@@ -52,7 +54,9 @@ const PopularProducts = () => {
     if(prd.status === 'out-of-stock'){
       notifyError(`This product out-of-stock`)
     }
-
+    else {
+      dispatch(add_cart_product(prd));
+    }
   };
   // decide what to render
   let content = null;
@@ -90,6 +94,23 @@ const PopularProducts = () => {
               <h3 className="tp-category-title-2">
                 <Link href={`/product-details/${item._id}`}>{item.title.substring(0, 15)}</Link>
               </h3>
+              <div className="tp-category-btn-2">
+                {cart_products.some((prd) => prd._id === item._id) ? (
+                  <Link
+                    href="/cart"
+                    className="tp-btn tp-btn-border cursor-pointer"
+                  >
+                    View Cart
+                  </Link>
+                ) : (
+                  <a
+                    onClick={() => handleAddProduct(item)}
+                    className="tp-btn tp-btn-border cursor-pointer"
+                  >
+                    Add to Cart
+                  </a>
+                )}
+              </div>
             </div>
           </SwiperSlide>
         ))}
@@ -108,7 +129,7 @@ const PopularProducts = () => {
                   <TextShapeLine />
                 </span>
                 <h3 className="tp-section-title-2">
-                  Popular on the fashioniqe store.
+                  Popular on the Shofy store.
                 </h3>
               </div>
             </div>

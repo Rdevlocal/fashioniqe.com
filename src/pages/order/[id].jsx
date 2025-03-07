@@ -26,7 +26,7 @@ const SingleOrder = ({ params }) => {
     content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError) {
-    const { name, country, city, contact, invoice, createdAt, shippingCost, discount, totalAmount,paymentMethod} = order.order;
+    const { name, country, city, contact, invoice, createdAt, cart, shippingCost, discount, totalAmount,paymentMethod} = order.order;
     content = (
       <>
         <section className="invoice__area pt-120 pb-120">
@@ -95,6 +95,17 @@ const SingleOrder = ({ params }) => {
                       <th scope="col">Amount</th>
                     </tr>
                   </thead>
+                  <tbody className="table-group-divider">
+                    {cart.map((item, i) => (
+                      <tr key={i}>
+                        <td>{i + 1}</td>
+                        <td>{item.title}</td>
+                        <td>{item.orderQuantity}</td>
+                        <td>${item.price}</td>
+                        <td>${item.price * item.orderQuantity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
               <div className="invoice__total pt-40 pb-10 alert-success pl-40 pr-40 mb-30">

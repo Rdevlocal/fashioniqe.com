@@ -6,8 +6,10 @@ import Link from 'next/link';
 import Menus from './header-com/menus';
 import logo from '@assets/img/logo/logo.svg';
 import useSticky from '@/hooks/use-sticky';
-
-import {  Compare, Facebook, Menu, PhoneTwo, Wishlist, Search } from '@/svg';
+import useCartInfo from '@/hooks/use-cart-info';
+import { openCartMini } from '@/redux/features/cartSlice';
+import HeaderTopRight from './header-com/header-top-right';
+import { CartTwo, Compare, Facebook, Menu, PhoneTwo, Wishlist, Search } from '@/svg';
 import useSearchFormSubmit from '@/hooks/use-search-form-submit';
 import OffCanvas from '@/components/common/off-canvas';
 
@@ -15,6 +17,7 @@ const HeaderTwo = ({ style_2 = false }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const { setSearchText, handleSubmit, searchText } = useSearchFormSubmit();
+  const { quantity } = useCartInfo();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
   return (
@@ -95,7 +98,12 @@ const HeaderTwo = ({ style_2 = false }) => {
                             <span className="tp-header-action-badge">{wishlist.length}</span>
                           </Link>
                         </div>
-
+                        <div className="tp-header-action-item">
+                          <button onClick={() => dispatch(openCartMini())} className="tp-header-action-btn cartmini-open-btn" >
+                            <CartTwo />
+                            <span className="tp-header-action-badge">{quantity}</span>
+                          </button>
+                        </div>
                         <div className="tp-header-action-item tp-header-hamburger mr-20 d-xl-none">
                           <button onClick={() => setIsCanvasOpen(true)} type="button" className="tp-offcanvas-open-btn">
                             <Menu />
@@ -110,6 +118,7 @@ const HeaderTwo = ({ style_2 = false }) => {
           </div>
         </div>
       </header>
+
 
       {/* off canvas start */}
       <OffCanvas isOffCanvasOpen={isOffCanvasOpen} setIsCanvasOpen={setIsCanvasOpen} categoryType="fashion" />

@@ -79,7 +79,7 @@ const Footer = ({ style_2 = false, style_3 = false,primary_style=false }) => {
                           </span>
                         </div>
                         <div className="tp-footer-contact-content">
-                          <p><a href="mailto:fashioniqe@support.com">swe.hamedhasan@gmail.com</a></p>
+                          <p><a href="mailto:shofy@support.com">swe.hamedhasan@gmail.com</a></p>
                         </div>
                       </div>
                       <div className="tp-footer-contact-item d-flex align-items-start">

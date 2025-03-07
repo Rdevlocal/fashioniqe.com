@@ -86,6 +86,9 @@ function ProfileSetting({active,handleActive}) {
           <Link href="/wishlist">Wishlist</Link>
         </li>
         <li>
+          <Link href="/cart">Cart</Link>
+        </li>
+        <li>
           {!user?.name &&<Link href="/login" className="cursor-pointer">Login</Link>}
           {user?.name &&<a onClick={handleLogout} className="cursor-pointer">Logout</a>}
         </li>

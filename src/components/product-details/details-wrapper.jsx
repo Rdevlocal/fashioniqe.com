@@ -7,15 +7,27 @@ import { AskQuestion, CompareTwo, WishlistTwo } from '@/svg';
 import DetailsBottomInfo from './details-bottom-info';
 import ProductDetailsCountdown from './product-details-countdown';
 import ProductQuantity from './product-quantity';
+import { add_cart_product } from '@/redux/features/cartSlice';
 import { add_to_wishlist } from '@/redux/features/wishlist-slice';
 import { add_to_compare } from '@/redux/features/compareSlice';
 import { handleModalClose } from '@/redux/features/productModalSlice';
 
 const DetailsWrapper = ({ productItem, handleImageActive, activeImg, detailsBottom = false }) => {
-  const { sku, img, title, imageURLs, category, description, discount, price, status, tags, offerDate } = productItem || {};
+  const { sku, img, title, imageURLs, category, description, discount, price, status, reviews, tags, offerDate } = productItem || {};
   const [ratingVal, setRatingVal] = useState(0);
   const [textMore, setTextMore] = useState(false);
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      const rating =
+        reviews.reduce((acc, review) => acc + review.rating, 0) /
+        reviews.length;
+      setRatingVal(rating);
+    } else {
+      setRatingVal(0);
+    }
+  }, [reviews]);
 
   // handle add product
   const handleAddProduct = (prd) => {
@@ -48,7 +60,9 @@ const DetailsWrapper = ({ productItem, handleImageActive, activeImg, detailsBott
           <div className="tp-product-details-rating">
             <Rating allowFraction size={16} initialValue={ratingVal} readonly={true} />
           </div>
-
+          <div className="tp-product-details-reviews">
+            <span>({reviews && reviews.length > 0 ? reviews.length : 0} Review)</span>
+          </div>
         </div>
       </div>
       <p>{textMore ? description : `${description.substring(0, 100)}...`}

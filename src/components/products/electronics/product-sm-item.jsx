@@ -4,9 +4,19 @@ import React, { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 
 const ProductSmItem = ({ product }) => {
-  const {_id, img, category, title,price } = product || {};
+  const {_id, img, category, title,price, reviews } = product || {};
   const [ratingVal, setRatingVal] = useState(0);
 
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      const rating =
+        reviews.reduce((acc, review) => acc + review.rating, 0) /
+        reviews.length;
+      setRatingVal(rating);
+    } else {
+      setRatingVal(0);
+    }
+  }, [reviews]);
 
   return (
     <div className="tp-product-sm-item d-flex align-items-center">
@@ -30,6 +40,9 @@ const ProductSmItem = ({ product }) => {
         <div className="tp-product-rating d-sm-flex align-items-center">
           <div className="tp-product-rating-icon">
             <Rating allowFraction size={16} initialValue={ratingVal} readonly={true} />
+          </div>
+          <div className="tp-product-rating-text">
+          ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
           </div>
         </div>
         <div className="tp-product-price-wrapper">

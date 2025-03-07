@@ -45,27 +45,11 @@ const DetailsThumbWrapper = ({
               <div className="tp-product-badge">
                 {status === 'out-of-stock' && <span className="product-hot">out-stock</span>}
               </div>
-              {videoId && (
-                <div
-                  onClick={() => setIsVideoOpen(true)}
-                  className="tp-product-details-thumb-video"
-                >
-
-                </div>
-              )}
             </div>
           </div>
         </div>
       </div>
-      {/* modal popup start */}
-      {videoId && (
-        <PopupVideo
-          isVideoOpen={isVideoOpen}
-          setIsVideoOpen={setIsVideoOpen}
-          videoId={videoId}
-        />
-      )}
-      {/* modal popup end */}
+
     </>
   );
 };

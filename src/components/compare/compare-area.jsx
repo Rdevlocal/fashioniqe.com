@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 // internal
+import { add_cart_product } from "@/redux/features/cartSlice";
 import { remove_compare_product } from "@/redux/features/compareSlice";
 
 const CompareArea = () => {
@@ -78,6 +79,35 @@ const CompareArea = () => {
                           <td key={item._id}>
                             <div className="tp-compare-price">
                               <span>${item.price.toFixed(2)}</span>
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                      {/* Add to cart*/}
+                      <tr>
+                        <th>Add to cart</th>
+                        {compareItems.map(item => (
+                          <td key={item._id}>
+                            <div className="tp-compare-add-to-cart">
+                              <button onClick={() => handleAddProduct(item)} type="button" className="tp-btn">
+                                Add to Cart
+                              </button>
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                      {/* Rating */}
+                      <tr>
+                        <th>Rating</th>
+                        {compareItems.map(item => (
+                          <td key={item._id}>
+                            <div className="tp-compare-rating">
+                              <Rating
+                                allowFraction
+                                size={16}
+                                initialValue={item.reviews.length > 0 ? item.reviews.reduce((acc, review) => acc + review.rating, 0) / item.reviews.length : 0}
+                                readonly={true}
+                              />
                             </div>
                           </td>
                         ))}

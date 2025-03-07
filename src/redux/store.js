@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
 import authSlice from "./features/auth/authSlice";
+import cartSlice from "./features/cartSlice";
 import compareSlice from "./features/compareSlice";
 import productModalSlice from "./features/productModalSlice";
 import shopFilterSlice from "./features/shop-filter-slice";
@@ -14,6 +15,7 @@ const store = configureStore({
     auth:authSlice,
     productModal:productModalSlice,
     shopFilter:shopFilterSlice,
+    cart:cartSlice,
     wishlist:wishlistSlice,
     compare:compareSlice,
     coupon:couponSlice,

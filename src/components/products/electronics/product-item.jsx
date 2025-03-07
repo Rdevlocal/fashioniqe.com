@@ -5,20 +5,36 @@ import { Rating } from "react-simple-star-rating";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 // internal
-import {  QuickView, Wishlist } from "@/svg";
+import { Cart, QuickView, Wishlist } from "@/svg";
 import Timer from "@/components/common/timer";
 import { handleProductModal } from "@/redux/features/productModalSlice";
+import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 
 const ProductItem = ({ product, offer_style = false }) => {
-  const { _id, img, category, title, price, discount,status,offerDate } = product || {};
+  const { _id, img, category, title, reviews, price, discount,status,offerDate } = product || {};
   console.log(status)
+  const { cart_products } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
+  const isAddedToCart = cart_products.some((prd) => prd._id === _id);
   const isAddedToWishlist = wishlist.some((prd) => prd._id === _id);
   const dispatch = useDispatch();
   const [ratingVal, setRatingVal] = useState(0);
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      const rating =
+        reviews.reduce((acc, review) => acc + review.rating, 0) /
+        reviews.length;
+      setRatingVal(rating);
+    } else {
+      setRatingVal(0);
+    }
+  }, [reviews]);
 
-
+  // handle add product
+  const handleAddProduct = (prd) => {
+    dispatch(add_cart_product(prd));
+  };
   // handle wishlist product
   const handleWishlistProduct = (prd) => {
     dispatch(add_to_wishlist(prd));
@@ -49,6 +65,25 @@ const ProductItem = ({ product, offer_style = false }) => {
           {/*  product action */}
           <div className="tp-product-action">
             <div className="tp-product-action-item d-flex flex-column">
+              {isAddedToCart ? (
+                <Link
+                  href="/cart"
+                  className={`tp-product-action-btn ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
+                >
+                  <Cart /> <span className="tp-product-tooltip">View Cart</span>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => handleAddProduct(product)}
+                  type="button"
+                  className={`tp-product-action-btn ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
+                  disabled={status === 'out-of-stock'}
+                >
+                  <Cart />
+
+                  <span className="tp-product-tooltip">Add to Cart</span>
+                </button>
+              )}
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
@@ -88,6 +123,9 @@ const ProductItem = ({ product, offer_style = false }) => {
               />
             </div>
             <div className="tp-product-rating-text">
+              <span>
+                ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
+              </span>
             </div>
           </div>
           <div className="tp-product-price-wrapper">

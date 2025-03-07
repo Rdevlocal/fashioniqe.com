@@ -29,14 +29,20 @@ const slider_data = [
   {
     id: 1,
     bg: slider_bg_1,
-    subtitle: "Summer Collection 2025",
-    title: "Your Fashion, Your Price",
+    subtitle: "Winter Collection 2023",
+    title: "Be your kind of beauty",
   },
   {
     id: 2,
     bg: slider_bg_2,
-    subtitle: "Why Pay More?",
-    title: "Compare Prices and Shop Smart!",
+    subtitle: "Top Brand Collection",
+    title: "Use the best for you.",
+  },
+  {
+    id: 3,
+    bg: slider_bg_3,
+    subtitle: "Awesome Beauty Products",
+    title: "Don't Worry for Skincare",
   },
 ];
 
@@ -80,9 +86,9 @@ const BeautyBanner = () => {
                 <div className="row align-items-center">
                   <div className="col-xl-6 col-lg-6 col-md-8">
                     <div className="tp-slider-content-3">
-                      <span>Summer Collection 2025</span>
+                      <span>Summer 2025</span>
                       <h3 className="tp-slider-title-3">
-                      Your Fashion, Your Price
+                        Be your kind of beauty
                       </h3>
 
                       <div className="tp-slider-btn-3">
