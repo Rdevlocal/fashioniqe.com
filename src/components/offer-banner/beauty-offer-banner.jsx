@@ -1,14 +1,10 @@
 import React from 'react';
-import { useTimer } from 'react-timer-hook';
 import { ArrowRightSmTwo } from '@/svg';
 import collection_thumb from '@assets/img/product/collection/collection-1.jpg';
 import collection_thumb_2 from '@assets/img/product/collection/collection-2.jpg';
-import Timer from '../common/timer';
 import Link from 'next/link';
 
 const BeautyOfferBanner = () => {
-  const expiryTimestamp = new Date('2023-8-16');
-  const { seconds, minutes, hours, days } = useTimer({expiryTimestamp});
   return (
     <>
       <section className="tp-collection-area pt-120">
@@ -55,21 +51,7 @@ const BeautyOfferBanner = () => {
               <div className="col-xl-3 col-lg-4 col-md-5">
                   <div className="tp-collection-countdown d-flex align-items-center justify-content-center justify-content-md-start ml-20 mt-20">
                     <div className="tp-product-countdown" data-countdown data-date="Sep 30 2024 20:20:22">
-                        <div className="tp-product-countdown-inner">
-                          <ul>
-                              <li><span>{days}</span> Days</li>
-                              <li><span>{hours}</span> Hrs</li>
-                              <li><span>{minutes}</span> Min</li>
-                          </ul>
-                          {/* <Timer expiryTimestamp={time} /> */}
-                        </div>
-                    </div>
-                    <div className="tp-product-countdown has-second" data-countdown data-date="Sep 30 2024 20:20:22">
-                        <div className="tp-product-countdown-inner">
-                          <ul>
-                              <li><span suppressHydrationWarning>{seconds}</span> Sec</li>
-                          </ul>
-                        </div>
+
                     </div>
                   </div>
               </div>

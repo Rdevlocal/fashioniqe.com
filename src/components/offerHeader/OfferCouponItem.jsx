@@ -1,5 +1,4 @@
 import React from "react";
-import OfferTimer from "../coupon/offer-timer";
 import { InfoDetails } from "@/svg";
 import CopyToClipboard from "react-copy-to-clipboard";
 import Image from "next/image";
@@ -21,28 +20,6 @@ const OfferCouponItem = ({ coupon, handleCopied, copiedCode, copied }) => {
           <p className="tp-coupon-offer mb-15">
             <span>{coupon.discountPercentage}%</span>Off
           </p>
-          <div className="tp-coupon-countdown">
-            {dayjs().isAfter(dayjs(coupon.endTime)) ? (
-              <div className="tp-coupon-countdown-inner">
-                <ul>
-                  <li>
-                    <span>{0}</span> Day
-                  </li>
-                  <li>
-                    <span>{0}</span> Hrs
-                  </li>
-                  <li>
-                    <span>{0}</span> Min
-                  </li>
-                  <li>
-                    <span>{0}</span> Sec
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <OfferTimer expiryTimestamp={new Date(coupon.endTime)} />
-            )}
-          </div>
         </div>
       </div>
       <div className="tp-coupon-item-right pl-20">

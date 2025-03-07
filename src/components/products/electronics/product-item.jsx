@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 // internal
 import { Cart, QuickView, Wishlist } from "@/svg";
-import Timer from "@/components/common/timer";
 import { handleProductModal } from "@/redux/features/productModalSlice";
 import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
@@ -65,25 +64,6 @@ const ProductItem = ({ product, offer_style = false }) => {
           {/*  product action */}
           <div className="tp-product-action">
             <div className="tp-product-action-item d-flex flex-column">
-              {isAddedToCart ? (
-                <Link
-                  href="/cart"
-                  className={`tp-product-action-btn ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
-                >
-                  <Cart /> <span className="tp-product-tooltip">View Cart</span>
-                </Link>
-              ) : (
-                <button
-                  onClick={() => handleAddProduct(product)}
-                  type="button"
-                  className={`tp-product-action-btn ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
-                  disabled={status === 'out-of-stock'}
-                >
-                  <Cart />
-
-                  <span className="tp-product-tooltip">Add to Cart</span>
-                </button>
-              )}
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
@@ -142,26 +122,6 @@ const ProductItem = ({ product, offer_style = false }) => {
           </div>
           {offer_style && (
             <div className="tp-product-countdown">
-              <div className="tp-product-countdown-inner">
-                {dayjs().isAfter(offerDate?.endDate) ? (
-                  <ul>
-                    <li>
-                      <span>{0}</span> Day
-                    </li>
-                    <li>
-                      <span>{0}</span> Hrs
-                    </li>
-                    <li>
-                      <span>{0}</span> Min
-                    </li>
-                    <li>
-                      <span>{0}</span> Sec
-                    </li>
-                  </ul>
-                ) : (
-                  <Timer expiryTimestamp={new Date(offerDate?.endDate)} />
-                )}
-              </div>
             </div>
           )}
         </div>
