@@ -3,20 +3,12 @@ import { Images } from "./Images";
 import { EnrichedProducts } from "@/types/types";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
-import { Wishlists, getTotalWishlist } from "@/app/(carts)/wishlist/action";
+import { getTotalWishlist } from "@/app/(carts)/wishlist/action";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth";
 
 const WishlistButton = dynamic(() => import("../cart/WishlistButton"), {
   loading: () => <Skeleton className="w-5 h-5" />,
-});
-
-const DeleteButton = dynamic(() => import("../cart/DeleteButton"), {
-  loading: () => <Skeleton className="w-5 h-5" />,
-});
-
-const ProductCartInfo = dynamic(() => import("../cart/ProductCartInfo"), {
-  loading: () => <Skeleton className="w-24 h-8" />,
 });
 
 export const Products = async ({
@@ -42,7 +34,7 @@ export const Products = async ({
 
   return (
     <div className={gridClassname}>
-      {products.map((product, index) => {
+      {products.map((product) => {
         const {
           _id,
           category,
@@ -74,14 +66,14 @@ export const Products = async ({
           .join(" ");
 
         return (
-          <div className={containerClassname} key={index}>
+          <div className={containerClassname}>
             <Link href={productLink} className={linkClassname}>
               <Images
                 image={image}
                 name={name}
                 width={280}
                 height={425}
-                priority={index === 0}
+                priority={product === products[0]}
                 sizes="(max-width: 640px) 100vw, (max-width: 1154px) 33vw, (max-width: 1536px) 25vw, 20vw"
               />
             </Link>
@@ -94,22 +86,15 @@ export const Products = async ({
                   purchased ? (
                     quantity > 1 && <span className="text-sm">{quantity}</span>
                   ) : (
-                    <DeleteButton product={product} />
+                    <WishlistButton
+                      session={session}
+                      productId={JSON.stringify(_id)}
+                      wishlistString={JSON.stringify(wishlist)}
+                    />
                   )
-                ) : (
-                  <WishlistButton
-                    session={session}
-                    productId={JSON.stringify(_id)}
-                    wishlistString={JSON.stringify(wishlist)}
-                  />
-                )}
+                ) : null}
               </div>
-              {!purchased && (
-                <div className="text-sm">
-                  {quantity ? (price * quantity).toFixed(2) : price} €
-                </div>
-              )}
-              {quantity !== undefined && <ProductCartInfo product={product} />}
+              {!purchased && <p className="text-sm">€{price.toFixed(2)}</p>}
             </div>
           </div>
         );

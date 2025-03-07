@@ -144,8 +144,4 @@ export async function DELETE(request: Request) {
       { message: "User deleted successfully" },
       { status: 200 },
     );
-  } catch (error) {
-    console.error("Error during user/cart item deletion:", error);
-    return NextResponse.error();
   }
-}
