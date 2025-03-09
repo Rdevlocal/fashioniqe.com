@@ -4,10 +4,19 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/auth";
 import { Session } from "next-auth";
 import mongoose, { Schema } from "mongoose";
-import { kv } from "@vercel/kv";
 import { revalidatePath } from "next/cache";
 import { Product } from "@/models/Products";
 import { connectDB } from "@/libs/mongodb";
+
+// Mongoose Model Schema
+const wishlistSchema = new Schema({
+  userId: { type: String, required: true, unique: true },
+  items: [{
+    productId: { type: Schema.Types.ObjectId, required: true, ref: 'Product' }
+  }]
+});
+
+const Wishlist = mongoose.models.Wishlist || mongoose.model('Wishlist', wishlistSchema);
 
 export type Wishlists = {
   userId: string;
@@ -17,6 +26,7 @@ export type Wishlists = {
 };
 
 export async function addItem(productId: Schema.Types.ObjectId) {
+  await connectDB();
   const session: Session | null = await getServerSession(authOptions);
 
   if (!session?.user._id) {
@@ -25,111 +35,59 @@ export async function addItem(productId: Schema.Types.ObjectId) {
   }
 
   const userId = session.user._id;
-  let wishlists: Wishlists | null = await kv.get(`wishlist-${userId}`);
 
-  let myWishlists = {} as Wishlists;
+  await Wishlist.findOneAndUpdate(
+    { userId },
+    { $addToSet: { items: { productId } } }, // Voeg toe zonder duplicates
+    { upsert: true, new: true }
+  );
 
-  if (!wishlists || !wishlists.items) {
-    myWishlists = {
-      userId: userId,
-      items: [
-        {
-          productId: productId,
-        },
-      ],
-    };
-  } else {
-    let itemFound = false;
-
-    myWishlists.items = wishlists.items.map((item) => {
-      if (item.productId === productId) {
-        itemFound = true;
-      }
-      return item;
-    }) as Wishlists["items"];
-
-    if (!itemFound) {
-      myWishlists.items.push({
-        productId: productId,
-      });
-    }
-  }
-
-  await kv.set(`wishlist-${userId}`, myWishlists);
   revalidatePath("/wishlist");
 }
 
 export async function getItems(userId: string) {
-  connectDB();
+  await connectDB();
 
   if (!userId) {
     console.error(`User Id not found.`);
     return null;
   }
 
-  const wishlist: Wishlists | null = await kv.get(`wishlist-${userId}`);
+  const wishlist = await Wishlist.findOne({ userId }).populate('items.productId');
 
-  if (wishlist === null) {
-    console.error("wishlist not found.");
+  if (!wishlist) {
+    console.error("Wishlist not found.");
     return null;
   }
 
-  const updatedWishlist = [];
-  for (const wishlistItem of wishlist.items) {
-    try {
-      if (wishlistItem.productId) {
-        const matchingProduct = await Product.findById(wishlistItem.productId);
-
-        if (!matchingProduct) {
-          console.error(
-            `Product not found for productId: ${wishlistItem.productId}`,
-          );
-          continue;
-        } else {
-          updatedWishlist.push(matchingProduct);
-        }
-      }
-    } catch (error) {
-      console.error("Error getting product details:", error);
-    }
-  }
-
-  const filteredWishlist = updatedWishlist.filter((item) => item !== null);
-
-  return filteredWishlist;
+  return wishlist.items
+    .map(item => item.productId)
+    .filter(product => product !== null);
 }
 
 export async function getTotalWishlist() {
+  await connectDB();
   const session: Session | null = await getServerSession(authOptions);
-  const wishlists: Wishlists | null = await kv.get(
-    `wishlist-${session?.user._id}`,
-  );
+  
+  if (!session?.user._id) return undefined;
 
-  if (wishlists === null) {
-    return undefined;
-  }
-
-  return wishlists;
+  const wishlist = await Wishlist.findOne({ userId: session.user._id });
+  return wishlist || undefined;
 }
 
 export async function delItem(productId: Schema.Types.ObjectId) {
+  await connectDB();
   const session: Session | null = await getServerSession(authOptions);
-  const userId = session?.user._id;
-
-  if (!userId) {
+  
+  if (!session?.user._id) {
     console.error("User not found.");
     return;
   }
 
-  let wishlists: Wishlists | null = await kv.get(`wishlist-${userId}`);
+  await Wishlist.findOneAndUpdate(
+    { userId: session.user._id },
+    { $pull: { items: { productId } } }
+  );
 
-  if (wishlists && wishlists.items) {
-    const updatedWishlist = {
-      userId: userId,
-      items: wishlists.items.filter((item) => !(item.productId === productId)),
-    };
-
-    await kv.set(`wishlist-${userId}`, updatedWishlist);
-    revalidatePath("/wishlist");
-  }
+  revalidatePath("/wishlist");
 }

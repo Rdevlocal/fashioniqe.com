@@ -24,4 +24,19 @@ export default async function RootLayout({
 }) {
   const session: Session | null = await getServerSession(authOptions);
   const totalItemsWishlists = await getTotalWishlist();
+
+  return (
+    <html lang="en">
+      <body className={GeistSans.className}>
+        <Providers>
+          <Navbar session={session} wishlistCount={totalItemsWishlists} />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
+        <Analytics />
+        <SpeedInsights />
+        <Toaster />
+      </body>
+    </html>
+  );
 }
