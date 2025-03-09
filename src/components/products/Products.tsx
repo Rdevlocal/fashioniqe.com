@@ -43,7 +43,6 @@ export const Products = async ({
           image,
           name,
           price,
-          purchased,
         } = product;
         const productLink = `/${category}/${quantity ? productId : _id}`;
         const containerClassname = [
@@ -77,25 +76,6 @@ export const Products = async ({
                 sizes="(max-width: 640px) 100vw, (max-width: 1154px) 33vw, (max-width: 1536px) 25vw, 20vw"
               />
             </Link>
-            <div className={infoClassname}>
-              <div className="flex justify-between w-full">
-                <Link href={productLink} className="w-10/12">
-                  <h2 className="text-sm font-semibold truncate">{name}</h2>
-                </Link>
-                {quantity ? (
-                  purchased ? (
-                    quantity > 1 && <span className="text-sm">{quantity}</span>
-                  ) : (
-                    <WishlistButton
-                      session={session}
-                      productId={JSON.stringify(_id)}
-                      wishlistString={JSON.stringify(wishlist)}
-                    />
-                  )
-                ) : null}
-              </div>
-              {!purchased && <p className="text-sm">€{price.toFixed(2)}</p>}
-            </div>
           </div>
         );
       })}
