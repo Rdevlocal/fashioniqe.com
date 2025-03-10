@@ -18,14 +18,14 @@ export function LinksDesktop() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Collections</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Men</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex flex-col justify-end w-full h-full p-6 no-underline rounded-md outline-none select-none from-muted/50 to-muted focus:shadow-md bg-center bg-[url('/main-image.webp')]"
-                    href="/"
+                    className="flex flex-col justify-end w-full h-full p-6 no-underline rounded-md outline-none select-none from-muted/50 to-muted focus:shadow-md bg-center bg-[url('/main-image-men.webp')]"
+                    href="/men"
                   >
                     <div className="mt-4 mb-1 text-sm font-medium">
                       VIEW ALL
@@ -36,19 +36,45 @@ export function LinksDesktop() {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/t-shirts" title="T-SHIRTS">
-                Our men&apos;s T-shirts offer timeless style in a range of
-                designs, colors, and textures. From classic to contemporary,
-                find the perfect tee for any occasion.
+              <ListItem href="/men/t-shirts" title="T-SHIRTS">
+                Our men's T-shirts offer timeless style in a range of designs, colors, and textures. From classic to contemporary, find the perfect tee for any occasion.
               </ListItem>
-              <ListItem href="/pants" title="PANTS">
-                Explore essential men&apos;s pants for all occasions. From
-                classic chinos to modern joggers, find your perfect fit in a
-                variety of styles and colors.
+              <ListItem href="/men/pants" title="PANTS">
+                Explore essential men's pants for all occasions. From classic chinos to modern joggers, find your perfect fit in a variety of styles and colors.
               </ListItem>
-              <ListItem href="/sweatshirts" title="SWEATSHIRTS">
-                Much like the T-shirt, men&apos;s sweatshirts are far more than
-                a basic.
+              <ListItem href="/men/sweatshirts" title="SWEATSHIRTS">
+                Much like the T-shirt, men's sweatshirts are far more than a basic.
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Women</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <li className="row-span-3">
+                <NavigationMenuLink asChild>
+                  <Link
+                    className="flex flex-col justify-end w-full h-full p-6 no-underline rounded-md outline-none select-none from-muted/50 to-muted focus:shadow-md bg-center bg-[url('/main-image-women.webp')]"
+                    href="/women"
+                  >
+                    <div className="mt-4 mb-1 text-sm font-medium">
+                      VIEW ALL
+                    </div>
+                    <p className="text-sm leading-tight text-muted-foreground">
+                      Discover wardrobe staples for every occasion.
+                    </p>
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+              <ListItem href="/women/dresses" title="DRESSES">
+                Explore our collection of women's dresses for every occasion. From casual to formal, find the perfect dress to suit your style.
+              </ListItem>
+              <ListItem href="/women/tops" title="TOPS">
+                Discover a variety of women's tops, from casual tees to elegant blouses. Find the perfect top for any occasion.
+              </ListItem>
+              <ListItem href="/women/skirts" title="SKIRTS">
+                Browse our selection of women's skirts, from classic pencil skirts to trendy mini skirts. Find the perfect skirt to complete your outfit.
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -73,7 +99,7 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none text-[]">
+          <div className="text-sm font-medium leading-none">
             {title}
           </div>
           <p className="text-sm leading-snug line-clamp-2 text-muted-foreground text-[#A1A1A1]">

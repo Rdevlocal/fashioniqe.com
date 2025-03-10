@@ -11,7 +11,7 @@ export const Footer = () => {
       <nav className="flex flex-wrap justify-around gap-5 mx-auto max-w-screen-2xl">
         <div className="flex flex-col items-center justify-center w-full max-w-xs gap-5">
           <div className="flex gap-3.5">
-            <Link href="/home" target="_blank" title="Fashioniqe">
+            <Link href="/home" title="Fashioniqe">
               <img
                 src="/logo.svg"
                 alt="Fashioniqe Logo"

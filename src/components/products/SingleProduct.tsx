@@ -10,22 +10,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Line } from "recharts";
 
 interface SingleProduct {
   product: string;
   session: Session | null;
 }
 
-export const SingleProduct = ({ product, session }: SingleProduct) => {
+export const SingleProduct = ({ product }: SingleProduct) => {
   const productPlainObject: ProductDocument = JSON.parse(product);
-  const [selectedVariant, setSelectedVariant] = useState<VariantsDocument>(
+  const [selectedVariant] = useState<VariantsDocument>(
     productPlainObject.variants[0]
   );
   const [desiredPrice, setDesiredPrice] = useState(0);
   const [notificationTime, setNotificationTime] = useState("");
-  const [priceHistory, setPriceHistory] = useState([]);
-  const [predictedDiscounts, setPredictedDiscounts] = useState([]);
+  const [predictedDiscounts, setPredictedDiscounts] = useState<{ date: string; price: number }[]>([]);
 
   useEffect(() => {
     // Simulatie van prijsvoorspelling met een AI-model
@@ -62,20 +60,6 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
           </div>
         </div>
 
-        {/* Lijst van verkopers */}
-        <div className="w-full p-5 border border-solid rounded border-border-primary bg-background-secondary">
-          <h2 className="text-lg font-semibold mb-3">Verkopers</h2>
-          <ul className="space-y-3">
-            {productPlainObject.sellers?.map((seller) => (
-              <li key={seller.id} className="flex items-center justify-between">
-                <img src={seller.logo} alt={seller.name} className="w-12 h-12" />
-                <span className="text-sm">{seller.name}</span>
-                <span className="text-base font-bold">€{seller.price.toFixed(2)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Prijsupdate-module */}
         <div className="w-full p-5 border border-solid rounded border-border-primary bg-background-secondary">
           <h2 className="text-lg font-semibold mb-3">Prijsupdate instellen</h2>
@@ -95,18 +79,6 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
             />
             <button className="p-2 bg-blue-500 text-white rounded">Stel in</button>
           </div>
-        </div>
-
-        {/* Prijsvoorspelling grafiek */}
-        <div className="w-full p-5 border border-solid rounded border-border-primary bg-background-secondary">
-          <h2 className="text-lg font-semibold mb-3">Voorspelde prijsdalingen</h2>
-          <Line
-            data={predictedDiscounts}
-            dataKey="price"
-            name="Prijsvoorspelling (€)"
-            stroke="#8884d8"
-            dot={{ r: 5 }}
-          />
         </div>
 
         <Accordion type="single" collapsible className="w-full">
