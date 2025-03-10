@@ -5,7 +5,6 @@ import { authOptions } from "@/libs/auth";
 import { Session } from "next-auth";
 import mongoose, { Schema } from "mongoose";
 import { revalidatePath } from "next/cache";
-import { Product } from "@/models/Products";
 import { connectDB } from "@/libs/mongodb";
 
 // Mongoose Model Schema
@@ -61,8 +60,8 @@ export async function getItems(userId: string) {
   }
 
   return wishlist.items
-    .map(item => item.productId)
-    .filter(product => product !== null);
+    .map((item: { productId: Schema.Types.ObjectId }) => item.productId)
+    .filter((productId: Schema.Types.ObjectId | null) => productId !== null);
 }
 
 export async function getTotalWishlist() {
