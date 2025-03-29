@@ -1,10 +1,8 @@
 import { SingleProduct } from "@/components/products/SingleProduct";
 import { Products } from "@/components/products/Products";
-import { getProduct, getRandomProducts } from "@/app/actions";
-import { ProductDocument } from "@/types/types";
+import { getProduct, getRandomProducts, getCategoryProducts } from "@/app/actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/auth";
-import { Session } from "next-auth";
 import { Suspense } from "react";
 import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
 import SingleProductSkeleton from "@/components/skeletons/SingleProductSkeleton";
@@ -12,20 +10,17 @@ import SingleProductSkeleton from "@/components/skeletons/SingleProductSkeleton"
 type Props = {
   params: {
     id: string;
+    category: string;
   };
 };
 
-const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
 export async function generateMetadata({ params }: Props) {
-  const product: ProductDocument = await getProduct(params.id);
-  const capitalizedName = capitalizeFirstLetter(product.name);
+  const product = await getProduct(params.id);
+  const productTitle = product?.title || product?.name || "Product";
 
   return {
-    title: `${capitalizedName} | Ecommerce Template`,
-    description: product.description,
+    title: `${productTitle} | Webshop`,
+    description: product?.description || "Bekijk dit product in onze webshop",
   };
 }
 
@@ -36,7 +31,7 @@ const ProductPage = async ({ params }: Props) => (
         <div>
           <SingleProductSkeleton />
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            YOU MIGHT ALSO LIKE...
+            BEKIJK OOK...
           </h2>
           <ProductSkeleton
             extraClassname={"colums-mobile"}
@@ -45,26 +40,55 @@ const ProductPage = async ({ params }: Props) => (
         </div>
       }
     >
-      <AllProducts id={params.id} />
+      <AllProducts id={params.id} category={params.category} />
     </Suspense>
   </section>
 );
 
-const AllProducts = async ({ id }: { id: string }) => {
-  const session: Session | null = await getServerSession(authOptions);
-  const product: ProductDocument = await getProduct(id);
+const AllProducts = async ({ id, category }: { id: string; category: string }) => {
+  const session = await getServerSession(authOptions);
+  const product = await getProduct(id);
+  
+  if (!product) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <h1 className="text-2xl">Product niet gevonden</h1>
+      </div>
+    );
+  }
+  
+  // Haal zowel willekeurige als vergelijkbare producten op
   const randomProducts = await getRandomProducts(id);
+  const similarProducts = await getCategoryProducts(category);
+  
+  // Filter het huidige product uit de vergelijkbare producten
+  const filteredSimilarProducts = similarProducts.filter(p => 
+    p._id.toString() !== (product._id ? product._id.toString() : id)
+  ).slice(0, 6); // Beperk tot 6 items
+
   const productJSON = JSON.stringify(product);
 
   return (
     <>
       <SingleProduct product={productJSON} session={session} />
 
-      <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-        YOU MIGHT ALSO LIKE...
-      </h2>
+      {filteredSimilarProducts && filteredSimilarProducts.length > 0 && (
+        <>
+          <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
+            VERGELIJKBARE ITEMS
+          </h2>
+          <Products products={filteredSimilarProducts} extraClassname={"colums-mobile"} />
+        </>
+      )}
 
-      <Products products={randomProducts} extraClassname={"colums-mobile"} />
+      {randomProducts && randomProducts.length > 0 && (
+        <>
+          <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
+            BEKIJK OOK...
+          </h2>
+          <Products products={randomProducts} extraClassname={"colums-mobile"} />
+        </>
+      )}
     </>
   );
 };

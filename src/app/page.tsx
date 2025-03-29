@@ -1,76 +1,27 @@
-"use client";
-
-import { Suspense, useState } from "react";
-import { Products } from "../components/products/Products";
+import { Products } from "@/components/products/Products";
 import { getAllProducts } from "./actions";
 import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
+import { Suspense } from "react";
 
-const Home = () => {
-  const [filters, setFilters] = useState({
-    price: "",
-    brand: "",
-    size: "",
-    pasvorm: "",
-  });
-
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
-  };
+export default async function Home() {
+  // Haal producten op van de server
+  const products = await getAllProducts();
 
   return (
     <section className="pt-14">
-      <div className="filters">
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          value={filters.price}
-          onChange={handleFilterChange}
-        />
-        <input
-          type="text"
-          name="brand"
-          placeholder="Brand"
-          value={filters.brand}
-          onChange={handleFilterChange}
-        />
-        <input
-          type="text"
-          name="size"
-          placeholder="Size"
-          value={filters.size}
-          onChange={handleFilterChange}
-        />
-        <input
-          type="text"
-          name="pasvorm"
-          placeholder="Pasvorm"
-          value={filters.pasvorm}
-          onChange={handleFilterChange}
-        />
-      </div>
+      <h1 className="text-2xl font-bold mb-8">Onze Collectie</h1>
+      
       <Suspense
-        fallback={<ProductSkeleton extraClassname="" numberProducts={18} />}
+        fallback={<ProductSkeleton extraClassname="" numberProducts={8} />}
       >
-        <AllProducts filters={filters} />
+        {products && products.length > 0 ? (
+          <Products products={products} extraClassname="" />
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-xl">Geen producten gevonden</p>
+          </div>
+        )}
       </Suspense>
     </section>
   );
-};
-
-interface Filters {
-  price: string;
-  brand: string;
-  size: string;
-  pasvorm: string;
 }
-const AllProducts = async ({ filters }: { filters: Filters }) => {
-  const products = await getAllProducts();
-  return <Products products={products} extraClassname="" />;
-};
-
-export default Home;

@@ -1,65 +1,129 @@
 "use server";
 
 import { connectDB } from "@/libs/mongodb";
-import { Product } from "@/models/Products";
-import { EnrichedProducts } from "@/types/types";
+import mongoose from "mongoose";
 
+// Deze functie haalt producten op uit je database zoals ze zijn
 export const getAllProducts = async () => {
   try {
     await connectDB();
-
-    const products: EnrichedProducts[] = await Product.find();
+    
+    // Gebruik direct de MongoDB collectie
+    const db = mongoose.connection.db;
+    const productsCollection = db.collection('products');
+    
+    // Haal alle producten op
+    const products = await productsCollection.find({}).toArray();
+    
+    console.log(`${products.length} producten opgehaald`);
     return products;
   } catch (error) {
     console.error("Error getting products:", error);
-    throw new Error("Failed to fetch category products");
+    return [];
   }
 };
 
 export const getCategoryProducts = async (category: string) => {
   try {
     await connectDB();
-
-    const products: EnrichedProducts[] = await Product.find({ category });
+    
+    const db = mongoose.connection.db;
+    const productsCollection = db.collection('products');
+    
+    // Zoek producten met de gegeven categorie (als het veld bestaat)
+    // We proberen verschillende mogelijke veldnamen voor categorie
+    const products = await productsCollection.find({
+      $or: [
+        { categoryName: category },
+        { category: category }, 
+        { productCategory: category }
+      ]
+    }).toArray();
+    
     return products;
   } catch (error) {
-    console.error("Error getting products:", error);
-    throw new Error("Failed to fetch category products");
+    console.error("Error getting category products:", error);
+    return [];
   }
 };
 
 export const getRandomProducts = async (productId: string) => {
-  const shuffleArray = (array: EnrichedProducts[]) => {
-    let shuffled = array.slice();
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
   try {
     await connectDB();
-
-    const allProducts: EnrichedProducts[] = await Product.find();
-    const shuffledProducts = shuffleArray(allProducts);
-    const randomProducts = shuffledProducts
-      .filter((product) => product._id.toString() !== productId)
-      .slice(0, 6);
-    return randomProducts;
+    
+    const db = mongoose.connection.db;
+    const productsCollection = db.collection('products');
+    
+    // Haal alle producten op
+    const allProducts = await productsCollection.find({}).toArray();
+    
+    // Shuffle en filter (verwijder het opgegeven product)
+    let randomProducts = [...allProducts];
+    
+    // Filter het huidige product uit indien mogelijk
+    if (productId) {
+      try {
+        // Probeer eerst te filteren op ObjectId
+        const objId = new mongoose.Types.ObjectId(productId);
+        randomProducts = randomProducts.filter(p => 
+          !p._id.equals(objId)
+        );
+      } catch (e) {
+        // Als het geen geldig ObjectId is, filter op productId string
+        randomProducts = randomProducts.filter(p => 
+          p.productId !== productId
+        );
+      }
+    }
+    
+    // Shuffle de producten
+    randomProducts.sort(() => 0.5 - Math.random());
+    
+    // Return de eerste 6 (of minder als er niet genoeg zijn)
+    return randomProducts.slice(0, 6);
   } catch (error) {
-    console.error("Error getting products:", error);
-    throw new Error("Failed to fetch random products");
+    console.error("Error getting random products:", error);
+    return [];
   }
 };
 
-export const getProduct = async (_id: string) => {
+export const getProduct = async (id: string) => {
   try {
     await connectDB();
-
-    const product = await Product.findOne({ _id });
+    
+    const db = mongoose.connection.db;
+    const productsCollection = db.collection('products');
+    
+    // Probeer het product op verschillende manieren te vinden
+    let product = null;
+    
+    // Eerst proberen als ObjectId
+    try {
+      const objId = new mongoose.Types.ObjectId(id);
+      product = await productsCollection.findOne({ _id: objId });
+    } catch (e) {
+      // Geen geldige ObjectId, negeer de fout
+    }
+    
+    // Als niet gevonden, probeer als productId
+    if (!product) {
+      product = await productsCollection.findOne({ productId: id });
+    }
+    
+    // Als nog niet gevonden, probeer andere potentiële ID velden
+    if (!product) {
+      product = await productsCollection.findOne({ 
+        $or: [
+          { id: id },
+          { SKU: id },
+          { sku: id }
+        ]
+      });
+    }
+    
     return product;
   } catch (error) {
     console.error("Error getting product:", error);
+    return null;
   }
 };

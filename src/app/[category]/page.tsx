@@ -17,14 +17,18 @@ export async function generateMetadata({ params }: Props) {
   const capitalizedCategory = capitalizeFirstLetter(params.category);
 
   return {
-    title: `${capitalizedCategory} | Fashioniqe`,
-    description: `${capitalizedCategory} Fashion Deals at the Right Price`,
+    title: `${capitalizedCategory} | Webshop`,
+    description: `${capitalizedCategory} producten in onze webshop`,
   };
 }
 
 const CategoryPage = async ({ params }: Props) => {
   return (
     <section className="pt-14">
+      <h1 className="text-2xl font-bold mb-8">
+        {params.category.charAt(0).toUpperCase() + params.category.slice(1)}
+      </h1>
+      
       <Suspense
         fallback={<ProductSkeleton extraClassname="" numberProducts={6} />}
       >
@@ -37,7 +41,17 @@ const CategoryPage = async ({ params }: Props) => {
 const CategoryProducts = async ({ category }: { category: string }) => {
   const products = await getCategoryProducts(category);
 
-  return <Products products={products} extraClassname="" />;
+  return (
+    <>
+      {products && products.length > 0 ? (
+        <Products products={products} extraClassname="" />
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-xl">Geen producten gevonden in deze categorie</p>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default CategoryPage;
