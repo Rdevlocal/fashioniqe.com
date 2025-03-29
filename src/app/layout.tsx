@@ -29,7 +29,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={GeistSans.className}>
         <Providers>
-          <Navbar session={session} wishlistCount={totalItemsWishlists} />
+          <Navbar session={session} />
           <main>{children}</main>
           <Footer />
         </Providers>

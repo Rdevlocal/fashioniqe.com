@@ -220,7 +220,7 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
                 return (
                   <div key={key} className="mt-2">
                     <strong className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</strong>{' '}
-                    {value.toString()}
+                    {(value ?? "").toString()}
                   </div>
                 );
               })}
