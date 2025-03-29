@@ -37,13 +37,13 @@ export function LinksDesktop() {
                 </NavigationMenuLink>
               </li>
               <ListItem href="/men/t-shirts" title="T-SHIRTS">
-                Our men's T-shirts offer timeless style in a range of designs, colors, and textures. From classic to contemporary, find the perfect tee for any occasion.
+                Our men&apos;s T-shirts offer timeless style in a range of designs, colors, and textures. From classic to contemporary, find the perfect tee for any occasion.
               </ListItem>
               <ListItem href="/men/pants" title="PANTS">
-                Explore essential men's pants for all occasions. From classic chinos to modern joggers, find your perfect fit in a variety of styles and colors.
+                Explore essential men&apos;s pants for all occasions. From classic chinos to modern joggers, find your perfect fit in a variety of styles and colors.
               </ListItem>
               <ListItem href="/men/sweatshirts" title="SWEATSHIRTS">
-                Much like the T-shirt, men's sweatshirts are far more than a basic.
+                Much like the T-shirt, men&apos;s sweatshirts are far more than a basic.
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -68,13 +68,13 @@ export function LinksDesktop() {
                 </NavigationMenuLink>
               </li>
               <ListItem href="/women/dresses" title="DRESSES">
-                Explore our collection of women's dresses for every occasion. From casual to formal, find the perfect dress to suit your style.
+                Explore our collection of women&apos;s dresses for every occasion. From casual to formal, find the perfect dress to suit your style.
               </ListItem>
               <ListItem href="/women/tops" title="TOPS">
-                Discover a variety of women's tops, from casual tees to elegant blouses. Find the perfect top for any occasion.
+                Discover a variety of women&apos;s tops, from casual tees to elegant blouses. Find the perfect top for any occasion.
               </ListItem>
               <ListItem href="/women/skirts" title="SKIRTS">
-                Browse our selection of women's skirts, from classic pencil skirts to trendy mini skirts. Find the perfect skirt to complete your outfit.
+                Browse our selection of women&apos;s skirts, from classic pencil skirts to trendy mini skirts. Find the perfect skirt to complete your outfit.
               </ListItem>
             </ul>
           </NavigationMenuContent>
