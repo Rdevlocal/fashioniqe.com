@@ -200,40 +200,7 @@ export default function HomePageClient({
         )}
       </section>
       
-      {/* Brand Features */}
-      <section className="container mx-auto px-6 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex flex-col items-center text-center p-6 border border-gray-800 rounded-lg bg-[#0C0C0C]">
-            <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Quality Products</h3>
-            <p className="text-gray-400">Carefully selected high-quality fashion items from trusted brands.</p>
-          </div>
-          
-          <div className="flex flex-col items-center text-center p-6 border border-gray-800 rounded-lg bg-[#0C0C0C]">
-            <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Fast Shipping</h3>
-            <p className="text-gray-400">Quick delivery with order tracking available for all purchases.</p>
-          </div>
-          
-          <div className="flex flex-col items-center text-center p-6 border border-gray-800 rounded-lg bg-[#0C0C0C]">
-            <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Secure Payments</h3>
-            <p className="text-gray-400">Multiple secure payment options available for your convenience.</p>
-          </div>
-        </div>
-      </section>
+
     </div>
   );
 }
