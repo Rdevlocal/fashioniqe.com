@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { getAllProducts } from "./actions";
-import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
+// import ProductSkeleton from "@/components/skeletons/ProductSkeleton"; // Removed as it is unused
 import { connectDB } from "@/libs/mongodb";
 import mongoose from "mongoose";
-import HomePageClient from "@/components/home/HomePageClient";
+import HomePageClient from "../components/home/HomePageClient"; // Adjusted the path to match the relative location
 
 async function getCategories() {
   try {
@@ -38,14 +38,14 @@ async function getCategories() {
     // If we have a categories collection, try to retrieve the data
     if (collections.length > 0) {
       const categoriesCollection = db.collection("categories");
-      const dbCategories = await categoriesCollection.findOne({ _id: "main" });
+      const dbCategories = await categoriesCollection.findOne({ _id: new mongoose.Types.ObjectId("main") });
       
       if (dbCategories) {
         categories = dbCategories.data;
       } else {
         // If we don't have categories yet, let's create them with our fallback data
         await categoriesCollection.insertOne({
-          _id: "main",
+          _id: new mongoose.Types.ObjectId("main"),
           data: categories
         });
       }
@@ -54,7 +54,7 @@ async function getCategories() {
       await db.createCollection("categories");
       const categoriesCollection = db.collection("categories");
       await categoriesCollection.insertOne({
-        _id: "main",
+        _id: new mongoose.Types.ObjectId("64b8f3f2f2f2f2f2f2f2f2f2"), // Replaced with a valid ObjectId
         data: categories
       });
     }

@@ -2,7 +2,7 @@ import { connectDB } from "@/libs/mongodb";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     await connectDB();
     
@@ -35,14 +35,14 @@ export async function GET(request: NextRequest) {
     // If we have a categories collection, try to retrieve the data
     if (collections.length > 0) {
       const categoriesCollection = db.collection("categories");
-      const dbCategories = await categoriesCollection.findOne({ _id: "main" });
+      const dbCategories = await categoriesCollection.findOne({ _id: new mongoose.Types.ObjectId("000000000000000000000001") });
       
       if (dbCategories) {
         categories = dbCategories.data;
       } else {
         // If we don't have categories yet, let's create them with our fallback data
         await categoriesCollection.insertOne({
-          _id: "main",
+          _id: new mongoose.Types.ObjectId("000000000000000000000001"),
           data: categories
         });
       }
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
       await db.createCollection("categories");
       const categoriesCollection = db.collection("categories");
       await categoriesCollection.insertOne({
-        _id: "main",
+        _id: new mongoose.Types.ObjectId("000000000000000000000002"),
         data: categories
       });
     }
