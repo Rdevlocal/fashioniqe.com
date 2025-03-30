@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { PricePredictionChart } from "@/components/products/PricePredictionChart";
 
 interface RetailerInfo {
   name: string;
@@ -499,127 +500,24 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
 
           <AccordionItem value="item-3">
             <AccordionTrigger className="text-sm">PRIJSVOORSPELLING</AccordionTrigger>
-            <AccordionContent>
-              <div className="mt-2">
-                <h3 className="text-sm font-medium mb-2">Prijsverloop en voorspelling</h3>
-                <div className="bg-[#0F0F0F] p-4 rounded-md">
-                  {/* SVG prijsgrafiek */}
-                  <svg width="100%" height="200" viewBox="0 0 600 200">
-                    {/* X-as en Y-as */}
-                    <line x1="50" y1="170" x2="550" y2="170" stroke="#444" strokeWidth="1" />
-                    <line x1="50" y1="20" x2="50" y2="170" stroke="#444" strokeWidth="1" />
-                    
-                    {/* Y-as labels */}
-                    <text x="25" y="170" fill="#888" fontSize="10" textAnchor="middle">€0</text>
-                    <text x="25" y="125" fill="#888" fontSize="10" textAnchor="middle">
-                      €{(price * 0.75).toFixed(0)}
-                    </text>
-                    <text x="25" y="80" fill="#888" fontSize="10" textAnchor="middle">
-                      €{(price * 1.5).toFixed(0)}
-                    </text>
-                    <text x="25" y="35" fill="#888" fontSize="10" textAnchor="middle">
-                      €{(price * 2.25).toFixed(0)}
-                    </text>
-                    
-                    {/* X-as labels */}
-                    {priceHistory.map((point, index) => {
-                      const x = 50 + (index * (500 / (priceHistory.length - 1)));
-                      return (
-                        <text 
-                          key={`label-${index}`}
-                          x={x} 
-                          y="185" 
-                          fill="#888" 
-                          fontSize="10" 
-                          textAnchor="middle"
-                        >
-                          {point.date}
-                        </text>
-                      );
-                    })}
-                    
-                    {/* Prijslijn */}
-                    <polyline
-                      points={priceHistory.map((point, index) => {
-                        const x = 50 + (index * (500 / (priceHistory.length - 1)));
-                        // Schaal de prijs tussen 20 en 170 (de y-as)
-                        const maxPrice = Math.max(...priceHistory.map(p => p.price)) * 1.1;
-                        const y = 170 - ((point.price / maxPrice) * 150);
-                        return `${x},${y}`;
-                      }).join(' ')}
-                      fill="none"
-                      stroke="#3B82F6"
-                      strokeWidth="2"
-                    />
-                    
-                    {/* Toekomstige prijslijn (streepjes) */}
-                    <polyline
-                      points={priceHistory.slice(3).map((point, index) => {
-                        const actualIndex = index + 3; // start vanaf het 4e punt (huidige prijs)
-                        const x = 50 + (actualIndex * (500 / (priceHistory.length - 1)));
-                        const maxPrice = Math.max(...priceHistory.map(p => p.price)) * 1.1;
-                        const y = 170 - ((point.price / maxPrice) * 150);
-                        return `${x},${y}`;
-                      }).join(' ')}
-                      fill="none"
-                      stroke="#3B82F6"
-                      strokeWidth="2"
-                      strokeDasharray="5,5"
-                    />
-                    
-                    {/* Huidige prijspunt (grotere cirkel) */}
-                    {(() => {
-                      const currentIndex = 3; // Het "Nu" punt
-                      const x = 50 + (currentIndex * (500 / (priceHistory.length - 1)));
-                      const maxPrice = Math.max(...priceHistory.map(p => p.price)) * 1.1;
-                      const y = 170 - ((priceHistory[currentIndex].price / maxPrice) * 150);
-                      return (
-                        <circle cx={x} cy={y} r="5" fill="#3B82F6" />
-                      );
-                    })()}
-                    
-                    {/* Prijspunten */}
-                    {priceHistory.map((point, index) => {
-                      if (index === 3) return null; // Skip "Nu" punt (we hebben al een grotere cirkel)
-                      const x = 50 + (index * (500 / (priceHistory.length - 1)));
-                      const maxPrice = Math.max(...priceHistory.map(p => p.price)) * 1.1;
-                      const y = 170 - ((point.price / maxPrice) * 150);
-                      return (
-                        <circle 
-                          key={`point-${index}`}
-                          cx={x} 
-                          cy={y} 
-                          r="3" 
-                          fill={index > 3 ? "#1D4ED8" : "#3B82F6"} 
-                        />
-                      );
-                    })}
-                  </svg>
-                </div>
-                <p className="text-sm mt-3 text-gray-400">
-                  Onze AI voorspelt dat de prijs van dit product in de komende maanden zal dalen.
-                  Het beste moment om te kopen is waarschijnlijk over 3 maanden wanneer de prijs
-                  naar verwachting ongeveer €{(price * 0.85).toFixed(2)} zal zijn.
-                </p>
-                {/* Retailer prijsvergelijking en voorspelling */}
-                {retailers.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="text-sm font-medium mb-1">Prijsvergelijking bij verkopers</h4>
-                    <p className="text-xs text-gray-400 mb-2">
-                      De laagste prijs voor dit product is momenteel €{retailers[0].price.toFixed(2)} bij {retailers[0].name}.
-                    </p>
-                    
-                    <div className="bg-blue-900 bg-opacity-20 p-2 rounded">
-                      <p className="text-xs">
-                        <span className="font-medium">Prijstip:</span> Bekijk de prijzen bij alle verkopers. 
-                        Er is een prijsverschil van €{(Math.max(...retailers.map(r => r.price)) - Math.min(...retailers.map(r => r.price))).toFixed(2)} 
-                        tussen de duurste en goedkoopste aanbieder.
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </AccordionContent>
+            <AccordionItem value="item-3">
+  <AccordionTrigger className="text-sm">PRIJSVOORSPELLING</AccordionTrigger>
+  <AccordionContent>
+    <div className="mt-2">
+      {/* Import en gebruik onze nieuwe PricePredictionChart component */}
+      <PricePredictionChart productId={_id.toString()} />
+      
+      {/* Verwijder of commentarieer de oude SVG grafiek code uit 
+      <h3 className="text-sm font-medium mb-2">Prijsverloop en voorspelling</h3>
+      <div className="bg-[#0F0F0F] p-4 rounded-md">
+        ...
+        Oude SVG grafiek code kan hier verwijderd worden
+        ...
+      </div>
+      */}
+    </div>
+  </AccordionContent>
+</AccordionItem>
           </AccordionItem>
         </Accordion>
       </div>
