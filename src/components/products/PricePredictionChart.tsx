@@ -1,5 +1,3 @@
-// src/components/products/PricePredictionChart.tsx
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -46,21 +44,19 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
   if (error || !prediction) {
     return (
       <div className="bg-[#0F0F0F] p-4 rounded-md">
-        {/* Content inside this div */}
-      </div>
         <p className="text-red-400 text-sm">{error || 'Prijsvoorspelling niet beschikbaar'}</p>
       </div>
     );
   }
 
-  // Combineer historische en voorspelde prijzen voor de grafiek
+  // Combine historical and predicted prices for chart
   const allPricePoints = [
     ...prediction.historicalPrices.map((point: any) => ({
       date: point.date,
       price: point.price,
       type: 'historical'
     })),
-    // Voeg huidig prijspunt toe
+    // Add current price point
     {
       date: new Date(),
       price: prediction.historicalPrices[prediction.historicalPrices.length - 1]?.price || 0,
@@ -73,21 +69,21 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
     }))
   ];
 
-  // Sorteer op datum
+  // Sort by date
   allPricePoints.sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  // Maak datapunten voor de grafiek
+  // Create data points for chart
   const maxPrice = Math.max(...allPricePoints.map(p => p.price)) * 1.1;
   const minPrice = Math.min(...allPricePoints.map(p => p.price)) * 0.9;
 
-  // Bereken afmetingen van de SVG grafiek
+  // Calculate chart dimensions
   const svgWidth = 600;
   const svgHeight = 200;
   const padding = { top: 20, right: 30, bottom: 30, left: 50 };
   const graphWidth = svgWidth - padding.left - padding.right;
   const graphHeight = svgHeight - padding.top - padding.bottom;
-  const xScale = (_: any, index: number) => {
-  // Bereken schaal voor x- en y-as
+
+  // Calculate scales for x and y axes
   const xScale = (point: any, index: number) => {
     return padding.left + (index / (allPricePoints.length - 1)) * graphWidth;
   };
@@ -97,8 +93,8 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
     return padding.top + graphHeight - ((price - minPrice) / range) * graphHeight;
   };
 
-  // Maak punten voor de grafieklijnen
-    .map((point, index) => ({
+  // Create points for chart lines
+  const historicalLinePoints = allPricePoints
     .filter(p => p.type === 'historical' || p.type === 'current')
     .map((point, index, arr) => ({
       x: xScale(point, allPricePoints.indexOf(point)),
@@ -114,7 +110,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
       isFirst: index === 0
     }));
 
-  // Maak paths voor de lijnen
+  // Create paths for lines
   const historicalPath = historicalLinePoints.length > 1
     ? `M ${historicalLinePoints.map(p => `${p.x},${p.y}`).join(' L ')}`
     : '';
@@ -123,13 +119,13 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
     ? `M ${predictedLinePoints.map(p => `${p.x},${p.y}`).join(' L ')}`
     : '';
 
-  // Formateer datums voor x-as labels
+  // Format dates for x-axis labels
   const formatDate = (date: Date) => {
     const months = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
     return `${date.getDate()} ${months[date.getMonth()]}`;
   };
 
-  // Bepaal welke datums tonen op de x-as (3-5 datums)
+  // Determine which dates to show on x-axis (3-5 dates)
   const xAxisLabels = [];
   const step = Math.ceil(allPricePoints.length / 5);
   for (let i = 0; i < allPricePoints.length; i += step) {
@@ -141,7 +137,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
     }
   }
 
-  // Bepaal de y-as labels (3-5 prijspunten)
+  // Determine y-axis labels (3-5 price points)
   const yAxisLabels = [];
   const priceStep = (maxPrice - minPrice) / 4;
   for (let i = 0; i <= 4; i++) {
@@ -152,25 +148,23 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
     });
   }
 
-  // Formateer data voor de voorspelling
+  // Format data for prediction
   const formatPredictionDate = (date: Date | null) => {
     if (!date) return 'onbekend';
     return formatDate(date);
   };
-    <div className="mt-2">
-      {/* Content inside this div */}
-    </div>
+
   return (
     <div className="mt-2">
       <h3 className="text-sm font-medium mb-2">Prijsverloop en voorspelling</h3>
       <div className="bg-[#0F0F0F] p-4 rounded-md">
-        {/* SVG Prijsgrafiek */}
+        {/* SVG Price Chart */}
         <svg width="100%" height={svgHeight} viewBox={`0 0 ${svgWidth} ${svgHeight}`} className="overflow-visible">
-          {/* X-as en Y-as */}
+          {/* X and Y axes */}
           <line x1={padding.left} y1={padding.top + graphHeight} x2={padding.left + graphWidth} y2={padding.top + graphHeight} stroke="#444" strokeWidth="1" />
           <line x1={padding.left} y1={padding.top} x2={padding.left} y2={padding.top + graphHeight} stroke="#444" strokeWidth="1" />
           
-          {/* Y-as labels */}
+          {/* Y-axis labels */}
           {yAxisLabels.map((label, index) => (
             <g key={`y-label-${index}`}>
               <line 
@@ -193,7 +187,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
             </g>
           ))}
           
-          {/* X-as labels */}
+          {/* X-axis labels */}
           {xAxisLabels.map((label, index) => (
             <g key={`x-label-${index}`}>
               <line 
@@ -216,7 +210,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
             </g>
           ))}
           
-          {/* Historische prijslijn */}
+          {/* Historical price line */}
           <path
             d={historicalPath}
             fill="none"
@@ -224,7 +218,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
             strokeWidth="2"
           />
           
-          {/* Toekomstige prijslijn (gestippeld) */}
+          {/* Future price line (dashed) */}
           <path
             d={predictedPath}
             fill="none"
@@ -233,17 +227,17 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
             strokeDasharray="5,5"
           />
           
-          {/* Huidig prijspunt (grote cirkel) */}
+          {/* Current price point (large circle) */}
           {allPricePoints.findIndex(p => p.type === 'current') >= 0 && (
             <circle 
               cx={xScale(allPricePoints.find(p => p.type === 'current'), allPricePoints.findIndex(p => p.type === 'current'))} 
-              cy={yScale(allPricePoints.find(p => p.type === 'current').price)} 
+              cy={yScale(allPricePoints.find(p => p.type === 'current')!.price)} 
               r="5" 
               fill="#3B82F6" 
             />
           )}
           
-          {/* Historische prijspunten */}
+          {/* Historical price points */}
           {allPricePoints
             .filter(p => p.type === 'historical')
             .map((point, index) => (
@@ -256,7 +250,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
               />
             ))}
           
-          {/* Voorspelde prijspunten */}
+          {/* Predicted price points */}
           {allPricePoints
             .filter(p => p.type === 'predicted')
             .map((point, index) => (
@@ -298,7 +292,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
           )}
         </svg>
 
-        {/* Legenda */}
+        {/* Legend */}
         <div className="flex items-center mt-2 text-xs text-gray-400 justify-center">
           <div className="flex items-center mr-4">
             <div className="w-3 h-3 bg-blue-500 mr-1"></div>
@@ -313,12 +307,10 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
               <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
               <span>Beste moment om te kopen</span>
             </div>
-        <div className="mt-4 space-y-2 text-sm">
-          {/* Content inside this div */}
-        </div>
+          )}
         </div>
 
-        {/* Voorspellingsinformatie */}
+        {/* Prediction information */}
         <div className="mt-4 space-y-2 text-sm">
           {prediction.predictedDiscountDate && (
             <div className="bg-blue-900 bg-opacity-20 p-2 rounded">
@@ -352,3 +344,10 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
             <p className="font-medium text-gray-300 mb-1">⚠️ Disclaimer</p>
             <p>Deze prijsvoorspelling is gebaseerd op historische gegevens en algoritmes. De daadwerkelijke prijsontwikkeling kan afwijken. Deze voorspelling biedt geen garantie en dient alleen ter indicatie.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export { PricePredictionChart };

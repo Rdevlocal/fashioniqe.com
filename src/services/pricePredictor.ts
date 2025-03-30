@@ -3,69 +3,69 @@
 import mongoose from "mongoose";
 import { connectDB } from "@/libs/mongodb";
 
-// Basis interfaces voor prijsgegevens
+// Base interfaces for price data
 interface PricePoint {
   price: number;
   date: Date;
 }
 
-// Interface voor de voorspellingsresultaten
+// Interface for prediction results
 interface PricePrediction {
-  // Hoofdvoorspelling
+  // Main prediction
   predictedPrice: number;
-  confidence: number; // 0-100% betrouwbaarheid
+  confidence: number; // 0-100% reliability
   
-  // Korting voorspelling
+  // Discount prediction
   predictedDiscountDate: Date | null;
   predictedDiscountPercentage: number | null;
   
-  // Trend analyse
+  // Trend analysis
   seasonalTrend: 'rising' | 'falling' | 'stable';
   
-  // Gegevens voor de grafiek
+  // Data for chart
   historicalPrices: PricePoint[];
-  predictedPrices: {date: Date, price: number}[];
+  predictedPrices: PricePoint[];
   
-  // Koopadvies
+  // Buying advice
   bestTimeToBuy: Date | null;
   lowestPredictedPrice: number | null;
 }
 
 /**
- * PricePredictor - Service voor het voorspellen van prijstrends en kortingen
+ * PricePredictor - Service for predicting price trends and discounts
  */
 export class PricePredictor {
   
   /**
-   * Maakt een prijsvoorspelling voor een product
-   * @param productId ID van het product
+   * Creates a price prediction for a product
+   * @param productId ID of the product
    */
   public static async predictPrice(productId: string): Promise<PricePrediction> {
     try {
-      // Stap 1: Haal historische prijsgegevens op
+      // Step 1: Get historical price data
       const priceHistory = await this.getHistoricalPrices(productId);
       
-      // Stap 2: Haal huidige prijs op
+      // Step 2: Get current price
       const currentPrice = await this.fetchCurrentProductPrice(productId);
       
-      // Stap 3: Bepaal de seizoenstrend
+      // Step 3: Determine seasonal trend
       const seasonalTrend = this.analyzeSeasonal(priceHistory);
       
-      // Stap 4: Voorspel toekomstige prijzen
+      // Step 4: Predict future prices
       const futurePrices = this.predictFuturePrices(priceHistory, currentPrice);
       
-      // Stap 5: Bepaal wanneer het product waarschijnlijk in de korting gaat
+      // Step 5: Determine when the product is likely to go on sale
       const { date: discountDate, percentage: discountPercentage } = 
         this.predictDiscountDate(priceHistory, futurePrices);
       
-      // Stap 6: Bepaal het beste moment om te kopen
+      // Step 6: Determine the best time to buy
       const { date: bestBuyDate, price: lowestPrice } = 
         this.determineBestTimeToBuy(futurePrices);
       
-      // Stap 7: Bereken een betrouwbaarheidsscore
+      // Step 7: Calculate confidence score
       const confidence = priceHistory.length > 10 ? 75 : 60;
       
-      // Retourneer het voorspellingsresultaat
+      // Return prediction result
       return {
         predictedPrice: futurePrices.length > 0 ? futurePrices[0].price : currentPrice,
         confidence,
@@ -80,7 +80,7 @@ export class PricePredictor {
     } catch (error) {
       console.error("Error in price prediction:", error);
       
-      // Retourneer een fallback-voorspelling bij fouten
+      // Return fallback prediction on errors
       return {
         predictedPrice: 0,
         confidence: 0,
@@ -96,32 +96,32 @@ export class PricePredictor {
   }
 
   /**
-   * Haalt historische prijsgegevens op voor een product
+   * Gets historical price data for a product
    */
   private static async getHistoricalPrices(productId: string): Promise<PricePoint[]> {
     await connectDB();
     
     try {
-      // Haal de MongoDB database op
+      // Get MongoDB database
       const db = mongoose.connection.db;
       
-      // Controleer of de collectie bestaat
+      // Check if collection exists
       const collections = await db.listCollections({ name: "price_history" }).toArray();
       if (collections.length === 0) {
-        // Geen historische data beschikbaar, genereer testdata
+        // No historical data available, generate test data
         return this.generateDummyPriceHistory(productId);
       }
       
-      // Haal historische prijzen op uit de database
+      // Get historical prices from database
       const priceCollection = db.collection("price_history");
       const priceHistory = await priceCollection.findOne({ productId });
       
-      // Als geen gegevens gevonden, genereer testdata
+      // If no data found, generate test data
       if (!priceHistory || !priceHistory.prices || priceHistory.prices.length === 0) {
         return this.generateDummyPriceHistory(productId);
       }
       
-      // Transformeer naar PricePoint interface
+      // Transform to PricePoint interface
       return priceHistory.prices.map((entry: any) => ({
         price: entry.price,
         date: new Date(entry.date)
@@ -133,35 +133,35 @@ export class PricePredictor {
   }
 
   /**
-   * Genereert realistische testdata voor de prijshistorie
+   * Generates realistic test data for price history
    */
   private static async generateDummyPriceHistory(productId: string): Promise<PricePoint[]> {
-    // Vraag de huidige prijs op
+    // Get current price
     const currentPrice = await this.fetchCurrentProductPrice(productId);
     const today = new Date();
     const priceHistory: PricePoint[] = [];
     
-    // Genereer prijsgegevens voor de afgelopen 6 maanden
+    // Generate price data for past 6 months
     for (let i = 180; i >= 0; i -= 15) {
       const date = new Date(today);
       date.setDate(today.getDate() - i);
       
-      // Factoren die de prijs beïnvloeden
+      // Factors affecting price
       const seasonalFactor = Math.sin((date.getMonth() + 6) / 12 * Math.PI * 2);
       const randomFactor = 0.1 * (Math.random() - 0.5);
       const marketFactor = Math.cos(i / 30) * 0.05;
       
-      // Bereken prijs met seizoensgebonden factoren
+      // Calculate price with seasonal factors
       let price = currentPrice * (1 + seasonalFactor * 0.15 + randomFactor + marketFactor);
       
-      // Voeg korting toe in typische saleseizoenen
+      // Add discount in typical sale seasons
       if ((date.getMonth() === 11 || date.getMonth() === 5) && date.getDate() < 15) {
-        price *= 0.8 + Math.random() * 0.1; // 10-20% korting
+        price *= 0.8 + Math.random() * 0.1; // 10-20% discount
       }
       
-      // Voeg toe aan geschiedenis
+      // Add to history
       priceHistory.push({
-        price: Math.round(price * 100) / 100, // Rond af op twee decimalen
+        price: Math.round(price * 100) / 100, // Round to two decimals
         date: new Date(date)
       });
     }
@@ -170,7 +170,7 @@ export class PricePredictor {
   }
   
   /**
-   * Haalt de huidige prijs op van een product
+   * Gets the current price of a product
    */
   private static async fetchCurrentProductPrice(productId: string): Promise<number> {
     await connectDB();
@@ -179,23 +179,23 @@ export class PricePredictor {
       const db = mongoose.connection.db;
       const productsCollection = db.collection('products');
       
-      // Probeer het product op verschillende manieren te vinden
+      // Try to find the product in different ways
       let product = null;
       
-      // 1. Zoek via ObjectId
+      // 1. Search via ObjectId
       try {
         const objId = new mongoose.Types.ObjectId(productId);
         product = await productsCollection.findOne({ _id: objId });
       } catch (e) {
-        // Geen geldige ObjectId, negeer de fout
+        // Not a valid ObjectId, ignore error
       }
       
-      // 2. Zoek via productId veld
+      // 2. Search via productId field
       if (!product) {
         product = await productsCollection.findOne({ productId: productId });
       }
       
-      // 3. Zoek via andere ID-velden
+      // 3. Search via other ID fields
       if (!product) {
         product = await productsCollection.findOne({ 
           $or: [
@@ -207,31 +207,31 @@ export class PricePredictor {
       }
       
       if (!product) {
-        return 99.99; // Standaardprijs als product niet gevonden
+        return 99.99; // Default price if product not found
       }
       
       return product.price || 99.99;
     } catch (error) {
       console.error("Error fetching product price:", error);
-      return 99.99; // Fallback prijs bij fouten
+      return 99.99; // Fallback price on errors
     }
   }
   
   /**
-   * Analyseert de prijstrend (stijgend, dalend of stabiel)
+   * Analyzes price trend (rising, falling or stable)
    */
   private static analyzeSeasonal(priceHistory: PricePoint[]): 'rising' | 'falling' | 'stable' {
     if (!priceHistory || priceHistory.length < 2) {
       return 'stable';
     }
     
-    // Bekijk de laatste 5 prijspunten
+    // Look at last 5 price points
     const recentPrices = priceHistory.slice(-5);
     
     let increasingCount = 0;
     let decreasingCount = 0;
     
-    // Tel hoe vaak de prijs stijgt en daalt
+    // Count how often price rises and falls
     for (let i = 1; i < recentPrices.length; i++) {
       if (recentPrices[i].price > recentPrices[i-1].price) {
         increasingCount++;
@@ -240,27 +240,27 @@ export class PricePredictor {
       }
     }
     
-    // Bepaal de trend op basis van het aantal stijgingen en dalingen
+    // Determine trend based on number of rises and falls
     if (increasingCount > decreasingCount) return 'rising';
     if (decreasingCount > increasingCount) return 'falling';
     return 'stable';
   }
   
   /**
-   * Voorspelt toekomstige prijzen voor de komende 90 dagen
+   * Predicts future prices for next 90 days
    */
-  private static predictFuturePrices(priceHistory: PricePoint[], currentPrice: number): {date: Date, price: number}[] {
+  private static predictFuturePrices(priceHistory: PricePoint[], currentPrice: number): PricePoint[] {
     if (!priceHistory || priceHistory.length < 2) {
       return [];
     }
     
     const today = new Date();
-    const predictions: {date: Date, price: number}[] = [];
+    const predictions: PricePoint[] = [];
     
-    // Gebruik recente prijsgegevens (laatste 6 maanden)
+    // Use recent price data (last 6 months)
     const recentPrices = priceHistory.slice(-12);
     
-    // Bereken gemiddelde prijsverandering
+    // Calculate average price change
     let totalChange = 0;
     for (let i = 1; i < recentPrices.length; i++) {
       totalChange += (recentPrices[i].price - recentPrices[i-1].price) / recentPrices[i-1].price;
@@ -268,10 +268,10 @@ export class PricePredictor {
     
     const avgMonthlyChange = totalChange / (recentPrices.length - 1);
     
-    // Kortingsseizoenen (maandnummers)
-    const holidaySeasons = [10, 11, 5, 6]; // Nov, Dec, Juni, Juli
+    // Sale seasons (month numbers)
+    const holidaySeasons = [10, 11, 5, 6]; // Nov, Dec, Jun, Jul
     
-    // Voorspel prijzen voor elke 15 dagen
+    // Predict prices for every 15 days
     let lastPrice = currentPrice;
     
     for (let i = 15; i <= 90; i += 15) {
@@ -280,22 +280,22 @@ export class PricePredictor {
       
       const month = predictionDate.getMonth();
       
-      // Basistrend op basis van historische verandering
-      let predictedChange = avgMonthlyChange / 2; // Half maandelijks
+      // Base trend based on historical change
+      let predictedChange = avgMonthlyChange / 2; // Half monthly
       
-      // Pas aan voor seizoenseffecten
+      // Adjust for seasonal effects
       if (holidaySeasons.includes(month)) {
-        // Korting in feestdagenseizoen
-        predictedChange -= 0.05; // 5% prijsverlaging
+        // Discount in holiday season
+        predictedChange -= 0.05; // 5% price decrease
       } else if ([1, 7].includes(month)) {
-        // Prijsstijging na kortingsseizoenen
-        predictedChange += 0.03; // 3% prijsverhoging
+        // Price increase after sale seasons
+        predictedChange += 0.03; // 3% price increase
       }
       
-      // Bereken voorspelde prijs
+      // Calculate predicted price
       lastPrice = lastPrice * (1 + predictedChange);
       
-      // Rond af op twee decimalen
+      // Round to two decimals
       const roundedPrice = Math.round(lastPrice * 100) / 100;
       
       predictions.push({
@@ -308,14 +308,14 @@ export class PricePredictor {
   }
   
   /**
-   * Voorspelt wanneer een product in de uitverkoop gaat
+   * Predicts when a product will go on sale
    */
-  private static predictDiscountDate(priceHistory: PricePoint[], futurePrices: {date: Date, price: number}[]): {date: Date | null, percentage: number | null} {
+  private static predictDiscountDate(priceHistory: PricePoint[], futurePrices: PricePoint[]): {date: Date | null, percentage: number | null} {
     if (!futurePrices || futurePrices.length === 0) {
       return {date: null, percentage: null};
     }
     
-    // Zoek naar de grootste verwachte prijsdaling
+    // Look for largest expected price drop
     let maxDiscount = 0;
     let discountDate = null;
     let discountPercentage = null;
@@ -324,7 +324,7 @@ export class PricePredictor {
       const priceChange = futurePrices[i-1].price - futurePrices[i].price;
       const percentageChange = priceChange / futurePrices[i-1].price;
       
-      // Detecteer significante korting (>5%)
+      // Detect significant discount (>5%)
       if (percentageChange > 0.05 && percentageChange > maxDiscount) {
         maxDiscount = percentageChange;
         discountDate = futurePrices[i].date;
@@ -332,27 +332,27 @@ export class PricePredictor {
       }
     }
     
-    // Als we geen duidelijke korting vinden, kijk naar seisoenspatronen
+    // If we don't find a clear discount, look at seasonal patterns
     if (!discountDate) {
       const today = new Date();
       const currentMonth = today.getMonth();
       
-      // Bepaal volgende sale-periode
+      // Determine next sale period
       let nextSaleMonth;
       
       if (currentMonth < 5) {
-        nextSaleMonth = 5; // Zomeruitverkoop (juni)
+        nextSaleMonth = 5; // Summer sale (June)
       } else if (currentMonth < 10) {
-        nextSaleMonth = 10; // Winteruitverkoop (november)
+        nextSaleMonth = 10; // Winter sale (November)
       } else {
-        nextSaleMonth = 5; // Zomeruitverkoop volgend jaar
+        nextSaleMonth = 5; // Summer sale next year
       }
       
       const nextSaleDate = new Date(today.getFullYear() + (nextSaleMonth < currentMonth ? 1 : 0), nextSaleMonth, 15);
       
       return {
         date: nextSaleDate,
-        percentage: 15 // Gemiddelde kortingspercentage
+        percentage: 15 // Average discount percentage
       };
     }
     
@@ -363,14 +363,14 @@ export class PricePredictor {
   }
   
   /**
-   * Bepaalt het beste moment om te kopen op basis van voorspelde prijzen
+   * Determines the best time to buy based on predicted prices
    */
-  private static determineBestTimeToBuy(futurePrices: {date: Date, price: number}[]): {date: Date | null, price: number | null} {
+  private static determineBestTimeToBuy(futurePrices: PricePoint[]): {date: Date | null, price: number | null} {
     if (!futurePrices || futurePrices.length === 0) {
       return {date: null, price: null};
     }
     
-    // Zoek het moment met de laagste voorspelde prijs
+    // Find moment with lowest predicted price
     let lowestPriceEntry = futurePrices.reduce((lowest, current) => 
       current.price < lowest.price ? current : lowest, futurePrices[0]);
     
