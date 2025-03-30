@@ -46,6 +46,8 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
   if (error || !prediction) {
     return (
       <div className="bg-[#0F0F0F] p-4 rounded-md">
+        {/* Content inside this div */}
+      </div>
         <p className="text-red-400 text-sm">{error || 'Prijsvoorspelling niet beschikbaar'}</p>
       </div>
     );
@@ -84,7 +86,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
   const padding = { top: 20, right: 30, bottom: 30, left: 50 };
   const graphWidth = svgWidth - padding.left - padding.right;
   const graphHeight = svgHeight - padding.top - padding.bottom;
-
+  const xScale = (_: any, index: number) => {
   // Bereken schaal voor x- en y-as
   const xScale = (point: any, index: number) => {
     return padding.left + (index / (allPricePoints.length - 1)) * graphWidth;
@@ -96,7 +98,7 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
   };
 
   // Maak punten voor de grafieklijnen
-  const historicalLinePoints = allPricePoints
+    .map((point, index) => ({
     .filter(p => p.type === 'historical' || p.type === 'current')
     .map((point, index, arr) => ({
       x: xScale(point, allPricePoints.indexOf(point)),
@@ -155,7 +157,9 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
     if (!date) return 'onbekend';
     return formatDate(date);
   };
-
+    <div className="mt-2">
+      {/* Content inside this div */}
+    </div>
   return (
     <div className="mt-2">
       <h3 className="text-sm font-medium mb-2">Prijsverloop en voorspelling</h3>
@@ -309,7 +313,9 @@ const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }
               <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
               <span>Beste moment om te kopen</span>
             </div>
-          )}
+        <div className="mt-4 space-y-2 text-sm">
+          {/* Content inside this div */}
+        </div>
         </div>
 
         {/* Voorspellingsinformatie */}
