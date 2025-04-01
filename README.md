@@ -59,6 +59,5 @@ We welcome contributions! Please follow these steps:
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
-
 ---
 Thank you for checking out FashionIQe! If you have any questions or feedback, feel free to reach out.
