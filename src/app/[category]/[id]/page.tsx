@@ -9,8 +9,8 @@ import SingleProductSkeleton from "@/components/skeletons/SingleProductSkeleton"
 
 type Props = {
   params: {
-    id: string;
     category: string;
+    id: string;
   };
 };
 
