@@ -2,70 +2,31 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { connectDB } from "@/libs/mongodb";
 import mongoose from "mongoose";
-import { Suspense } from "react";
 
-// Metadata for the page
-export async function generateMetadata() {
-  return {
-    title: "All Categories | Fashioniqe",
-    description: "Browse all fashion categories in our collection",
-  };
+// Types for better type safety
+interface Category {
+  name: string;
+  slug: string;
+  image?: string;
+  count?: number;
 }
 
-// Main Categories Page Component
-const CategoriesPage = async () => {
-  return (
-    <section className="pt-14">
-      <h1 className="text-3xl font-bold mb-8">All Categories</h1>
-      
-      <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading categories...</div>}>
-        <CategoryOverview />
-      </Suspense>
-    </section>
-  );
-};
+interface CategoriesData {
+  men: Category[];
+  women: Category[];
+}
 
-// Category Overview Component (data fetching)
-const CategoryOverview = async () => {
-  const categories = await fetchCategoriesFromDB();
-  
-  return (
-    <div className="space-y-16">
-      {/* Men's Categories */}
-      <div>
-        <h2 className="text-2xl font-bold mb-6 flex items-center">
-          <span className="mr-2">Men's Collections</span>
-          <span className="text-sm font-normal text-gray-400">({categories.men?.length || 0} categories)</span>
-        </h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {categories.men?.map((category) => (
-            <CategoryCard key={category.slug} category={category} />
-          ))}
-        </div>
-      </div>
-      
-      {/* Women's Categories */}
-      <div>
-        <h2 className="text-2xl font-bold mb-6 flex items-center">
-          <span className="mr-2">Women's Collections</span>
-          <span className="text-sm font-normal text-gray-400">({categories.women?.length || 0} categories)</span>
-        </h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {categories.women?.map((category) => (
-            <CategoryCard key={category.slug} category={category} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+// Metadata for the page
+export const metadata = {
+  title: "All Categories | Fashioniqe",
+  description: "Browse all fashion categories in our collection",
 };
 
 // Category Card Component
-const CategoryCard = ({ category }) => {
+const CategoryCard: React.FC<{ category: Category }> = ({ category }) => {
   const { name, slug, image, count = 0 } = category;
   
   return (
@@ -76,6 +37,7 @@ const CategoryCard = ({ category }) => {
             src={image || "/placeholder.jpg"}
             alt={name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
@@ -114,23 +76,24 @@ const CategoryCard = ({ category }) => {
   );
 };
 
-// Direct database fetch function
-async function fetchCategoriesFromDB() {
+// Fetch categories from database
+async function fetchCategoriesFromDB(): Promise<CategoriesData> {
   try {
     await connectDB();
     
     // Get MongoDB connection
     const db = mongoose.connection.db;
     
+    // Initialize default categories
+    let categories: CategoriesData = { men: [], women: [] };
+    
     // Try to find the categories collection
     const collections = await db.listCollections({ name: "categories" }).toArray();
-    
-    let categories = { men: [], women: [] };
     
     if (collections.length > 0) {
       const categoriesCollection = db.collection("categories");
       
-      // Try different document IDs that might contain categories
+      // Possible document IDs to check
       const possibleIds = [
         new mongoose.Types.ObjectId("000000000000000000000001"),
         new mongoose.Types.ObjectId("000000000000000000000002"),
@@ -142,12 +105,9 @@ async function fetchCategoriesFromDB() {
       
       // Try each possible ID until we find categories
       for (const id of possibleIds) {
-        let query = {};
-        if (typeof id === 'string') {
-          query = { _id: id };
-        } else {
-          query = { _id: id };
-        }
+        const query = typeof id === 'string' 
+          ? { _id: id } 
+          : { _id: id };
         
         dbCategories = await categoriesCollection.findOne(query);
         if (dbCategories?.data) {
@@ -163,16 +123,14 @@ async function fetchCategoriesFromDB() {
           categories = dbCategories.data;
         }
       }
-    }
-    
-    // Get product counts for categories
-    if (categories.men.length > 0 || categories.women.length > 0) {
-      const productsCollection = db.collection("products");
-      const products = await productsCollection.find({}).toArray();
       
-      if (products.length > 0) {
-        // Add counts to men's categories
-        if (categories.men?.length > 0) {
+      // Get product counts for categories
+      if ((categories.men.length > 0 || categories.women.length > 0)) {
+        const productsCollection = db.collection("products");
+        const products = await productsCollection.find({}).toArray();
+        
+        if (products.length > 0) {
+          // Add counts to men's categories
           categories.men = categories.men.map(category => {
             const categoryName = category.slug.replace('men/', '');
             const count = products.filter(p => 
@@ -182,10 +140,8 @@ async function fetchCategoriesFromDB() {
             
             return { ...category, count };
           });
-        }
-        
-        // Add counts to women's categories
-        if (categories.women?.length > 0) {
+          
+          // Add counts to women's categories
           categories.women = categories.women.map(category => {
             const categoryName = category.slug.replace('women/', '');
             const count = products.filter(p => 
@@ -205,5 +161,63 @@ async function fetchCategoriesFromDB() {
     return { men: [], women: [] };
   }
 }
+
+// Category Overview Component (data fetching)
+const CategoryOverview = async () => {
+  const categories = await fetchCategoriesFromDB();
+  
+  return (
+    <div className="space-y-16">
+      {/* Men's Categories */}
+      <div>
+        <h2 className="text-2xl font-bold mb-6 flex items-center">
+          <span className="mr-2">Men's Collections</span>
+          <span className="text-sm font-normal text-gray-400">
+            ({categories.men?.length || 0} categories)
+          </span>
+        </h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {categories.men?.map((category) => (
+            <CategoryCard key={category.slug} category={category} />
+          ))}
+        </div>
+      </div>
+      
+      {/* Women's Categories */}
+      <div>
+        <h2 className="text-2xl font-bold mb-6 flex items-center">
+          <span className="mr-2">Women's Collections</span>
+          <span className="text-sm font-normal text-gray-400">
+            ({categories.women?.length || 0} categories)
+          </span>
+        </h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {categories.women?.map((category) => (
+            <CategoryCard key={category.slug} category={category} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main Categories Page Component
+const CategoriesPage = async () => {
+  return (
+    <section className="pt-14">
+      <h1 className="text-3xl font-bold mb-8">All Categories</h1>
+      
+      <Suspense fallback={
+        <div className="h-screen flex items-center justify-center">
+          Loading categories...
+        </div>
+      }>
+        <CategoryOverview />
+      </Suspense>
+    </section>
+  );
+};
 
 export default CategoriesPage;
