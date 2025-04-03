@@ -3,37 +3,58 @@
 import { connectDB } from "@/libs/mongodb";
 import mongoose from "mongoose";
 
-// Helper functie om ObjectId te converteren naar string
-function convertToPlainObject(doc: any) {
-  // Als het een array is, converteer elk item
-  if (Array.isArray(doc)) {
-    return doc.map(item => convertToPlainObject(item));
+/**
+ * Converts MongoDB documents to plain JavaScript objects - simplified version
+ */
+function convertToPlainObject(data: any): any {
+  // Handle null/undefined
+  if (data == null) {
+    return data;
   }
   
-  // Als het een object is (en geen null)
-  if (doc && typeof doc === 'object' && doc !== null) {
-    const plainObject: any = {};
+  // Handle arrays
+  if (Array.isArray(data)) {
+    return data.map(item => convertToPlainObject(item));
+  }
+  
+  // Handle Date objects
+  if (data instanceof Date) {
+    return data.toISOString();
+  }
+  
+  // Handle ObjectId directly
+  if (data instanceof mongoose.Types.ObjectId) {
+    return data.toString();
+  }
+  
+  // Handle objects (including MongoDB documents)
+  if (typeof data === 'object') {
+    const result: Record<string, any> = {};
     
-    // Converteer elk veld in het object
-    for (const key in doc) {
-      // Skip functie-eigenschappen en methods
-      if (typeof doc[key] !== 'function') {
-        // Speciale behandeling voor ObjectId
-        if (key === '_id' && doc[key] instanceof mongoose.Types.ObjectId) {
-          plainObject[key] = doc[key].toString();
-        } else {
-          plainObject[key] = convertToPlainObject(doc[key]);
-        }
+    for (const key in data) {
+      // Skip functions
+      if (typeof data[key] === 'function') continue;
+      
+      // Convert ObjectId fields
+      if (data[key] instanceof mongoose.Types.ObjectId) {
+        result[key] = data[key].toString();
+      } 
+      // For normal fields
+      else {
+        result[key] = convertToPlainObject(data[key]);
       }
     }
-    return plainObject;
+    
+    return result;
   }
   
-  // Return primitieve waardes zoals ze zijn
-  return doc;
+  // Return primitive values as is
+  return data;
 }
 
-// This function retrieves all products from your database as they are
+/**
+ * Retrieves all products from the database
+ */
 export const getAllProducts = async () => {
   try {
     await connectDB();
@@ -47,16 +68,18 @@ export const getAllProducts = async () => {
     
     console.log(`${products.length} products retrieved`);
     
-    // Belangrijk: converteer MongoDB documenten naar eenvoudige objecten
-    const plainProducts = convertToPlainObject(products);
-    
-    return plainProducts;
+    // Convert MongoDB documents to plain objects using stringify/parse method
+    // This is a simpler and more reliable way to ensure objects are plain
+    return JSON.parse(JSON.stringify(products));
   } catch (error) {
     console.error("Error getting products:", error);
     return [];
   }
 };
 
+/**
+ * Retrieves products by category
+ */
 export const getCategoryProducts = async (category: string) => {
   try {
     await connectDB();
@@ -64,8 +87,7 @@ export const getCategoryProducts = async (category: string) => {
     const db = mongoose.connection.db;
     const productsCollection = db.collection('products');
     
-    // Find products with the given category (if the field exists)
-    // We try different possible field names for the category
+    // Find products with the given category
     const products = await productsCollection.find({
       $or: [
         { categoryName: category },
@@ -75,14 +97,17 @@ export const getCategoryProducts = async (category: string) => {
       ]
     }).toArray();
     
-    // Belangrijk: converteer MongoDB documenten naar eenvoudige objecten
-    return convertToPlainObject(products);
+    // Convert MongoDB documents to plain objects
+    return JSON.parse(JSON.stringify(products));
   } catch (error) {
     console.error("Error getting category products:", error);
     return [];
   }
 };
 
+/**
+ * Retrieves random products, excluding the current product
+ */
 export const getRandomProducts = async (productId: string) => {
   try {
     await connectDB();
@@ -93,13 +118,13 @@ export const getRandomProducts = async (productId: string) => {
     // Retrieve all products
     const allProducts = await productsCollection.find({}).toArray();
     
-    // Filter current product (if applicable)
+    // Filter current product
     let randomProducts = [...allProducts];
     
-    // Filter out the current product if possible
+    // Filter out the current product
     if (productId) {
       try {
-        // Try filtering by ObjectId first
+        // Try filtering by ObjectId
         const objId = new mongoose.Types.ObjectId(productId);
         randomProducts = randomProducts.filter(p => 
           !p._id.equals(objId)
@@ -118,14 +143,17 @@ export const getRandomProducts = async (productId: string) => {
     // Return the first 6 (or fewer if not enough are available)
     const limitedProducts = randomProducts.slice(0, 6);
     
-    // Belangrijk: converteer MongoDB documenten naar eenvoudige objecten
-    return convertToPlainObject(limitedProducts);
+    // Convert MongoDB documents to plain objects
+    return JSON.parse(JSON.stringify(limitedProducts));
   } catch (error) {
     console.error("Error getting random products:", error);
     return [];
   }
 };
 
+/**
+ * Retrieves a single product by ID
+ */
 export const getProduct = async (id: string) => {
   try {
     await connectDB();
@@ -169,8 +197,8 @@ export const getProduct = async (id: string) => {
       return null;
     }
     
-    // Belangrijk: converteer MongoDB document naar eenvoudig object
-    return convertToPlainObject(product);
+    // Convert MongoDB document to plain object
+    return JSON.parse(JSON.stringify(product));
   } catch (error) {
     console.error("Error getting product:", error);
     return null;
