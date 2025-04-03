@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Images } from "./Images";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
+import Image from "next/image";
 
 // Use dynamic import with ssr: false for wishlist button
 const WishlistButton = dynamic(() => import("../cart/WishlistButton"), {
@@ -43,17 +44,24 @@ export const Products = ({
       {products.map((product, index) => {
         // Safely extract product data with fallbacks
         const productId = product._id ? product._id.toString() : `product-${index}`;
-        const {
-          category = "product",
-          quantity = 1,
-          image = [],
-          name = `Product ${index + 1}`,
-          price = 0,
-          title = name, // Some products might use 'title' instead of 'name'
-        } = product;
+        
+        // Extract values with fallbacks for every property
+        const category = product.category || "product";
+        const quantity = product.quantity || 1;
+        const image = Array.isArray(product.image) ? product.image : 
+               product.imageUrl ? [product.imageUrl] : 
+               product.aw_image_url ? [product.aw_image_url] : 
+               [];
+        
+        const name = product.name || product.product_name || product.title || `Product ${index + 1}`;
+        
+        const price = typeof product.price === 'number' ? product.price : 
+                     typeof product.store_price === 'number' ? product.store_price : 0;
+                     
+        const title = product.title || name;
 
         // Determine slug/path for the product
-        const actualProductId = product.productId || productId;
+        const actualProductId = product.productId || product.aw_product_id || productId;
         const productLink = `/${category}/${actualProductId}`;
 
         const containerClassname = [
@@ -77,20 +85,19 @@ export const Products = ({
 
         // Determine what to display for the image
         const hasImage = image && image.length > 0;
-        const imageUrl = hasImage ? image[0] : (product.imageUrl || "/placeholder.jpg");
+        const imageUrl = hasImage ? image[0] : "/placeholder.jpg";
 
         return (
           <div key={productId} className={containerClassname}>
             <Link href={productLink} className={linkClassname}>
               {hasImage ? (
-                <Images
-                  image={image}
-                  name={name || title}
-                  width={280}
-                  height={425}
-                  priority={index === 0}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1154px) 33vw, (max-width: 1536px) 25vw, 20vw"
-                />
+                <div className="aspect-[2/3] relative">
+                  <img
+                    src={imageUrl}
+                    alt={name || title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
                 <div className="aspect-[2/3] bg-gray-800 flex items-center justify-center text-center p-4">
                   <span>{name || title}</span>
