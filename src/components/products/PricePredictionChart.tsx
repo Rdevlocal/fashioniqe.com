@@ -1,79 +1,8 @@
-// src/components/products/PricePredictionChart.tsx
-"use client";
-
-import React, { useState, useEffect } from 'react';
-
-interface PricePoint {
-  price: number;
-  date: Date;
-  type: 'historical' | 'current' | 'predicted';
+predictedDiscountPercentage: 15,
+  confidence: 70,
+  seasonalTrend: 'falling'
+};
 }
-
-interface PredictionData {
-  historicalPrices: Array<{price: number, date: Date}>;
-  predictedPrices: Array<{price: number, date: Date}>;
-  bestTimeToBuy: Date | null;
-  lowestPredictedPrice: number | null;
-  predictedDiscountDate: Date | null;
-  predictedDiscountPercentage: number | null;
-  confidence: number;
-  seasonalTrend: 'rising' | 'falling' | 'stable';
-}
-
-interface PricePredictionChartProps {
-  productId: string;
-}
-
-// Simplified mock service since we don't have the actual implementation
-const mockPricePredictor = {
-  predictPrice: async (productId: string): Promise<PredictionData> => {
-    // Generate mock data
-    const today = new Date();
-    const historicalPrices = [];
-    const predictedPrices = [];
-    
-    // Create some historical prices (past 6 months)
-    const basePrice = 99.99;
-    for (let i = 180; i >= 7; i -= 15) {
-      const date = new Date(today.getTime());
-      date.setDate(date.getDate() - i);
-      
-      // Add some random variations to make the chart interesting
-      const variation = Math.sin(i / 30) * 10 + Math.random() * 5;
-      historicalPrices.push({
-        price: Math.round((basePrice + variation) * 100) / 100,
-        date: date
-      });
-    }
-    
-    // Create predicted prices (next 3 months)
-    for (let i = 15; i <= 90; i += 15) {
-      const date = new Date(today.getTime());
-      date.setDate(date.getDate() + i);
-      
-      // Create a downward trend
-      const discount = (i > 45) ? 15 : (i > 30 ? 8 : 0);
-      const variation = Math.sin(i / 30) * 5 + Math.random() * 3;
-      predictedPrices.push({
-        price: Math.round((basePrice - discount + variation) * 100) / 100,
-        date: date
-      });
-    }
-    
-    // Find best time to buy (lowest predicted price)
-    const lowestPrediction = [...predictedPrices].sort((a, b) => a.price - b.price)[0];
-    
-    return {
-      historicalPrices,
-      predictedPrices,
-      bestTimeToBuy: lowestPrediction.date,
-      lowestPredictedPrice: lowestPrediction.price,
-      predictedDiscountDate: predictedPrices[2].date, // Around 45 days from now
-      predictedDiscountPercentage: 15,
-      confidence: 70,
-      seasonalTrend: 'falling'
-    };
-  }
 };
 
 const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }) => {

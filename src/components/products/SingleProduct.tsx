@@ -167,17 +167,6 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
     ean = ""
   } = productData;
 
-  // Voorbeeld prijshistorie voor de grafiek
-  const priceHistory = [
-    { date: '1 jan', price: price * 1.2 },
-    { date: '1 feb', price: price * 1.15 },
-    { date: '1 mrt', price: price * 1.1 },
-    { date: 'Nu', price: price },
-    { date: 'Verwacht 1 mnd', price: price * 0.95 },
-    { date: 'Verwacht 2 mnd', price: price * 0.9 },
-    { date: 'Verwacht 3 mnd', price: price * 0.85 },
-  ];
-
   const handlePriceAlert = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -500,27 +489,15 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
 
           <AccordionItem value="item-3">
             <AccordionTrigger className="text-sm">PRIJSVOORSPELLING</AccordionTrigger>
-            <AccordionItem value="item-3">
-  <AccordionTrigger className="text-sm">PRIJSVOORSPELLING</AccordionTrigger>
-  <AccordionContent>
-    <div className="mt-2">
-      {/* Import en gebruik onze nieuwe PricePredictionChart component */}
-      <PricePredictionChart productId={_id.toString()} />
-      
-      {/* Verwijder of commentarieer de oude SVG grafiek code uit 
-      <h3 className="text-sm font-medium mb-2">Prijsverloop en voorspelling</h3>
-      <div className="bg-[#0F0F0F] p-4 rounded-md">
-        ...
-        Oude SVG grafiek code kan hier verwijderd worden
-        ...
-      </div>
-      */}
-    </div>
-  </AccordionContent>
-</AccordionItem>
+            <AccordionContent>
+              <div className="mt-2">
+                {/* Import en gebruik onze PricePredictionChart component */}
+                <PricePredictionChart productId={_id.toString()} />
+              </div>
+            </AccordionContent>
           </AccordionItem>
         </Accordion>
       </div>
     </div>
   );
-}
+};
