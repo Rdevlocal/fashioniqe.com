@@ -119,41 +119,7 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* USP Section */}
-      <section className="container mx-auto px-6 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[#0A0A0A] border border-gray-800 rounded-lg p-6 transform transition-all hover:-translate-y-2 hover:shadow-xl">
-            <div className="w-14 h-14 bg-blue-600 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-blue-400">
-                <path d="M12 6V18M12 6L7 11M12 6L17 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-2">Price Prediction</h3>
-            <p className="text-gray-400">Our AI analyzes historical data to predict when prices will drop, helping you make smarter purchasing decisions.</p>
-          </div>
-          
-          <div className="bg-[#0A0A0A] border border-gray-800 rounded-lg p-6 transform transition-all hover:-translate-y-2 hover:shadow-xl">
-            <div className="w-14 h-14 bg-purple-600 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-purple-400">
-                <path d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-2">Price Alerts</h3>
-            <p className="text-gray-400">Set alerts for your favorite items and get notified when prices drop to your desired level.</p>
-          </div>
-          
-          <div className="bg-[#0A0A0A] border border-gray-800 rounded-lg p-6 transform transition-all hover:-translate-y-2 hover:shadow-xl">
-            <div className="w-14 h-14 bg-green-600 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-green-400">
-                <path d="M4.5 12.75L10.5 18.75L19.5 5.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-2">Smart Recommendations</h3>
-            <p className="text-gray-400">Discover personalized style recommendations based on your preferences and shopping history.</p>
-          </div>
-        </div>
-      </section>
-
+     
       {/* Featured Products Section */}
       <section className="container mx-auto px-6 mb-24">
         <div className="flex justify-between items-center mb-8">
@@ -322,53 +288,7 @@ export default function HomePageClient({
         </div>
       </section>
       
-      {/* Testimonials */}
-      <section className="container mx-auto px-6 mb-24">
-        <div className="text-center mb-12">
-          <h6 className="text-blue-500 font-medium mb-1">WHAT OUR CUSTOMERS SAY</h6>
-          <h2 className="text-3xl md:text-4xl font-bold">Customer Testimonials</h2>
-        </div>
-        
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={index}
-                className={`bg-[#0A0A0A] border border-gray-800 rounded-lg p-8 transition-opacity duration-500 ${
-                  index === activeTestimonial ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                }`}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-blue-500 mb-6">
-                    <path d="M9.13456 9.24004C9.52233 7.94004 9.75939 7.00002 9.75939 6.50002C9.75939 4.90002 8.72144 4 7.37042 4C6.01939 4 5 5.20002 5 6.50002C5 7.80002 5.9752 9 7.41125 9C7.63657 9 7.84351 8.94 8.0369 8.89997C7.86018 9.34997 7.43159 9.95001 6.83585 10.2C6.4327 10.35 6.0006 10.3 6.0006 10.3V11C6.0006 11 7.09399 10.9 8.00645 10.2C8.91891 9.50001 8.93937 9.94004 9.13456 9.24004ZM13.5427 6.50002C13.5427 4.90002 14.5806 4 15.9317 4C17.2827 4 18.3021 5.20002 18.3021 6.50002C18.3021 7.80002 17.3269 9 15.8908 9C15.6655 9 15.4586 8.94 15.2652 8.89997C15.4419 9.34997 15.8705 9.95001 16.4662 10.2C16.8694 10.35 17.3015 10.3 17.3015 10.3V11C17.3015 11 16.2081 10.9 15.2957 10.2C14.3832 9.50001 14.3627 9.94004 14.1676 9.24004C13.7798 7.94004 13.5427 7.00002 13.5427 6.50002Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  
-                  <p className="text-xl mb-6 italic text-gray-300">"{testimonial.text}"</p>
-                  
-                  <div>
-                    <h4 className="font-bold">{testimonial.author}</h4>
-                    <p className="text-gray-400">{testimonial.location}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="flex justify-center mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTestimonial(index)}
-                className={`w-3 h-3 mx-1 rounded-full transition-colors ${
-                  index === activeTestimonial ? 'bg-blue-500' : 'bg-gray-600'
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-      
+  
       {/* New Arrivals */}
       <section className="container mx-auto px-6 mb-24">
         <div className="flex justify-between items-center mb-8">
@@ -391,26 +311,7 @@ export default function HomePageClient({
         )}
       </section>
 
-      {/* Newsletter */}
-      <section className="container mx-auto px-6 mb-24">
-        <div className="bg-gradient-to-r from-blue-900 to-purple-900 rounded-2xl p-12">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Stay Updated on Price Drops</h2>
-            <p className="text-white/80 mb-8">Subscribe to our newsletter for the latest trends, smart shopping tips, and personalized price alerts.</p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="flex-grow px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-              />
-              <button className="px-6 py-3 bg-white text-blue-900 rounded-md font-medium hover:bg-gray-100 transition">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+    
     </div>
   );
 }
