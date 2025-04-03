@@ -28,7 +28,6 @@ export const connectDB = async () => {
       serverSelectionTimeoutMS: 5000,
       maxPoolSize: 10,
       socketTimeoutMS: 45000,
-      family: 4 // Use IPv4, skip trying IPv6
     };
 
     // Connect to MongoDB
@@ -38,8 +37,14 @@ export const connectDB = async () => {
     // Cache the connection for future use
     cachedConnection = connection;
     
-    // Log success message
-    console.log("MongoDB connected successfully");
+    // Log success message - extract database name from URI when possible
+    try {
+      // Try to get database name from the URI
+      const dbName = MONGODB_URI.split('/').pop()?.split('?')[0] || 'unknown';
+      console.log(`MongoDB connected successfully to database: ${dbName}`);
+    } catch (e) {
+      console.log(`MongoDB connected successfully`);
+    }
     
     // Set up connection error handler
     mongoose.connection.on("error", (err) => {

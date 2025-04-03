@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { Images } from "./Images";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
-import Image from "next/image";
 
 // Use dynamic import with ssr: false for wishlist button
 const WishlistButton = dynamic(() => import("../cart/WishlistButton"), {
@@ -39,28 +37,40 @@ export const Products = ({
     .filter(Boolean)
     .join(" ");
 
+  console.log(`Rendering ${products.length} products`);
+
   return (
     <div className={gridClassname}>
       {products.map((product, index) => {
         // Safely extract product data with fallbacks
         const productId = product._id ? product._id.toString() : `product-${index}`;
         
-        // Extract values with fallbacks for every property
-        const category = product.category || "product";
-        const quantity = product.quantity || 1;
-        const image = Array.isArray(product.image) ? product.image : 
-               product.imageUrl ? [product.imageUrl] : 
-               product.aw_image_url ? [product.aw_image_url] : 
-               [];
+        // Determine category with fallbacks
+        const category = product.category || product.categoryName || "product";
         
+        // Handle quantity
+        const quantity = product.quantity || 1;
+        
+        // Handle image with multiple fallbacks
+        const image = 
+          Array.isArray(product.image) && product.image.length > 0 ? product.image : 
+          product.imageUrl ? [product.imageUrl] : 
+          product.aw_image_url ? [product.aw_image_url] :
+          product.merchant_deep_link ? ["/placeholder.jpg"] : ["/placeholder.jpg"];
+        
+        // Handle product name with fallbacks
         const name = product.name || product.product_name || product.title || `Product ${index + 1}`;
         
-        const price = typeof product.price === 'number' ? product.price : 
-                     typeof product.store_price === 'number' ? product.store_price : 0;
+        // Handle price with fallbacks
+        const price = 
+          typeof product.price === 'number' ? product.price : 
+          typeof product.store_price === 'number' ? product.store_price : 
+          typeof product.display_price === 'string' && !isNaN(parseFloat(product.display_price.replace(/[^0-9.]/g, ''))) ? 
+            parseFloat(product.display_price.replace(/[^0-9.]/g, '')) : 0;
                      
         const title = product.title || name;
 
-        // Determine slug/path for the product
+        // Determine product link with appropriate ID
         const actualProductId = product.productId || product.aw_product_id || productId;
         const productLink = `/${category}/${actualProductId}`;
 

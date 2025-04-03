@@ -10,18 +10,17 @@ import SingleProductSkeleton from "@/components/skeletons/SingleProductSkeleton"
 type Props = {
   params: {
     id: string;
-    category: string;  // Changed from gender to category
-    categoryName: string;
+    category: string;
   };
 };
 
 export async function generateMetadata({ params }: Props) {
   const product = await getProduct(params.id);
-  const productTitle = product?.title || product?.name || "Product";
+  const productTitle = product?.name || product?.title || "Product";
 
   return {
-    title: `${productTitle} | Webshop`,
-    description: product?.description || "See this product in our webshop",
+    title: `${productTitle} | Fashioniqe`,
+    description: product?.description || "Check out this product in our webshop",
   };
 }
 
@@ -32,7 +31,7 @@ const ProductPage = async ({ params }: Props) => (
         <div>
           <SingleProductSkeleton />
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            ALSO SEE...
+            ALSO INTERESTING...
           </h2>
           <ProductSkeleton
             extraClassname={"colums-mobile"}
@@ -58,14 +57,34 @@ const AllProducts = async ({ id, category }: { id: string; category: string }) =
     );
   }
   
-  // Haal zowel willekeurige als vergelijkbare producten op
+  // Fetch both random and similar products
   const randomProducts = await getRandomProducts(id);
   const similarProducts = await getCategoryProducts(category);
   
-  // Filter het huidige product uit de vergelijkbare producten
-  const filteredSimilarProducts = similarProducts.filter(p => 
-    p._id.toString() !== (product._id ? product._id.toString() : id)
-  ).slice(0, 6); // Beperk tot 6 items
+  // Filter out the current product from similar products
+  interface Product {
+    _id: string;
+    name?: string;
+    title?: string;
+    description?: string;
+  }
+
+  interface Session {
+    user?: {
+      name?: string;
+      email?: string;
+      image?: string;
+    };
+    expires: string;
+  }
+
+  interface SimilarProduct extends Product {}
+
+  const filteredSimilarProducts = similarProducts
+    .filter((p: SimilarProduct) => 
+      p._id.toString() !== (product._id ? product._id.toString() : id)
+    )
+    .slice(0, 6); // Limit to 6 items
 
   const productJSON = JSON.stringify(product);
 
@@ -76,7 +95,7 @@ const AllProducts = async ({ id, category }: { id: string; category: string }) =
       {filteredSimilarProducts && filteredSimilarProducts.length > 0 && (
         <>
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            People also viewed
+            Similar products
           </h2>
           <Products products={filteredSimilarProducts} extraClassname={"colums-mobile"} />
         </>
@@ -85,7 +104,7 @@ const AllProducts = async ({ id, category }: { id: string; category: string }) =
       {randomProducts && randomProducts.length > 0 && (
         <>
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            ALSO SEE...
+            ALSO INTERESTING...
           </h2>
           <Products products={randomProducts} extraClassname={"colums-mobile"} />
         </>

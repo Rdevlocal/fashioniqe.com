@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { getAllProducts } from "./actions";
-// import ProductSkeleton from "@/components/skeletons/ProductSkeleton"; // Removed as it is unused
 import { connectDB } from "@/libs/mongodb";
 import mongoose from "mongoose";
 import HomePageClient from "../components/home/HomePageClient"; // Adjusted the path to match the relative location
@@ -38,14 +37,14 @@ async function getCategories() {
     // If we have a categories collection, try to retrieve the data
     if (collections.length > 0) {
       const categoriesCollection = db.collection("categories");
-      const dbCategories = await categoriesCollection.findOne({ _id: new mongoose.Types.ObjectId("main") });
+      const dbCategories = await categoriesCollection.findOne({});
       
-      if (dbCategories) {
+      if (dbCategories && dbCategories.data) {
         categories = dbCategories.data;
       } else {
         // If we don't have categories yet, let's create them with our fallback data
         await categoriesCollection.insertOne({
-          _id: new mongoose.Types.ObjectId("main"),
+          _id: new mongoose.Types.ObjectId(),
           data: categories
         });
       }
@@ -54,35 +53,8 @@ async function getCategories() {
       await db.createCollection("categories");
       const categoriesCollection = db.collection("categories");
       await categoriesCollection.insertOne({
-        _id: new mongoose.Types.ObjectId("64b8f3f2f2f2f2f2f2f2f2f2"), // Replaced with a valid ObjectId
+        _id: new mongoose.Types.ObjectId(),
         data: categories
-      });
-    }
-    
-    // Get all products to analyze which categories actually have products
-    const productsCollection = db.collection("products");
-    const products = await productsCollection.find({}).toArray();
-    
-    // Count products in each category to add count to our response
-    if (products.length > 0) {
-      // Process men's categories
-      categories.men = categories.men.map(category => {
-        const count = products.filter(p => 
-          p.categoryName === category.slug.replace('men/', '') && 
-          p.gender === 'men'
-        ).length;
-        
-        return { ...category, count };
-      });
-      
-      // Process women's categories
-      categories.women = categories.women.map(category => {
-        const count = products.filter(p => 
-          p.categoryName === category.slug.replace('women/', '') && 
-          p.gender === 'women'
-        ).length;
-        
-        return { ...category, count };
       });
     }
     
@@ -112,22 +84,35 @@ async function getCategories() {
 }
 
 export default async function Home() {
-  // Fetch data on the server
-  const allProducts = await getAllProducts();
-  const categories = await getCategories();
-  
-  // Prepare products for the client
-  const featuredProducts = allProducts.slice(0, 4);
-  const newArrivals = allProducts.slice(4, 10);
-  
-  return (
-    <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-      <HomePageClient 
-        products={allProducts}
-        featuredProducts={featuredProducts}
-        newArrivals={newArrivals}
-        categories={categories}
-      />
-    </Suspense>
-  );
+  try {
+    // Fetch data on the server
+    console.log("Home page: Fetching products");
+    const allProducts = await getAllProducts();
+    console.log(`Home page: Fetched ${allProducts.length} products`);
+    
+    const categories = await getCategories();
+    
+    // Prepare products for the client
+    const featuredProducts = allProducts.slice(0, 4);
+    const newArrivals = allProducts.slice(4, 10);
+    
+    return (
+      <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+        <HomePageClient 
+          products={allProducts}
+          featuredProducts={featuredProducts}
+          newArrivals={newArrivals}
+          categories={categories}
+        />
+      </Suspense>
+    );
+  } catch (error) {
+    console.error("Error in Home page:", error);
+    return (
+      <div className="h-screen flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold mb-4">Error Loading Products</h1>
+        <p className="text-gray-400">There was an error loading product data. Please try again later.</p>
+      </div>
+    );
+  }
 }

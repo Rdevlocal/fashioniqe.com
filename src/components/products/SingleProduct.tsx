@@ -28,7 +28,6 @@ interface SingleProduct {
 
 export const SingleProduct = ({ product, session }: SingleProduct) => {
   const router = useRouter();
-  const productData = JSON.parse(product);
   const [desiredPrice, setDesiredPrice] = useState(0);
   const [email, setEmail] = useState("");
   const [notificationTime, setNotificationTime] = useState("");
@@ -48,6 +47,30 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
     }
   }, [session]);
 
+  if (!product) {
+    return <div>Product niet gevonden</div>;
+  }
+
+  // Parse the product data safely
+  const productData = typeof product === 'string' ? JSON.parse(product) : product;
+
+  // Ensure we extract all possible field variations with fallbacks
+  const {
+    _id,
+    title = productData.name || productData.product_name || "Product",
+    description = productData.merchant_description || productData.aw_description || "Geen beschrijving beschikbaar",
+    price = productData.display_price ? parseFloat(productData.display_price.replace(/[^0-9.]/g, '')) : 
+            productData.store_price || 0,
+    stockStatus = productData.availability || "in stock",
+    categoryName = productData.category || productData.merchant_category || "",
+    imageUrl = Array.isArray(productData.image) && productData.image.length > 0 ? productData.image[0] : 
+              productData.aw_image_url || productData.merchant_image_url || "",
+    merchantName = productData.merchant_name || "",
+    currency = productData.currency || "EUR",
+    deepLink = productData.merchant_deep_link || productData.aw_deep_link || "",
+    ean = productData.ean || productData.manufacturer_part_number || ""
+  } = productData;
+
   // Simulatie van het ophalen van retailergegevens en maten
   useEffect(() => {
     if (productData?._id) {
@@ -64,53 +87,53 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
       const mockRetailers: RetailerInfo[] = [
         {
           name: "SuperStore",
-          price: productData.price * 0.95,
+          price: price * 0.95,
           url: "https://superstore.example.com/product/" + eanOrId,
           inStock: true,
           deliveryTime: "1-2 werkdagen",
           sizes: [
-            { size: "38", price: productData.price * 0.95, inStock: true },
-            { size: "39", price: productData.price * 0.90, inStock: true },
-            { size: "40", price: productData.price * 0.95, inStock: true },
-            { size: "41", price: productData.price * 1.05, inStock: false }
+            { size: "38", price: price * 0.95, inStock: true },
+            { size: "39", price: price * 0.90, inStock: true },
+            { size: "40", price: price * 0.95, inStock: true },
+            { size: "41", price: price * 1.05, inStock: false }
           ]
         },
         {
           name: "MegaShop",
-          price: productData.price,
+          price: price,
           url: "https://megashop.example.com/items/" + eanOrId,
           inStock: true,
           deliveryTime: "2-3 werkdagen",
           sizes: [
-            { size: "38", price: productData.price * 1.00, inStock: true },
-            { size: "39", price: productData.price * 0.95, inStock: true },
-            { size: "40", price: productData.price * 0.98, inStock: true },
-            { size: "41", price: productData.price * 1.00, inStock: true }
+            { size: "38", price: price * 1.00, inStock: true },
+            { size: "39", price: price * 0.95, inStock: true },
+            { size: "40", price: price * 0.98, inStock: true },
+            { size: "41", price: price * 1.00, inStock: true }
           ]
         },
         {
           name: "BudgetKing",
-          price: productData.price * 1.05,
+          price: price * 1.05,
           url: "https://budgetking.example.com/product/" + eanOrId,
           inStock: false,
           sizes: [
-            { size: "38", price: productData.price * 1.05, inStock: false },
-            { size: "39", price: productData.price * 1.10, inStock: false },
-            { size: "40", price: productData.price * 1.00, inStock: false },
-            { size: "41", price: productData.price * 1.05, inStock: false }
+            { size: "38", price: price * 1.05, inStock: false },
+            { size: "39", price: price * 1.10, inStock: false },
+            { size: "40", price: price * 1.00, inStock: false },
+            { size: "41", price: price * 1.05, inStock: false }
           ]
         },
         {
-          name: productData.merchantName || "MainRetailer",
-          price: productData.price,
-          url: productData.deepLink || "#",
+          name: merchantName || "MainRetailer",
+          price: price,
+          url: deepLink || "#",
           inStock: true,
           deliveryTime: "1-3 werkdagen",
           sizes: [
-            { size: "38", price: productData.price * 1.00, inStock: true },
-            { size: "39", price: productData.price * 1.00, inStock: true },
-            { size: "40", price: productData.price * 1.00, inStock: true },
-            { size: "41", price: productData.price * 1.05, inStock: true }
+            { size: "38", price: price * 1.00, inStock: true },
+            { size: "39", price: price * 1.00, inStock: true },
+            { size: "40", price: price * 1.00, inStock: true },
+            { size: "41", price: price * 1.05, inStock: true }
           ]
         }
       ];
@@ -147,25 +170,6 @@ export const SingleProduct = ({ product, session }: SingleProduct) => {
       setIsLoadingRetailers(false);
     }, 1000);
   };
-
-  if (!product) {
-    return <div>Product niet gevonden</div>;
-  }
-
-  // Lees de velden met veilige fallbacks
-  const {
-    _id,
-    title = "Product",
-    description = "Geen beschrijving beschikbaar",
-    price = 0,
-    stockStatus = "",
-    categoryName = "",
-    imageUrl = "",
-    merchantName = "",
-    currency = "EUR",
-    deepLink = "",
-    ean = ""
-  } = productData;
 
   const handlePriceAlert = async (e: React.FormEvent) => {
     e.preventDefault();

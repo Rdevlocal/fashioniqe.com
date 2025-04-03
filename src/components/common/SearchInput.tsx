@@ -1,17 +1,32 @@
-import React, { useCallback } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import React, { useState, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchInput = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("q") || ""
+  );
 
-  const handleChange = useCallback((term: string) => {
-    if (term) {
-      router.replace(`/search?q=${encodeURIComponent(term)}`);
+  const handleSearch = useCallback(() => {
+    // Trim whitespace and ignore empty searches
+    const trimmedTerm = searchTerm.trim();
+    
+    if (trimmedTerm) {
+      // Encode the search term to handle special characters
+      const encodedTerm = encodeURIComponent(trimmedTerm);
+      router.push(`/search?q=${encodedTerm}`);
     } else {
-      router.replace("/search");
+      // If search is empty, go to default search page
+      router.push("/search");
     }
-  }, []);
+  }, [searchTerm, router]);
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div className="flex w-full border border-[#2E2E2E] rounded-md overflow-hidden">
@@ -33,13 +48,29 @@ const SearchInput = () => {
         </svg>
       </span>
       <input
-        placeholder="Search Products..."
-        aria-label="Search"
+        placeholder="Zoek producten..."
+        aria-label="Zoeken"
         className="w-full h-[40px] px-3 bg-[#0A0A0A] text-sm focus:outline-none"
         type="search"
-        defaultValue={searchParams.get("q")?.toString()}
-        onChange={(e) => handleChange(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
+      <button 
+        onClick={handleSearch}
+        className="px-4 bg-[#0A0A0A] hover:bg-[#1F1F1F] transition-colors"
+      >
+        <svg 
+          width="16" 
+          height="16" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
     </div>
   );
 };
