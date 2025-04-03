@@ -9,8 +9,9 @@ import SingleProductSkeleton from "@/components/skeletons/SingleProductSkeleton"
 
 type Props = {
   params: {
-    category: string;
     id: string;
+    category: string;  // Changed from gender to category
+    categoryName: string;
   };
 };
 
