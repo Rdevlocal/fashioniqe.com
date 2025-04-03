@@ -232,61 +232,7 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* Banner with Parallax Effect */}
-      <section className="relative py-32 mb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90 z-10"></div>
-        <div className="absolute inset-0">
-          <Image
-            src="/promo-banner.jpg" 
-            alt="Special Offer"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-        
-        <div className="relative container mx-auto px-6 flex flex-col md:flex-row items-center z-20">
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Special Summer <span className="text-yellow-300">Offer</span>
-            </h2>
-            <p className="text-xl text-gray-200 mb-8 max-w-lg">
-              Get 20% off on all new summer arrivals. Use code: <span className="font-bold text-yellow-300">SUMMER24</span>
-            </p>
-            <Link 
-              href="/sale"
-              className="inline-block px-8 py-4 bg-white text-black font-medium rounded-md hover:bg-gray-100 transition transform hover:-translate-y-1 hover:shadow-lg"
-            >
-              Shop Now
-            </Link>
-          </div>
-          
-          <div className="md:w-1/2 flex justify-center">
-            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-lg border border-white/20 max-w-sm">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-2">Limited Time Offer</h3>
-                <p className="text-white/80 mb-6">Sale ends in:</p>
-                
-                <div className="flex justify-center gap-4 text-center">
-                  {[
-                    {value: 7, label: "Days"},
-                    {value: 18, label: "Hours"},
-                    {value: 45, label: "Minutes"},
-                    {value: 22, label: "Seconds"}
-                  ].map((item, index) => (
-                    <div key={index} className="flex-1">
-                      <div className="bg-white/15 rounded-lg px-2 py-3 backdrop-blur-md border border-white/10">
-                        <div className="text-2xl font-bold text-white">{item.value}</div>
-                        <div className="text-xs text-white/70">{item.label}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       
   
       {/* New Arrivals */}
