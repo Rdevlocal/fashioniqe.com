@@ -1,8 +1,88 @@
-predictedDiscountPercentage: 15,
-  confidence: 70,
-  seasonalTrend: 'falling'
-};
+// src/components/products/PricePredictionChart.tsx
+import React, { useEffect, useState } from 'react';
+
+// Interfaces
+interface PricePoint {
+  price: number;
+  date: Date;
+  type: 'historical' | 'current' | 'predicted';
 }
+
+interface PredictionData {
+  historicalPrices: { price: number; date: Date }[];
+  predictedPrices: { price: number; date: Date }[];
+  confidence: number;
+  bestTimeToBuy: Date | null;
+  lowestPredictedPrice: number | null;
+  predictedDiscountDate: Date | null;
+  predictedDiscountPercentage: number | null;
+  seasonalTrend: 'rising' | 'falling' | 'stable';
+}
+
+interface PricePredictionChartProps {
+  productId: string;
+}
+
+// Mock price prediction service
+const mockPricePredictor = {
+  predictPrice: async (productId: string): Promise<PredictionData> => {
+    // This would be replaced with an actual API call in production
+    const today = new Date();
+    
+    // Generate historical data
+    const historicalPrices = [];
+    for (let i = 180; i >= 0; i -= 15) {
+      const date = new Date();
+      date.setDate(today.getDate() - i);
+      
+      // Add some random variations to create realistic price history
+      const randomFactor = Math.sin(i / 30) * 10 + (Math.random() * 5 - 2.5);
+      const price = 100 + randomFactor;
+      
+      historicalPrices.push({
+        date: new Date(date),
+        price: Math.round(price * 100) / 100
+      });
+    }
+    
+    // Generate future predictions
+    const predictedPrices = [];
+    let basePrice = historicalPrices[historicalPrices.length - 1].price;
+    
+    for (let i = 15; i <= 90; i += 15) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      
+      // Create a downward trend with some random variations
+      const trend = -0.05; // 5% downward trend per period
+      const randomFactor = (Math.random() * 0.06) - 0.03; // ±3% random variation
+      
+      basePrice = basePrice * (1 + trend + randomFactor);
+      
+      predictedPrices.push({
+        date: new Date(date),
+        price: Math.round(basePrice * 100) / 100
+      });
+    }
+    
+    // Find lowest predicted price point
+    const lowestPrediction = [...predictedPrices].sort((a, b) => a.price - b.price)[0];
+    
+    // Find a good discount date
+    const discountDate = new Date();
+    discountDate.setDate(today.getDate() + 45); // 1.5 months in the future
+    
+    return {
+      historicalPrices,
+      predictedPrices,
+      bestTimeToBuy: lowestPrediction.date,
+      lowestPredictedPrice: lowestPrediction.price,
+      predictedDiscountDate: discountDate,
+      predictedDiscountPercentage: 15,
+      confidence: 70,
+      seasonalTrend: 'falling'
+    };
+  }
 };
 
 const PricePredictionChart: React.FC<PricePredictionChartProps> = ({ productId }) => {
