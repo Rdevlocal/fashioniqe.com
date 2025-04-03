@@ -6,8 +6,8 @@ import { Metadata } from 'next';
 
 // Define metadata for SEO
 export const metadata: Metadata = {
-  title: 'About Us | FashionIQe',
-  description: 'Learn more about FashionIQe, our story, mission, and the team behind our fashion platform.',
+  title: 'About Us | Fashioniqe',
+  description: 'Learn more about Fashioniqe, our story, mission, and the team behind our fashion platform.',
 };
 
 // Team member interface
@@ -32,7 +32,7 @@ const AboutPage = () => {
       name: 'Sarah Johnson',
       role: 'CEO & Founder',
       image: '/team/sarah-johnson.jpg',
-      bio: 'Sarah founded FashionIQe with a vision to create a more intelligent shopping experience. With over 15 years in the fashion industry and a background in tech, she combines style expertise with cutting-edge innovation.'
+      bio: 'Sarah founded Fashioniqe with a vision to create a more intelligent shopping experience. With over 15 years in the fashion industry and a background in tech, she combines style expertise with cutting-edge innovation.'
     },
     {
       name: 'David Chen',
@@ -44,7 +44,7 @@ const AboutPage = () => {
       name: 'Maria Rodriguez',
       role: 'Creative Director',
       image: '/team/maria-rodriguez.jpg',
-      bio: 'Maria brings 12 years of experience from luxury fashion brands. She oversees our creative vision, ensuring that innovation always meets aesthetics throughout the FashionIQe experience.'
+      bio: 'Maria brings 12 years of experience from luxury fashion brands. She oversees our creative vision, ensuring that innovation always meets aesthetics throughout the Fashioniqe experience.'
     },
     {
       name: 'James Wilson',
@@ -98,7 +98,7 @@ const AboutPage = () => {
     <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       {/* Hero Section */}
       <div className="text-center mb-20">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">About FashionIQe</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">About Fashioniqe</h1>
         <p className="text-xl text-gray-400 max-w-3xl mx-auto">
           Bringing intelligence to fashion shopping with personalized recommendations and smart price tracking
         </p>
@@ -110,7 +110,7 @@ const AboutPage = () => {
           <h2 className="text-3xl font-bold mb-6">Our Story</h2>
           <div className="space-y-4 text-gray-300">
             <p>
-              FashionIQe was founded in 2020 with a simple mission: to make online fashion shopping smarter, more personalized, and more transparent.
+              Fashioniqe was founded in 2020 with a simple mission: to make online fashion shopping smarter, more personalized, and more transparent.
             </p>
             <p>
               Our founder, Sarah Johnson, experienced firsthand the frustration of tracking prices manually across multiple sites, missing sales on items she loved, and receiving generic recommendations that didn't match her style.
@@ -126,7 +126,7 @@ const AboutPage = () => {
         <div className="md:w-1/2 relative h-96 rounded-lg overflow-hidden">
           <Image 
             src="/about/our-story.jpg" 
-            alt="FashionIQe team working"
+            alt="Fashioniqe team working"
             fill
             className="object-cover"
           />
@@ -184,7 +184,7 @@ const AboutPage = () => {
               <div className="bg-[#0A0A0A] border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-1">2020</h3>
                 <p className="text-blue-400 mb-4">The Beginning</p>
-                <p className="text-gray-300">FashionIQe was founded in Amsterdam with a team of just 5 people, focused on creating a price tracking tool for fashion items.</p>
+                <p className="text-gray-300">Fashioniqe was founded in Amsterdam with a team of just 5 people, focused on creating a price tracking tool for fashion items.</p>
               </div>
             </div>
           </div>
@@ -210,7 +210,7 @@ const AboutPage = () => {
               <div className="bg-[#0A0A0A] border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-1">2022</h3>
                 <p className="text-blue-400 mb-4">International Expansion</p>
-                <p className="text-gray-300">FashionIQe expanded to 5 European markets and launched our mobile app, reaching 500,000 monthly active users.</p>
+                <p className="text-gray-300">Fashioniqe expanded to 5 European markets and launched our mobile app, reaching 500,000 monthly active users.</p>
               </div>
             </div>
           </div>

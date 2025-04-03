@@ -1,6 +1,6 @@
-# FashionIQe
+# Fashioniqe
 
-Welcome to the FashionIQe repository! This project is designed to revolutionize the way people interact with fashion through intelligent and innovative solutions.
+Welcome to the Fashioniqe repository! This project is designed to revolutionize the way people interact with fashion through intelligent and innovative solutions.
 
 ## Table of Contents
 - [About](#about)
@@ -11,7 +11,7 @@ Welcome to the FashionIQe repository! This project is designed to revolutionize 
 - [License](#license)
 
 ## About
-FashionIQe is a platform that leverages cutting-edge technology to provide personalized fashion recommendations, trend analysis, and much more. Our goal is to make fashion accessible and enjoyable for everyone.
+Fashioniqe is a platform that leverages cutting-edge technology to provide personalized fashion recommendations, trend analysis, and much more. Our goal is to make fashion accessible and enjoyable for everyone.
 
 ## Features
 - AI-powered fashion recommendations
@@ -22,11 +22,11 @@ FashionIQe is a platform that leverages cutting-edge technology to provide perso
 ## Installation
 1. Clone the repository:
   ```bash
-  git clone https://github.com/your-username/fashioniqe.git
+  git clone https://github.com/your-username/Fashioniqe.git
   ```
 2. Navigate to the project directory:
   ```bash
-  cd fashioniqe
+  cd Fashioniqe
   ```
 3. Install dependencies:
   ```bash
@@ -60,4 +60,4 @@ We welcome contributions! Please follow these steps:
 ## License
 This project is licensed under the [MIT License](LICENSE).
 ---
-Thank you for checking out FashionIQe! If you have any questions or feedback, feel free to reach out.
+Thank you for checking out Fashioniqe! If you have any questions or feedback, feel free to reach out.

@@ -9,7 +9,7 @@ import { Suspense } from "react";
 // Metadata for the page
 export async function generateMetadata() {
   return {
-    title: "All Categories | FashionIQe",
+    title: "All Categories | Fashioniqe",
     description: "Browse all fashion categories in our collection",
   };
 }
