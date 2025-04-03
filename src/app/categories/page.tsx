@@ -105,9 +105,7 @@ async function fetchCategoriesFromDB(): Promise<CategoriesData> {
       
       // Try each possible ID until we find categories
       for (const id of possibleIds) {
-        const query = typeof id === 'string' 
-          ? { _id: id } 
-          : { _id: id };
+        const query = { _id: typeof id === 'string' ? new mongoose.Types.ObjectId(id) : id };
         
         dbCategories = await categoriesCollection.findOne(query);
         if (dbCategories?.data) {

@@ -20,7 +20,7 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
   return (
     <section className="pt-14">
       <h2 className="mb-5 text-xl font-bold sm:text-2xl">
-        Zoekresultaten voor &quot;{searchParams.q || ""}&quot;
+        Search results for &quot;{searchParams.q || ""}&quot;
       </h2>
       
       <Suspense
@@ -43,7 +43,7 @@ const SearchResults = async ({ query }: { query: string }) => {
   if (!productList || productList.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-xl">Geen producten gevonden</p>
+        <p className="text-xl">No products found</p>
       </div>
     );
   }
@@ -67,7 +67,7 @@ const SearchResults = async ({ query }: { query: string }) => {
         <Products products={filteredProducts} extraClassname="" />
       ) : (
         <div className="text-center py-12">
-          <p className="text-xl">Geen producten gevonden voor &quot;{query}&quot;</p>
+          <p className="text-xl">No products found for &quot;{query}&quot;</p>
         </div>
       )}
     </>

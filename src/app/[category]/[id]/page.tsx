@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: `${productTitle} | Webshop`,
-    description: product?.description || "Bekijk dit product in onze webshop",
+    description: product?.description || "See this product in our webshop",
   };
 }
 
@@ -32,7 +32,7 @@ const ProductPage = async ({ params }: Props) => (
         <div>
           <SingleProductSkeleton />
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            BEKIJK OOK...
+            ALSO SEE...
           </h2>
           <ProductSkeleton
             extraClassname={"colums-mobile"}
@@ -53,7 +53,7 @@ const AllProducts = async ({ id, category }: { id: string; category: string }) =
   if (!product) {
     return (
       <div className="flex items-center justify-center py-12">
-        <h1 className="text-2xl">Product niet gevonden</h1>
+        <h1 className="text-2xl">Product not found</h1>
       </div>
     );
   }
@@ -76,7 +76,7 @@ const AllProducts = async ({ id, category }: { id: string; category: string }) =
       {filteredSimilarProducts && filteredSimilarProducts.length > 0 && (
         <>
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            VERGELIJKBARE ITEMS
+            People also viewed
           </h2>
           <Products products={filteredSimilarProducts} extraClassname={"colums-mobile"} />
         </>
@@ -85,7 +85,7 @@ const AllProducts = async ({ id, category }: { id: string; category: string }) =
       {randomProducts && randomProducts.length > 0 && (
         <>
           <h2 className="mt-24 mb-5 text-xl font-bold sm:text-2xl">
-            BEKIJK OOK...
+            ALSO SEE...
           </h2>
           <Products products={randomProducts} extraClassname={"colums-mobile"} />
         </>

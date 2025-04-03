@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: `${capitalizedCategory} | Webshop`,
-    description: `${capitalizedCategory} producten in onze webshop`,
+    description: `${capitalizedCategory} Products in our webshop`,
   };
 }
 
@@ -47,7 +47,7 @@ const CategoryProducts = async ({ category }: { category: string }) => {
         <Products products={products} extraClassname="" />
       ) : (
         <div className="text-center py-12">
-          <p className="text-xl">Geen producten gevonden in deze categorie</p>
+          <p className="text-xl">No Product in this category</p>
         </div>
       )}
     </>

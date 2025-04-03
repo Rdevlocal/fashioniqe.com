@@ -4,7 +4,7 @@ import { connectDB } from "@/libs/mongodb";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-// Uitgebreide schema definitie voor prijsalerts
+// Detailed schema definition for price alerts
 const priceAlertSchema = new mongoose.Schema({
   email: { type: String, required: true },
   productId: { type: String, required: true },
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
   try {
     await connectDB();
     
-    // Haal de data uit het request
+    // Extract data from the request
     const { 
       email, 
       productId, 
@@ -40,37 +40,37 @@ export async function POST(request: NextRequest) {
       productImageUrl
     } = await request.json();
     
-    // Valideer de invoer
+    // Validate input
     if (!email || !productId || desiredPrice === undefined) {
       return NextResponse.json(
-        { error: "Email, productId en gewenste prijs zijn verplicht" },
+        { error: "Email, productId, and desired price are required" },
         { status: 400 }
       );
     }
     
-    // Haal de MongoDB database op
+    // Get the MongoDB database
     const db = mongoose.connection.db;
     
-    // Controleer of de collectie bestaat, zo niet, maak deze aan
+    // Check if the collection exists, if not, create it
     const collections = await db.listCollections({ name: "price_alerts" }).toArray();
     if (collections.length === 0) {
       await db.createCollection("price_alerts");
     }
     
-    // Haal de collectie op
+    // Get the collection
     const alertsCollection = db.collection("price_alerts");
     
-    // Bepaal of het een speciale gelegenheid is
+    // Determine if it's a special occasion
     const isSpecialOccasion = !!reminderNote;
     
-    // Zoek of er al een alert bestaat voor deze combinatie
+    // Check if an alert already exists for this combination
     const existingAlert = await alertsCollection.findOne({
       email,
       productId
     });
     
     if (existingAlert) {
-      // Update de bestaande alert
+      // Update the existing alert
       await alertsCollection.updateOne(
         { email, productId },
         { 
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
         }
       );
     } else {
-      // Maak een nieuwe alert aan
+      // Create a new alert
       await alertsCollection.insertOne({
         email,
         productId,
@@ -108,25 +108,25 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Indien het een speciale gelegenheid betreft
+    // If it's a special occasion
     if (isSpecialOccasion) {
       return NextResponse.json(
         { 
           success: true, 
-          message: "Herinnering succesvol ingesteld voor " + new Date(notificationTime).toLocaleDateString()
+          message: "Reminder successfully set for " + new Date(notificationTime).toLocaleDateString()
         },
         { status: 200 }
       );
     } else {
       return NextResponse.json(
-        { success: true, message: "Prijsalert succesvol ingesteld" },
+        { success: true, message: "Price alert successfully set" },
         { status: 200 }
       );
     }
   } catch (error) {
     console.error("Error setting price alert:", error);
     return NextResponse.json(
-      { error: "Er is een fout opgetreden bij het instellen van de prijsalert" },
+      { error: "An error occurred while setting the price alert" },
       { status: 500 }
     );
   }
@@ -136,24 +136,24 @@ export async function GET(request: NextRequest) {
   try {
     await connectDB();
     
-    // Haal parameters op uit de URL
+    // Extract parameters from the URL
     const url = new URL(request.url);
     const email = url.searchParams.get('email');
     const productId = url.searchParams.get('productId');
     
-    // Valideer de invoer
+    // Validate input
     if (!email) {
       return NextResponse.json(
-        { error: "Email parameter is verplicht" },
+        { error: "Email parameter is required" },
         { status: 400 }
       );
     }
     
-    // Haal de MongoDB database op
+    // Get the MongoDB database
     const db = mongoose.connection.db;
     const alertsCollection = db.collection("price_alerts");
     
-    // Zoek alerts voor deze gebruiker
+    // Find alerts for this user
     const query: any = { email };
     if (productId) {
       query.productId = productId;
@@ -168,7 +168,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Error getting price alerts:", error);
     return NextResponse.json(
-      { error: "Er is een fout opgetreden bij het ophalen van prijsalerts" },
+      { error: "An error occurred while retrieving price alerts" },
       { status: 500 }
     );
   }
@@ -178,22 +178,22 @@ export async function DELETE(request: NextRequest) {
   try {
     await connectDB();
     
-    // Haal de data uit het request
+    // Extract data from the request
     const { email, productId } = await request.json();
     
-    // Valideer de invoer
+    // Validate input
     if (!email || !productId) {
       return NextResponse.json(
-        { error: "Email en productId zijn verplicht" },
+        { error: "Email and productId are required" },
         { status: 400 }
       );
     }
     
-    // Haal de MongoDB database op
+    // Get the MongoDB database
     const db = mongoose.connection.db;
     const alertsCollection = db.collection("price_alerts");
     
-    // Verwijder de alert
+    // Delete the alert
     const result = await alertsCollection.deleteOne({
       email,
       productId
@@ -201,19 +201,19 @@ export async function DELETE(request: NextRequest) {
     
     if (result.deletedCount === 0) {
       return NextResponse.json(
-        { error: "Geen prijsalert gevonden met deze gegevens" },
+        { error: "No price alert found with these details" },
         { status: 404 }
       );
     }
     
     return NextResponse.json(
-      { success: true, message: "Prijsalert succesvol verwijderd" },
+      { success: true, message: "Price alert successfully deleted" },
       { status: 200 }
     );
   } catch (error) {
     console.error("Error deleting price alert:", error);
     return NextResponse.json(
-      { error: "Er is een fout opgetreden bij het verwijderen van de prijsalert" },
+      { error: "An error occurred while deleting the price alert" },
       { status: 500 }
     );
   }

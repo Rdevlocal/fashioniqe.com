@@ -149,9 +149,7 @@ export const Footer = () => {
           <div>
             <h2 className="text-lg font-semibold mb-4 text-white">Company</h2>
             <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white">About Us</Link>
-              </li>
+
               <li>
                 <Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link>
               </li>
