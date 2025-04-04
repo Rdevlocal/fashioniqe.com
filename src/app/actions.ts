@@ -67,7 +67,7 @@ function prepareSearchCriteria(id: string): ProductSearchCriteria[] {
     searchCriteria.push(
       { productId: id },
       { aw_product_id: id },
-      { SKU: id },
+      { : id },
       { sku: id }
     );
   }
